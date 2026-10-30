@@ -76,7 +76,7 @@
       <div style="display:flex;justify-content:center"><div style="display:flex;gap:6px"><sc-for list="{{ shDots }}" as="d" hint-placeholder-count="3"><span style="width:{{ d.w }};height:6px;border-radius:999px;background:{{ d.bg }};transition:all .2s"></span></sc-for></div></div>
       <div style="display:flex;justify-content:center;gap:34px">
         <button onClick="{{ shCopy }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:56px;height:56px;border-radius:999px;background:#222;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2.5"></rect><path d="M16 8V5.5A2.5 2.5 0 0 0 13.5 3h-8A2.5 2.5 0 0 0 3 5.5v8A2.5 2.5 0 0 0 5.5 16H8"></path></svg></span><span style="font-size:13px;font-weight:600">Copier</span></button>
-        <button onClick="{{ shSave }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:56px;height:56px;border-radius:999px;background:#222;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v8"></path><path d="m8.5 12.5 3.5 3.5 3.5-3.5"></path></svg></span><span style="font-size:13px;font-weight:600">Enregistrer</span></button>
+        <sc-if value="{{ hasSave }}" hint-placeholder-val="{{ true }}"><button onClick="{{ shSave }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:56px;height:56px;border-radius:999px;background:#222;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v8"></path><path d="m8.5 12.5 3.5 3.5 3.5-3.5"></path></svg></span><span style="font-size:13px;font-weight:600">Enregistrer</span></button></sc-if>
         <button onClick="{{ shShare }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:56px;height:56px;border-radius:999px;background:#222;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 7.5 4.5-4.5 4.5 4.5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="font-size:13px;font-weight:600">Partager</span></button>
       </div>
     </div>
@@ -93,7 +93,8 @@
 // Récap fin de séance. Durée/séries/volume = calculés depuis la séance ; record estimé = calculé (non partageable). Nom séance / programme = coach. Textes = système.
 class Component extends DCLogic {
   state = { shIdx: 0, toast: '' };
-  componentDidMount() { const t0 = performance.now(), D = 900, tick = now => { const p = Math.min(1, (now - t0) / D); this.setState({ cp: 1 - Math.pow(1 - p, 3) }); if (p < 1) this._raf = requestAnimationFrame(tick); }; this._raf = requestAnimationFrame(tick); }
+  componentDidUpdate(pp, ps) { if (ps && ps.shIdx !== this.state.shIdx) setTimeout(() => this.prep(), 50); }
+  componentDidMount() { setTimeout(() => this.prep(), 400);  const t0 = performance.now(), D = 900, tick = now => { const p = Math.min(1, (now - t0) / D); this.setState({ cp: 1 - Math.pow(1 - p, 3) }); if (p < 1) this._raf = requestAnimationFrame(tick); }; this._raf = requestAnimationFrame(tick); }
   componentWillUnmount() { clearTimeout(this.tt); cancelAnimationFrame(this._raf); }
   countUp(v) { const p = this.state.cp ?? 1; if (p >= 1) return v; return String(v).replace(/\d[\d\s\u202f]*(?:[.,]\d+)?/g, m => { const raw = m.replace(/[\s\u202f]/g, '').replace(',', '.'), n = parseFloat(raw); if (isNaN(n)) return m; const dec = (raw.split('.')[1] || '').length, cur = (n * p).toFixed(dec); const grp = /\s/.test(m.trim()) ? Number(cur).toLocaleString('fr-FR', { minimumFractionDigits: dec, maximumFractionDigits: dec }) : cur.replace('.', ','); return grp + (/\s$/.test(m) ? ' ' : ''); }); }
   // Partage : l'image du format affiché (sans fond horizontal / vertical / carré, ou avec photo) est dessinée en PNG puis copiée, enregistrée ou envoyée au menu de partage.
@@ -104,11 +105,17 @@ class Component extends DCLogic {
     c.fillStyle = '#fff'; c.textAlign = 'center'; c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = u; const F = "-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif";
     [[o.dur, o.name], [o.weekShort, o.progName], [o.k3, o.vol]].forEach(([a, b], k) => { const x = W * (0.17 + k * 0.33); c.font = '600 ' + Math.round(u * 2.6) + 'px ' + F; c.fillText(String(a || ''), x, cy + u * 1.5); c.font = '700 ' + Math.round(u * 4.4) + 'px ' + F; c.fillText(String(b || ''), x, cy + u * 7); });
     return new Promise(r => cv.toBlob(b => r(b), 'image/png')); }
-  async exportImg(mode) { try { const b = await this.makeImg(); if (!b) return this.flash('Image indisponible'); const name = 'tcmv-seance.png', file = new File([b], name, { type: 'image/png' });
-      const dl = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); };
-      if (mode === 'copy') { if (navigator.clipboard && window.ClipboardItem) { await navigator.clipboard.write([new ClipboardItem({ 'image/png': b })]); return this.flash('Image copiée'); } dl(); return this.flash('Copie indisponible · image téléchargée'); }
-      if (mode === 'share' && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: 'Ma séance TCMV' }); return; }
-      dl(); this.flash(mode === 'share' ? 'Partage indisponible ici · image téléchargée' : 'Image enregistrée'); } catch (e) { if (e && e.name !== 'AbortError') this.flash('Action impossible sur cet appareil'); } }
+  // Image pré-calculée par format (iPhone : copier / partager doivent partir pendant le toucher, sans attente)
+  prep() { const i = this.state.shIdx || 0; this._imgP = this._imgP || {}; if (!this._imgP[i]) this._imgP[i] = this.makeImg().then(b => { (this._img = this._img || {})[i] = b; return b; }).catch(() => { this._imgP[i] = null; return null; }); return this._imgP[i]; }
+  exportImg(mode) { try { const i = this.state.shIdx || 0, name = 'tcmv-seance.png', ready = this._img && this._img[i], P = this.prep();
+      const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const dl = b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); };
+      if (mode === 'copy') { if (navigator.clipboard && window.ClipboardItem) { navigator.clipboard.write([new ClipboardItem({ 'image/png': ready ? Promise.resolve(ready) : P.then(b => b || Promise.reject(new Error('img'))) })]).then(() => this.flash('Image copiée'), () => this.flash('Copie impossible · utilise Partager')); return; } return P.then(b => { if (b) { dl(b); this.flash('Copie indisponible · image téléchargée'); } }); }
+      // Enregistrer sur iPhone = feuille de partage (« Enregistrer l'image » → Photos) · ordinateur = téléchargement
+      if ((mode === 'share' || (mode === 'save' && ios)) && ready && navigator.canShare) { const file = new File([ready], name, { type: 'image/png' }); if (navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'Ma séance TCMV' }).catch(e => { if (e && e.name !== 'AbortError') this.flash('Action impossible sur cet appareil'); }); return; } }
+      if (!ready && (mode === 'share' || ios)) { this.flash('Image en préparation · réessaie'); return; }
+      return P.then(b => { if (!b) return this.flash('Image indisponible'); dl(b); this.flash(mode === 'share' ? 'Partage indisponible ici · image téléchargée' : 'Image enregistrée'); });
+    } catch (e) { this.flash('Action impossible sur cet appareil'); } }
   flash(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: '' }), 1800); }
   renderVals() { const o = this._rv(); if (Array.isArray(o.stats)) o.stats = o.stats.map(s => ({ ...s, v: this.countUp(s.v) })); return o; }
   _rv() {
@@ -131,8 +138,8 @@ class Component extends DCLogic {
       showDone: !this.props.fromHistory, isHist: !!this.props.fromHistory, title: this.props.fromHistory ? (this.props.date ?? '') : 'Séance terminée',
       shTitle: ['Sans fond · horizontal', 'Sans fond · vertical', 'Sans fond · carré'][s.shIdx], weekN: String(this.props.week ?? 2), weeksN: String(this.props.weeks ?? 6),
       shDots: [0, 1, 2].map(i => ({ w: s.shIdx === i ? '18px' : '6px', bg: s.shIdx === i ? '#fff' : 'rgba(255,255,255,0.22)' })),
-      onShScroll: ev => { const el = ev.currentTarget, n = Math.max(0, Math.min(2, Math.round(el.scrollLeft / Math.max(1, el.scrollWidth / 4)))); if (n !== s.shIdx) this.setState({ shIdx: n }); },
-      shCopy: () => this.exportImg('copy'), shSave: () => this.exportImg('save'), shShare: () => this.exportImg('share'),
+      onShScroll: ev => { const el = ev.currentTarget, n = Math.max(0, Math.min(2, Math.round(el.scrollLeft / Math.max(1, el.scrollWidth / 3)))); if (n !== s.shIdx) this.setState({ shIdx: n }); },
+      hasSave: false, shCopy: () => this.exportImg('copy'), shSave: () => this.exportImg('save'), shShare: () => this.exportImg('share'),
       hasToast: !!s.toast, toast: s.toast,
       close: () => this.props.onClose && this.props.onClose()
     };
