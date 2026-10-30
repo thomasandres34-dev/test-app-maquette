@@ -18,7 +18,7 @@ a.btn{display:flex;align-items:center;justify-content:center;height:50px;border-
 a.btn.alt{background:rgba(255,255,255,0.1);color:#fff}
 .phone{width:470px;height:1012px;flex:none;transform-origin:center center}
 .phone iframe{width:470px;height:1012px;border:0;display:block;background:transparent}
-@media (max-width:700px){html,body{background:#000;height:100%;overflow:hidden}.side{display:none}.wrap{padding:0;display:block}.phone{position:fixed;top:0;left:0;right:0;width:100%;height:100vh;height:calc(100vh + env(safe-area-inset-top));transform:none!important;margin:0!important}.phone iframe{width:100%;height:100%}}
+@media (max-width:700px){html,body{background:#000;overflow:hidden}.side{display:none}.wrap{padding:0;display:block}.phone{position:absolute;top:0;left:0;width:100%;height:100vh;transform:none!important;margin:0!important}.phone iframe{width:100%;height:100%}}
 </style>
 <script>
 // Compte Thomas (admin) : accès à tout (app client + Espace Coach)
@@ -37,7 +37,7 @@ try { localStorage.setItem('tcmv.accounts.cur', 'demo'); } catch (e) {}
   <div class="phone"><iframe name="app" src="./Final%20App%20Plateforme.dc.html" allow="autoplay; clipboard-write; web-share"></iframe></div>
 </div>
 <script>
-(function(){ const ph=document.querySelector('.phone'); const fit=()=>{ if (innerWidth<=700) { ph.style.transform=''; ph.style.margin=''; return; } const k=Math.min(1,(innerHeight-24)/1012); ph.style.transform='scale('+k+')'; ph.style.margin=(-(1012*(1-k))/2)+'px '+(-(470*(1-k))/2)+'px'; }; addEventListener('resize',fit); fit(); })();
+(function(){ const ph=document.querySelector('.phone'); const fit=()=>{ if (innerWidth<=700) { ph.style.transform=''; ph.style.margin=''; const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches; const H = sa ? Math.max(screen.height, innerHeight) : innerHeight; ph.style.height = H + 'px'; document.documentElement.style.height = document.body.style.height = H + 'px'; return; } const k=Math.min(1,(innerHeight-24)/1012); ph.style.transform='scale('+k+')'; ph.style.margin=(-(1012*(1-k))/2)+'px '+(-(470*(1-k))/2)+'px'; }; addEventListener('resize',fit); fit(); })();
 </script>
 </body>
 </html>
