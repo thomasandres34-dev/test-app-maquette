@@ -20,7 +20,7 @@
 <style>[data-onb-in]::placeholder,[data-screen-label^="Onboarding"] input::placeholder{color:rgba(235,235,245,0.45)!important;-webkit-text-fill-color:rgba(235,235,245,0.45)!important;opacity:1!important}</style><style>@media (max-width:469px){[data-tb="1"]:has(> [data-screen-label="App plateforme"]){padding:0!important;height:100vh;height:100dvh}[data-screen-label="App plateforme"]{width:100vw!important;height:100vh!important;height:100dvh!important;border-radius:0!important;border:0!important}}</style><script>
 // Vrai téléphone (écran < 470 px) : la fausse barre d'état (9:41, réseau, batterie) est masquée, l'espace est gardé
 (function(){ if (window.__tcmvSB) return; window.__tcmvSB = true;
-  const hide = () => document.querySelectorAll('span').forEach(s => { if (s.textContent === '9:41' && !s.dataset.sb) { s.dataset.sb = 1; const bar = s.parentElement; if (bar) [...bar.children].forEach(c => c.style.visibility = 'hidden'); } });
+  const hide = () => document.querySelectorAll('span').forEach(s => { if (s.textContent === '9:41' && !s.dataset.sb) { s.dataset.sb = 1; const bar = s.parentElement; if (!bar) return; if (innerWidth < 470) { bar.style.display = 'none'; } else [...bar.children].forEach(c => c.style.visibility = 'hidden'); } });
   new MutationObserver(hide).observe(document.documentElement, { childList: true, subtree: true }); document.addEventListener('DOMContentLoaded', hide); })();
 </script></helmet>
 <div data-tb="1" style="font-weight:600;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:40px 20px">
