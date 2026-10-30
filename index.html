@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCMV — Aperçu</title>
+<style>
+html,body{margin:0;height:100%;background:#111;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{min-height:100%;display:flex;align-items:center;justify-content:center;gap:48px;padding:32px;box-sizing:border-box;flex-wrap:wrap}
+.side{display:flex;flex-direction:column;gap:14px;max-width:280px}
+h1{margin:0;font-size:34px;font-weight:800;letter-spacing:-0.04em}
+p{margin:0;font-size:15px;line-height:1.45;font-weight:500;color:rgba(255,255,255,0.6)}
+a.btn{display:flex;align-items:center;justify-content:center;height:50px;border-radius:999px;background:#fff;color:#000;font-weight:700;font-size:15px;text-decoration:none}
+a.btn.alt{background:rgba(255,255,255,0.1);color:#fff}
+.phone{width:470px;height:1012px;flex:none;transform-origin:center center}
+.phone iframe{width:470px;height:1012px;border:0;display:block;background:transparent}
+@media (max-width:700px){.side{display:none}.wrap{padding:0;display:block}.phone{width:100vw;height:100vh;height:100dvh;transform:none!important}.phone iframe{width:100%;height:100%}}
+</style>
+<script>
+// Compte Thomas (admin) : accès à tout (app client + Espace Coach)
+try { localStorage.setItem('tcmv.accounts.cur', 'demo'); } catch (e) {}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="side">
+    <h1>TCMV</h1>
+    <p>Aperçu interactif · connecté en tant que Thomas (admin).</p>
+    <a class="btn" href="./Final%20App%20Plateforme.dc.html" target="app">App</a>
+    <a class="btn alt" href="./Final%20Espace%20Coach.dc.html" target="_blank">Espace Coach</a>
+    <p>Les données sont stockées dans ce navigateur uniquement.</p>
+  </div>
+  <div class="phone"><iframe name="app" src="./Final%20App%20Plateforme.dc.html" allow="autoplay; clipboard-write; web-share"></iframe></div>
+</div>
+<script>
+(function(){ const ph=document.querySelector('.phone'); const fit=()=>{ if (innerWidth<=700) { ph.style.transform=''; ph.style.margin=''; return; } const k=Math.min(1,(innerHeight-24)/1012); ph.style.transform='scale('+k+')'; ph.style.margin=(-(1012*(1-k))/2)+'px '+(-(470*(1-k))/2)+'px'; }; addEventListener('resize',fit); fit(); })();
+</script>
+</body>
+</html>

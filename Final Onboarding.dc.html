@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./tcmv-accounts.js?v=4"></script><script src="./weight-model.js"></script><script src="./run-model.js"></script>
+<script src="./image-slot.js"></script>
+<style>[data-onb-in]::placeholder,[data-screen-label^="Onboarding"] input::placeholder{color:rgba(235,235,245,0.45)!important;-webkit-text-fill-color:rgba(235,235,245,0.45)!important;opacity:1!important}</style><style>body{margin:0;background:#1c1c1c;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#fff}a:hover{color:#bdbdbd}input{font-family:inherit}input::placeholder{color:rgba(255,255,255,0.38)}input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.5}::-webkit-scrollbar{display:none}[data-screen-label="Onboarding"] input::placeholder{color:rgba(235,235,245,0.45)!important;opacity:1}[data-screen-label="Onboarding"] input{color:#fff;color-scheme:dark}[data-screen-label="Onboarding"] input[type=date]::-webkit-datetime-edit{color:rgba(235,235,245,0.75)}</style>
+</helmet>
+<div style="display:flex;align-items:center;justify-content:center;padding:{{ fr.pad }};height:{{ fr.oh }}">
+<div data-screen-label="Onboarding" style="position:relative;flex:none;width:{{ fr.w }};height:{{ fr.h }};border-radius:{{ fr.r }};overflow:hidden;border:{{ fr.bd }};color:#fff;background:{{ bg }};color-scheme:dark">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:center;justify-content:space-between;padding:0 36px 0 48px;font-size:16px;font-weight:600;z-index:5"><span>9:41</span><span style="width:24px;height:12px;border:none;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,.6);border-radius:4px"></span></div>
+
+  <sc-if value="{{ isWelcomeA }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column">
+      <div style="position:relative;height:470px;flex:none">
+        <image-slot id="onb-hero" shape="rect" placeholder="Photo d'entraînement plein écran"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 55%,#000 100%);pointer-events:none"></div>
+        <img src="assets/tcmv-monogramme.png" alt="TCMV" style="position:absolute;top:76px;left:24px;width:52px;height:auto;mix-blend-mode:lighten">
+      </div>
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:18px;padding:0 24px 44px;margin-top:-40px;position:relative">
+        <div style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-weight:700;font-size:34px;line-height:1;letter-spacing:-0.025em;text-transform:uppercase;text-wrap:balance">{{ welcomeTitle }}</div>
+        <div style="font-size:16px;line-height:1.4;color:rgba(255,255,255,0.6);text-wrap:pretty">{{ welcomeSub }}</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ welcomePoints }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;gap:12px;align-items:center;font-size:15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span>{{ p }}</span></div>
+          </sc-for>
+        </div>
+        <div style="flex:1"></div>
+        <button onClick="{{ next }}" style="flex:none;height:56px;border:none;border-radius:999px;background:#fff;color:#000;font-size:16px;font-weight:700;cursor:pointer">{{ welcomeCta }}</button>
+        <div style="flex:none;margin-top:-4px;text-align:center;font-size:14px;color:rgba(255,255,255,0.5)">{{ loginQ }} <span onClick="{{ login }}" style="color:#fff;font-weight:700;cursor:pointer">Me connecter</span></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isWelcomeB }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:0 24px 40px">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px">
+        <img src="assets/tcmv-monogramme.png" alt="TCMV" style="width:120px;height:auto;margin-left:-14px;mix-blend-mode:lighten">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5)">The Collective Movement</div>
+        <div style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-weight:700;font-size:40px;line-height:0.98;letter-spacing:-0.03em;text-transform:uppercase;text-wrap:balance">{{ welcomeTitle }}</div>
+        <div style="font-size:16px;line-height:1.4;color:rgba(255,255,255,0.6);text-wrap:pretty">{{ welcomeSub }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <button onClick="{{ next }}" style="height:56px;border:none;border-radius:14px;background:#fff;color:#000;font-size:14px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer">{{ welcomeCta }}</button>
+        <div style="text-align:center;font-size:14px;color:rgba(255,255,255,0.5)">{{ loginQ }} <span onClick="{{ login }}" style="color:#fff;font-weight:700;cursor:pointer">Me connecter</span></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isStep }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:72px 24px 40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:48px">
+        <button onClick="{{ back }}" aria-label="Retour" style="width:48px;height:48px;border-radius:999px;border:none;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.08);background:rgba(255,255,255,0.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <sc-if value="{{ isB }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:700;letter-spacing:0.06em;font-variant-numeric:tabular-nums;color:rgba(255,255,255,0.5)">{{ counter }}</span></sc-if>
+        <sc-if value="{{ canSkip }}" hint-placeholder-val="{{ false }}"><button onClick="{{ next }}" style="border:none;background:transparent;color:rgba(255,255,255,0.6);font-size:14px;font-weight:600;cursor:pointer;padding:8px 0">Passer</button></sc-if>
+      </div>
+      <sc-if value="{{ isA }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:24px;height:4px;border-radius:999px;background:rgba(255,255,255,0.18);overflow:hidden"><div style="height:100%;width:{{ pct }}%;background:#fff;border-radius:999px;transition:width .45s cubic-bezier(.2,.7,.2,1)"></div></div>
+      </sc-if>
+      <sc-if value="{{ isB }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px">
+          <sc-for list="{{ segs }}" as="g" hint-placeholder-count="7"><div style="height:3px;border-radius:2px;background:{{ g.bg }};transition:background .3s ease"></div></sc-for>
+        </div>
+      </sc-if>
+
+      <div ref="{{ headRef }}" style="margin-top:64px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-family:{{ tFont }};font-weight:{{ tWeight }};font-size:{{ tSize }}px;line-height:1.1;letter-spacing:-0.02em;text-wrap:balance">{{ title }}</div>
+        <div style="font-size:18px;font-weight:500;line-height:1.35;color:rgba(255,255,255,0.5);text-wrap:pretty">{{ sub }}</div>
+      </div>
+
+      <div ref="{{ bodyRef }}" style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;margin:40px -24px 0;padding:0 24px 24px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="3">
+          <label style="flex:none;display:flex;align-items:center;gap:12px;min-height:68px;padding:0 22px;border-radius:20px;background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.05);cursor:text">
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2px">
+              <sc-if value="{{ f.hasLabel }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.45)">{{ f.label }}</span></sc-if>
+              <input type="{{ f.type }}" inputmode="{{ f.mode }}" value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.ph }}" data-onb-in="1" style="width:100%;height:26px;border:none;outline:none;background:transparent;color:#fff;font-size:18px;font-weight:600;padding:0;font-family:inherit;color-scheme:dark"></input>
+            </span>
+            <sc-if value="{{ f.hasUnit }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.45)">{{ f.unit }}</span></sc-if>
+          </label>
+        </sc-for>
+        <sc-if value="{{ hasSeg }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+            <sc-for list="{{ seg }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.onClick }}" style="height:68px;border-radius:20px;border:none;box-shadow:inset 0 0 0 0.5px {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:18px;font-weight:600;cursor:pointer;transition:box-shadow .2s ease">{{ o.label }}</button></sc-for>
+          </div>
+        </sc-if>
+        <sc-for list="{{ options }}" as="o" hint-placeholder-count="0">
+          <button onClick="{{ o.onClick }}" style="flex:none;display:flex;flex-direction:column;justify-content:center;gap:3px;min-height:68px;padding:14px 22px;border-radius:20px;border:none;box-shadow:inset 0 0 0 0.5px {{ o.bd }};background:{{ o.bg }};color:#fff;text-align:left;cursor:pointer;transition:background .2s ease,border-color .2s ease">
+            <span style="font-size:18px;font-weight:600;letter-spacing:-0.01em">{{ o.label }}</span><sc-if value="{{ o.hasHint }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.5)">{{ o.hint }}</span></sc-if>
+          </button>
+        </sc-for>
+        <sc-if value="{{ isRunRef }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><sc-for list="{{ runKinds }}" as="k" hint-placeholder-count="4"><button onClick="{{ k.onClick }}" style="height:68px;border-radius:20px;border:none;box-shadow:inset 0 0 0 0.5px {{ k.bd }};background:{{ k.bg }};color:#fff;font-size:18px;font-weight:600;cursor:pointer;transition:box-shadow .2s ease">{{ k.label }}</button></sc-for></div>
+          <sc-if value="{{ runIsTime }}" hint-placeholder-val="{{ true }}"><div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:76px;padding:0 16px 0 22px;border-radius:20px;background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.05)"><span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.45)">Ton chrono</span><div style="display:flex;align-items:center;gap:6px"><input value="{{ rH }}" onChange="{{ setRH }}" inputmode="numeric" placeholder="h" style="width:44px;height:44px;border:none;outline:none;border-radius:12px;background:rgba(255,255,255,0.06);color:#fff;font-size:22px;font-weight:600;text-align:center;font-family:inherit;font-variant-numeric:tabular-nums;padding:0"></input><span style="font-size:20px;font-weight:700;color:rgba(255,255,255,0.45)">:</span><input value="{{ rM }}" onChange="{{ setRM }}" inputmode="numeric" placeholder="min" style="width:60px;height:44px;border:none;outline:none;border-radius:12px;background:rgba(255,255,255,0.06);color:#fff;font-size:22px;font-weight:600;text-align:center;font-family:inherit;font-variant-numeric:tabular-nums;padding:0"></input><span style="font-size:20px;font-weight:700;color:rgba(255,255,255,0.45)">:</span><input value="{{ rS }}" onChange="{{ setRS }}" inputmode="numeric" placeholder="s" style="width:60px;height:44px;border:none;outline:none;border-radius:12px;background:rgba(255,255,255,0.06);color:#fff;font-size:22px;font-weight:600;text-align:center;font-family:inherit;font-variant-numeric:tabular-nums;padding:0"></input></div></div></sc-if>
+          <sc-if value="{{ runIsVma }}" hint-placeholder-val="{{ false }}"><label style="flex:none;display:flex;align-items:center;gap:12px;min-height:76px;padding:0 22px;border-radius:20px;background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.05);cursor:text"><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.45)">Ta VMA</span><input value="{{ vmaV }}" onChange="{{ setVma }}" inputmode="decimal" placeholder="14,5" style="width:100%;height:28px;border:none;outline:none;background:transparent;color:#fff;font-size:20px;font-weight:600;padding:0;font-family:inherit"></input></span><span style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.45)">km/h</span></label></sc-if>
+          <sc-if value="{{ hasRunEst }}" hint-placeholder-val="{{ false }}"><div style="flex:none;display:flex;align-items:center;justify-content:space-between;min-height:68px;padding:0 22px;border-radius:20px;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.85);background:rgba(255,255,255,0.06)"><span style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.6)">VMA estimée</span><span style="font-size:20px;font-weight:700;font-variant-numeric:tabular-nums">{{ runEstV }}</span></div></sc-if>
+          <span style="flex:none;padding:4px 4px 0;font-size:14px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.5);text-wrap:pretty">Tu retrouves ta VMA, tes allures et tes tests dans Outils, sur ton profil. Tu pourras y ajouter un nouveau test à tout moment.</span>
+        </sc-if>
+        <sc-if value="{{ isRecords }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:22px">
+            <sc-for list="{{ recGroups }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.45)">{{ g.label }}</span>
+                <div style="border-radius:{{ oRad }};background:rgba(255,255,255,0.05);border:none;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.1);overflow:hidden">
+                  <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:10px;min-height:60px;padding:10px 16px 10px 20px;border-top:{{ r.sep }}">
+                      <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:500">{{ r.label }}</span><sc-if value="{{ r.hasEst }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:rgba(255,255,255,0.5)">{{ r.est }}</span></sc-if></span>
+                      <sc-if value="{{ r.isLift }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px">
+                          <input value="{{ r.kg }}" onChange="{{ r.setKg }}" placeholder="kg" inputmode="decimal" style="width:64px;height:40px;border:none;outline:none;background:rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:16px;text-align:center;padding:0 6px;font-variant-numeric:tabular-nums"></input>
+                          <span style="font-size:13px;color:rgba(255,255,255,0.45)">×</span>
+                          <input value="{{ r.reps }}" onChange="{{ r.setReps }}" placeholder="reps" inputmode="numeric" style="width:52px;height:40px;border:none;outline:none;background:rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:16px;text-align:center;padding:0 6px;font-variant-numeric:tabular-nums"></input>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ r.isRun }}" hint-placeholder-val="{{ true }}">
+                        <input value="{{ r.value }}" onChange="{{ r.onChange }}" placeholder="{{ r.ph }}" inputmode="decimal" style="width:110px;height:40px;border:none;outline:none;background:rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:16px;text-align:right;padding:0 12px;font-variant-numeric:tabular-nums"></input>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:{{ oRad }};background:rgba(255,255,255,0.05);border:none;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.1)">
+              <span style="font-size:14px;font-weight:700">{{ recCount }}</span>
+              <span style="font-size:13px;line-height:1.45;color:rgba(255,255,255,0.6);text-wrap:pretty">Ils remplissent tes records dans ton profil et servent de point de départ : dès que tu les bats en séance, tu le sauras. Tu pourras les compléter plus tard depuis ta page Athlete.</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <button onClick="{{ next }}" disabled="{{ blocked }}" style="flex:none;height:60px;border:none;border-radius:999px;background:#fff;color:#000;font-size:18px;font-weight:700;cursor:pointer;opacity:{{ ctaOp }};transform:{{ ctaTf }};pointer-events:{{ ctaPe }};transition:opacity .3s ease,transform .3s cubic-bezier(.2,.8,.2,1)">{{ cta }}</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:72px 24px 40px">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px">
+        <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:120px;height:auto">
+        <div style="font-family:{{ tFont }};font-weight:{{ tWeight }};font-size:{{ doneSize }}px;line-height:1.02;letter-spacing:{{ tTrack }};text-transform:{{ tCase }};text-wrap:balance">{{ doneTitle }}</div>
+        <div style="font-size:16px;line-height:1.4;color:rgba(255,255,255,0.6);text-wrap:pretty">{{ doneSub }}</div>
+        <sc-if value="{{ isMember }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:10px;display:flex;align-items:center;gap:14px;padding:16px;border-radius:{{ oRad }};background:rgba(255,255,255,0.06);border:none;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12)">
+            <div style="width:56px;height:56px;border-radius:12px;overflow:hidden;flex:none;background:#222"><image-slot id="prog-fondation" shape="rect" placeholder="Photo"></image-slot></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px"><span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Ton programme</span><span style="font-size:17px;font-weight:700">Hybrid Fondation</span><span style="font-size:13px;color:rgba(255,255,255,0.6)">Démarre lundi · 5 séances / semaine</span></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isNew }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:10px;display:flex;flex-direction:column;border-radius:{{ oRad }};background:rgba(255,255,255,0.05);border:none;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.1)">
+            <sc-for list="{{ recap }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 18px;border-top:{{ r.bt }}">
+                <span style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.55)">{{ r.k }}</span>
+                <span style="font-size:15px;font-weight:600;text-align:right">{{ r.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <button onClick="{{ doneGo }}" style="height:58px;border:none;border-radius:{{ ctaRad }};background:#fff;color:#000;font-size:{{ ctaSize }}px;font-weight:700;letter-spacing:{{ ctaTrack }};text-transform:{{ ctaCase }};cursor:pointer">{{ doneCta }}</button>
+        <sc-if value="{{ isNew }}" hint-placeholder-val="{{ true }}"><button onClick="{{ pickOffer }}" style="border:none;background:transparent;color:rgba(255,255,255,0.6);font-size:14px;font-weight:600;cursor:pointer">Voir les programmes</button></sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A · Grand titre&quot;,&quot;B · Éditorial TCMV&quot;],&quot;default&quot;:&quot;A · Grand titre&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Onboarding&quot;},&quot;parcours&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Membre (après achat)&quot;,&quot;Nouveau téléchargement&quot;],&quot;default&quot;:&quot;Membre (après achat)&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Onboarding&quot;}}">
+// Listes = rows éditables côté coach (tables onboarding_*). Valeurs de démo.
+const GOALS = [
+  ['Prendre du muscle', 'Hypertrophie, physique athlétique'],
+  ['Perdre du gras', 'Recomposition, énergie'],
+  ['Gagner en force', 'Charges, technique, progression'],
+  ['Courir plus vite, plus loin', '5 km, 10 km, semi, trail'],
+  ['Préparer un Hyrox', 'Force + endurance combinées'],
+  ['Retrouver une discipline', 'Un cadre, chaque semaine']
+];
+const SPORTS = ['Running', 'Musculation', 'Hyrox', 'CrossFit', 'Trail', 'Vélo', 'Natation', 'Sports collectifs', 'Sports de combat'];
+const LEVELS = [
+  ['Je débute', 'Moins de 6 mois d\u2019entraînement régulier'],
+  ['Intermédiaire', '6 mois à 2 ans, je connais les bases'],
+  ['Confirmé', 'Plus de 2 ans, je suis mes charges'],
+  ['Compétiteur', 'Je prépare des courses ou des compétitions']
+];
+// Records = exercices étoilés « Compte comme record » (Bibliothèque coach) + distances running suivies (réglage Admin).
+// Saisie → records testés du profil (charge × reps, date = onboarding) ET base des popups record (1RM estimé de départ).
+const RECORDS = [
+  { label: 'Salle · charge × reps', lift: true, rows: ['Back squat', 'Développé couché', 'Soulevé de terre', 'Développé militaire', 'Tractions lestées', 'Hip thrust'] },
+  { label: 'Running · meilleur chrono', lift: false, rows: [['1 km', 'mm:ss'], ['5 km', 'mm:ss'], ['10 km', 'mm:ss'], ['Semi-marathon', 'h:mm:ss']] }
+];
+const e1 = (w, r) => r <= 1 ? w : w * (1 + r / 30);
+const INTERESTS = ['Musculation', 'Fitness / cardio', 'Hybride', 'Hyrox', 'CrossFit', 'Force (SBD)', 'Street lifting', 'Haltérophilie', 'Pilates', 'Mobilité & stretching', 'Running', 'Trail', 'Vélo', 'Natation'];
+const FREQ = [['1 à 2 séances', 'par semaine'], ['3 à 4 séances', 'par semaine'], ['5 séances ou plus', 'par semaine']];
+const SINCE = [['Moins d’un an', ''], ['1 à 3 ans', ''], ['3 à 5 ans', ''], ['Plus de 5 ans', '']];
+const N = 7;
+
+class Component extends DCLogic {
+  state = { runK: 'c10', step: this.props.startStep ?? 0, loginOnly: this.props.startMode === 'login' || this.props.startMode === 'code', codeFor: this.props.startMode === 'code' ? 'thomas@tcmv.fr' : this.props.startMode === 'signupCode' ? 'nouveau@mail.com' : null, d: { interests: [], freq: null, since: null, rH: '', rM: '', rS: '', vma: '', code: '', prenom: '', nom: '', email: '', naissance: '', sexe: '', taille: '', poids: '', goal: null, sports: [], level: null, rec: {} } };
+  set(k, v) { this.setState(s => ({ d: { ...s.d, [k]: v } })); }
+  headRef = React.createRef(); bodyRef = React.createRef(); _dir = 1;
+  watch() { if (!this._rpSeen) { this._rpSeen = true; this._rp = this.props.replay; } else if (this.props.replay !== this._rp) { this._rp = this.props.replay; setTimeout(() => this.enter(), 0); } const s = this.state, k = s.step + '|' + s.codeFor + '|' + s.loginOnly; if (k === this._key) return; this._dir = this._lastStep == null || s.step >= this._lastStep ? 1 : -1; this._key = k; this._lastStep = s.step; setTimeout(() => this.enter(), 30); }
+  enter() { const h = this.headRef.current, b = this.bodyRef.current; if (!h || !h.animate) { if (!this._retry) { this._retry = 1; setTimeout(() => { this._retry = 0; if (this.headRef.current) this.enter(); }, 120); } return; } const dx = 48 * this._dir, ease = 'cubic-bezier(.2,.8,.2,1)';
+    [...h.children].forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateX(' + dx + 'px)' }, { opacity: 1, transform: 'none' }], { duration: 480, delay: i * 60, easing: ease, fill: 'backwards' }));
+    if (b) [...b.children].filter(el => el.offsetParent !== null).slice(0, 12).forEach((el, i) => el.animate([{ opacity: 0, transform: 'translate(' + dx + 'px,14px)' }, { opacity: 1, transform: 'none' }], { duration: 520, delay: 120 + i * 45, easing: ease, fill: 'backwards' })); }
+  // Fin d'onboarding → table accounts (birth, sex, height, goal, sports, level) + weigh_ins (1re pesée) + records
+  finish() { const A = window.TCMVA, W = window.TCMVW, d = this.state.d; if (!A) return; const a = A.signUp({ email: d.email.trim(), first: d.prenom.trim(), last: d.nom.trim(), birth: d.naissance, sex: d.sexe }); if (!a) return;
+    A.update(a.id, { onb: true, birth: d.naissance, sex: d.sexe, height: d.taille, goal: d.goal, sports: d.interests.map(i => INTERESTS[i]), level: d.level });
+    const kg = parseFloat(String(d.poids).replace(',', '.')); if (W && kg >= 30 && kg <= 250) { W.add(a.id, { date: new Date().toISOString().slice(0, 10), kg, moment: 'Matin' }); W.setHeight && W.setHeight(a.id, parseInt(d.taille) || 0); }
+    A.update(a.id, { interests: d.interests.map(i => INTERESTS[i]), freq: d.freq != null ? FREQ[d.freq][0] : '', since: d.level != null ? LEVELS[d.level][1] : '' });
+    const M = window.TCMVRUN, rk = this.state.runK, sec = (parseInt(d.rH) || 0) * 3600 + (parseInt(d.rM) || 0) * 60 + (parseInt(d.rS) || 0), vv = rk === 'vma' ? parseFloat(String(d.vma).replace(',', '.')) || 0 : M && sec ? M.vmaFrom(rk, sec) : 0;
+    if (M && vv >= 6 && vv <= 30) { const pad = n => String(n).padStart(2, '0'), lab = { c5: 'Test 5 km', c10: 'Test 10 km', c21: 'Semi', vma: 'VMA mesurée' }[rk]; M.addRef(a.id, { date: new Date().toISOString().slice(0, 10), src: 'test', label: lab, res: rk === 'vma' ? String(vv).replace('.', ',') + ' km/h' : ((parseInt(d.rH) || 0) ? (parseInt(d.rH)) + ':' + pad(parseInt(d.rM) || 0) : (parseInt(d.rM) || 0)) + ':' + pad(parseInt(d.rS) || 0), vma: Math.round(vv * 10) / 10 }); }
+    const rec = Object.entries(d.rec || {}).filter(([, v]) => v && (typeof v === 'string' ? v.trim() : v.kg && v.reps)); if (rec.length) A.put(a.id, 'recOnb', rec); }
+  renderVals() {
+    const B = (this.props.direction ?? 'A · Grand titre') !== 'A · Grand titre';
+    const member = (this.props.parcours ?? 'Membre (après achat)') === 'Membre (après achat)';
+    this.watch(); const s = this.state, d = s.d, st = s.step;
+    const field = (k, ph, o = {}) => ({ label: o.label || '', hasLabel: !!o.label, type: o.type || 'text', mode: o.mode || 'text', ph, unit: o.unit || '', hasUnit: !!o.unit, value: d[k], onChange: (e) => { let v = e.target.value; const m = o.mode || 'text'; if (m === 'numeric') v = v.replace(/\D/g, ''); else if (m === 'decimal') { v = v.replace(/[^\d.,]/g, ''); const i = v.search(/[.,]/); if (i >= 0) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/[.,]/g, ''); } if (o.max) v = v.slice(0, o.max); this.set(k, v); } });
+    const optStyle = (on, multi) => ({ on, bg: 'rgba(255,255,255,0.06)', fg: '#fff', bd: on ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.05)', ring: on ? (B ? '#000' : '#fff') : 'rgba(255,255,255,0.3)', dot: on ? (B ? '#000' : '#fff') : 'transparent', check: B ? '#fff' : '#000', mark: multi ? '6px' : '999px' });
+    const first = d.prenom.trim();
+    const steps = [
+      null,
+      s.codeFor ? { title: 'Vérifie tes emails', sub: (s.codeErr ? 'Code incorrect. ' : '') + 'On a envoyé un code à 6 chiffres à ' + s.codeFor + '.', fields: [field('code', '000000', { mode: 'numeric' })], ok: /^\d{6}$/.test(d.code.trim()) } : s.loginOnly ? { title: 'Connexion', sub: (s.loginErr ? 'Aucun compte avec cet email. ' : '') + 'Entre l\u2019email de ton compte.', fields: [field('email', 'Email', { type: 'email', mode: 'email' })], ok: d.email.includes('@') } : { title: member ? 'Active ton accès' : 'Crée ton compte', sub: member ? 'Utilise l\u2019email de ton achat, on retrouve ton programme.' : 'Trente secondes, et ton espace est prêt.', fields: [field('prenom', 'Prénom'), field('nom', 'Nom'), field('email', 'Email', { type: 'email', mode: 'email' })], ok: first && d.email.includes('@') },
+      { title: 'Ton objectif principal', sub: 'Choisis ton objectif principal. Tu pourras explorer les autres plus tard.', options: GOALS.map(([l, h], i) => ({ label: l, hint: '', hasHint: false, ...optStyle(d.goal === i), onClick: () => this.set('goal', i) })), ok: d.goal != null },
+      { title: 'Qu’est-ce que tu pratiques ?', sub: 'Ou ce qui t’attire. Plusieurs choix possibles.', options: INTERESTS.map((l, i) => { const on = d.interests.includes(i); return { label: l, hint: '', hasHint: false, ...optStyle(on, true), onClick: () => this.set('interests', on ? d.interests.filter(x => x !== i) : [...d.interests, i]) }; }), ok: d.interests.length > 0 },
+      { title: first ? first + ', parle-nous de toi' : 'Parle-nous de toi', sub: 'Pour compléter ton profil et suivre ton évolution.', fields: [field('naissance', '', { label: 'Date de naissance', type: 'date' }), field('taille', '178', { label: 'Taille', mode: 'numeric', unit: 'cm', max: 3 }), field('poids', '75', { label: 'Poids', mode: 'decimal', unit: 'kg' })], seg: true, ok: d.naissance && d.sexe && d.taille && d.poids },
+      { title: 'Ton niveau', sub: 'Pour mieux te connaître et suivre ta progression.', options: LEVELS.map(([l, h], i) => ({ label: l, hint: h, hasHint: true, ...optStyle(d.level === i), onClick: () => this.set('level', i) })), ok: d.level != null },
+      { title: 'Tu t’entraînes combien ?', sub: 'En moyenne, sur les derniers mois.', options: FREQ.map(([l, h], i) => ({ label: l + ' ' + h, hint: '', hasHint: false, ...optStyle(d.freq === i), onClick: () => this.set('freq', i) })), ok: d.freq != null },
+      { title: 'Ta VMA', sub: 'Ajoute une donnée pour calculer ta VMA et suivre son évolution : un chrono récent couru à fond, ou ta VMA si tu la connais.', runRef: true, skip: true, ok: true },
+    ];
+    const cur = steps[st] || {};
+    const go = (n) => this.setState({ step: Math.max(0, Math.min(N + 1, n)) });
+    const e = !!this.props.embedded;
+    return {
+      fr: { pad: e ? '0' : '40px 20px', oh: e ? '100%' : 'auto', w: e ? '100%' : '430px', h: e ? '100%' : '932px', r: e ? '0' : '56px', bd: e ? 'none' : '1px solid rgba(255,255,255,0.12)' },
+      bg: B ? 'radial-gradient(130% 75% at 50% 112%,#2b2b2e 0%,#0d0d0e 52%,#000 100%)' : '#000',
+      isA: !B, isB: B, isMember: member, isNew: !member,
+      isWelcomeA: st === 0 && !B, isWelcomeB: st === 0 && B, isStep: st >= 1 && st <= N, isDone: st > N,
+      welcomeTitle: member ? 'Bienvenue dans le mouvement' : 'Arrête l\u2019exercice, démarre l\u2019entraînement',
+      welcomeSub: member ? 'Ton programme est prêt. Quelques questions et on l\u2019adapte à toi.' : 'Programmes structurés, charges suivies, progression mesurée. Programmé par un vrai coach.',
+      welcomePoints: ['Ton programme, semaine après semaine', 'Charges et records suivis', 'Un vrai coach derrière chaque cycle'],
+      welcomeCta: member ? 'Activer mon programme' : 'Commencer', loginQ: 'Déjà un compte ?',
+      title: cur.title || '', sub: cur.sub || '', counter: String(st).padStart(2, '0') + ' / 0' + N,
+      pct: Math.round(st / N * 100), segs: Array.from({ length: N }, (_, i) => ({ bg: i < st ? '#fff' : 'rgba(255,255,255,0.16)' })),
+      tFont: "'SF Pro Display',-apple-system,BlinkMacSystemFont,system-ui,sans-serif", tWeight: 700, tSize: 32, doneSize: B ? 40 : 36, tTrack: B ? '-0.025em' : '-0.02em', tCase: B ? 'uppercase' : 'none',
+      fRad: B ? '14px' : '18px', fBg: B ? 'transparent' : 'rgba(255,255,255,0.06)', fBd: B ? 'solid rgba(255,255,255,0.22)' : '0.5px solid rgba(255,255,255,0.06)', fBw: B ? '0 0 0.5px 0' : '0.5px', fPad: B ? 2 : 20,
+      oRad: B ? '14px' : '18px', ctaRad: B ? '14px' : '999px', ctaSize: B ? 14 : 16, ctaTrack: B ? '0.04em' : '0', ctaCase: B ? 'uppercase' : 'none',
+      fields: cur.fields || [], hasSeg: !!cur.seg,
+      seg: ['Homme', 'Femme'].map(l => { const on = d.sexe === l; return { label: l, bg: 'rgba(255,255,255,0.06)', fg: '#fff', bd: on ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.05)', onClick: () => this.set('sexe', l) }; }),
+      options: cur.options || [], isRecords: !!cur.records, canSkip: !!cur.skip, isRunRef: !!cur.runRef,
+      runKinds: [['c5', '5 km'], ['c10', '10 km'], ['c21', 'Semi'], ['vma', 'VMA connue']].map(([k, l]) => { const on = s.runK === k; return { label: l, bg: 'rgba(255,255,255,0.06)', fg: '#fff', bd: on ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.05)', onClick: () => this.setState({ runK: k }) }; }),
+      runIsTime: s.runK !== 'vma', runIsVma: s.runK === 'vma', rH: d.rH, rM: d.rM, rS: d.rS, vmaV: d.vma,
+      setRH: e => this.set('rH', e.target.value.replace(/\D/g, '').slice(0, 1)), setRM: e => this.set('rM', e.target.value.replace(/\D/g, '').slice(0, 2)), setRS: e => this.set('rS', e.target.value.replace(/\D/g, '').slice(0, 2)), setVma: e => this.set('vma', e.target.value.replace(/[^\d.,]/g, '')),
+      ...(() => { const M = window.TCMVRUN; const sec = (parseInt(d.rH) || 0) * 3600 + (parseInt(d.rM) || 0) * 60 + (parseInt(d.rS) || 0); const v = s.runK !== 'vma' && M && sec ? M.vmaFrom(s.runK, sec) : 0; return { hasRunEst: !!v, runEstV: v ? String(Math.round(v * 10) / 10).replace('.', ',') + ' km/h' : '' }; })(),
+      runEst: (() => { const M = window.TCMVRUN; const sec = (parseInt(d.rH) || 0) * 3600 + (parseInt(d.rM) || 0) * 60 + (parseInt(d.rS) || 0); const v = s.runK === 'vma' ? parseFloat(String(d.vma).replace(',', '.')) || 0 : M && sec ? M.vmaFrom(s.runK, sec) : 0; return v ? 'VMA estimée · ' + String(Math.round(v * 10) / 10).replace('.', ',') + ' km/h' : ''; })(),
+      recGroups: RECORDS.map(g => ({ label: g.label, rows: g.rows.map((row, i) => { const sep = i ? '1px solid rgba(255,255,255,0.08)' : 'none';
+        if (g.lift) { const l = row, v = d.rec[l] || {}, w = parseFloat(String(v.kg || '').replace(',', '.')) || 0, r = parseInt(v.reps) || 0, ok = w > 0 && r >= 1 && r <= 10;
+          return { label: l, sep, isLift: true, isRun: false, kg: v.kg || '', reps: v.reps || '', hasEst: ok || (w > 0 && r > 10), est: ok ? (r === 1 ? 'Record 1RM testé' : '1RM estimé · ' + (Math.round(e1(w, r) * 2) / 2).toString().replace('.', ',') + ' kg') : '10 reps max pour estimer',
+            setKg: e => this.set('rec', { ...d.rec, [l]: { ...v, kg: e.target.value } }), setReps: e => this.set('rec', { ...d.rec, [l]: { ...v, reps: e.target.value } }) }; }
+        const [l, ph] = row; return { label: l, ph, sep, isLift: false, isRun: true, hasEst: false, est: '', value: d.rec[l] || '', onChange: e => this.set('rec', { ...d.rec, [l]: e.target.value }) }; }) })),
+      recCount: (() => { const n = Object.values(d.rec).filter(v => typeof v === 'string' ? v.trim() : (v.kg && v.reps)).length; return n ? n + ' record' + (n > 1 ? 's' : '') + ' renseigné' + (n > 1 ? 's' : '') : 'Aucun record pour l’instant'; })(),
+      blocked: !cur.ok, ctaOp: cur.ok ? 1 : 0, ctaTf: cur.ok ? 'translateY(0)' : 'translateY(12px)', ctaPe: cur.ok ? 'auto' : 'none', cta: st === N ? 'Terminer' : 'Continuer',
+      next: () => { if (!(st === 0 || cur.ok || cur.skip)) return; const A = window.TCMVA;
+        if (st === 1 && s.codeFor && !s.loginOnly) { const ac = A && A.byEmail(s.codeFor); if (ac && !(A.needsOnb && A.needsOnb(ac))) { A.signIn(s.codeFor); this.setState({ codeFor: null }); this.props.onDone && this.props.onDone({ existing: true }); return; } this.setState({ codeFor: null, step: 2, d: { ...d, code: '', ...(ac ? { prenom: d.prenom || ac.first || '', nom: d.nom || ac.last || '' } : {}) } }); return; }
+        if (st === 1 && !s.loginOnly && !s.codeFor) { this.setState({ codeFor: d.email.trim() }); return; }
+        if (st === 1 && s.loginOnly && s.codeFor) { const ac = A && A.byEmail(s.codeFor); if (ac && A.needsOnb && A.needsOnb(ac)) { this.setState({ codeFor: null, loginOnly: false, step: 2, d: { ...d, code: '', email: ac.email, prenom: ac.first || '', nom: ac.last || '' } }); return; } if (A) A.signIn(s.codeFor); this.setState({ codeFor: null, loginOnly: false, d: { ...d, code: '' } }); this.props.onDone && this.props.onDone({ existing: true }); return; }
+        if (st === 1 && s.loginOnly && A && !A.byEmail(d.email.trim())) { this.setState({ loginErr: true }); return; }
+        if (st === 1 && s.loginOnly) { this.setState({ codeFor: d.email.trim(), loginErr: false }); return; }
+        if (st === 1 && A && A.byEmail(d.email.trim()) && !(A.needsOnb && A.needsOnb(A.byEmail(d.email.trim())))) { A.signIn(d.email.trim()); this.props.onDone && this.props.onDone({ existing: true }); return; }
+        if (st === N) { this.finish(); } go(st + 1); },
+      back: () => { if (s.codeFor) return this.setState({ codeFor: null }); if (s.loginOnly && st === 1) return this.setState({ loginOnly: false, loginErr: false, step: 0 }); go(st - 1); }, restart: () => this.props.onDone ? this.props.onDone({}) : go(0), explore: () => this.props.onDone ? this.props.onDone({ go: 'today' }) : go(0), pickOffer: () => this.props.onDone ? this.props.onDone({ go: 'progs' }) : go(0),
+      login: () => this.setState({ step: 1, loginOnly: true }), isLogin: !!s.loginOnly && st === 1,
+      doneTitle: 'Bienvenue' + (first ? ', ' + first : '') + '.',
+      doneSub: member ? 'Ton programme est calé sur ton profil. Première séance lundi.' : 'Ton profil est prêt. Ton coach et tes programmes partent de là.',
+      doneCta: member ? 'Voir ma semaine' : 'Découvrir mon espace', doneGo: () => this.props.onDone ? this.props.onDone({ go: 'today' }) : go(0),
+      headRef: this.headRef, bodyRef: this.bodyRef,
+      recap: (() => { const M = window.TCMVRUN, sec = (parseInt(d.rH) || 0) * 3600 + (parseInt(d.rM) || 0) * 60 + (parseInt(d.rS) || 0), v = s.runK === 'vma' ? parseFloat(String(d.vma).replace(',', '.')) || 0 : M && sec ? M.vmaFrom(s.runK, sec) : 0;
+        return [['Objectif', d.goal != null ? GOALS[d.goal][0] : ''], ['Niveau', d.level != null ? LEVELS[d.level][0] : ''], ['Rythme', d.freq != null ? FREQ[d.freq][0] + ' / sem.' : ''], ['Poids de départ', d.poids ? d.poids + ' kg' : ''], ['VMA', v ? String(Math.round(v * 10) / 10).replace('.', ',') + ' km/h' : '']].filter(x => x[1]).map(([k, v2], i) => ({ k, v: v2, bt: i ? '1px solid rgba(255,255,255,0.08)' : 'none' })); })(),
+      offers: [['Hybrid Fondation', '5 séances / sem. · 6 sem.', '79€'], ['Hybrid Performance', '7 à 9 séances / sem. · 12 sem.', '149€'], ['Coaching privé', 'Sur-mesure · appel toutes les 2 sem.', '497€']].map(([name, desc, price], i) => ({ name, desc, price, bg: i === 0 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.04)', bd: i === 0 ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.1)' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

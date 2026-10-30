@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./tcmv-content.js"></script><style>body{margin:0;background:#1c1c1c;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#fff}a:hover{color:#ccc}::-webkit-scrollbar{display:none}</style></helmet>
+<div style="display:flex;align-items:center;justify-content:center;padding:{{ fr.pad }};height:{{ fr.oh }};font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif">
+<div data-screen-label="Fiche créateur" style="position:relative;flex:none;width:{{ fr.w }};height:{{ fr.h }};border-radius:{{ fr.r }};overflow:hidden;border:{{ fr.bd }};background:#000;color:#fff">
+  <div style="height:100%;overflow-y:auto;padding-bottom:100px;scrollbar-width:none">
+    <div style="position:relative;height:560px">
+      <div style="position:absolute;inset:0;background-image:{{ c.photo }};background-size:cover;background-position:{{ c.pos }}"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 48%,rgba(0,0,0,0.85) 85%,#000 100%)"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:center;justify-content:space-between;padding:0 36px 0 48px;font-size:16px;font-weight:600"><span>9:41</span><span style="width:26px;height:12px;border-radius:4px;border:1.5px solid rgba(255,255,255,0.6);padding:1.5px;display:flex"><span style="flex:1;border-radius:2px;background:#fff"></span></span></div>
+      <button onClick="{{ close }}" aria-label="Retour" style-active="transform:scale(.94)" style="position:absolute;top:63px;left:20px;width:40px;height:40px;border-radius:50%;border:none;background:rgba(0,0,0,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+      <div style="position:absolute;left:20px;right:20px;bottom:6px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
+        <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.7)">{{ c.role }}</span>
+        <span style="font-weight:800;font-size:40px;line-height:1;letter-spacing:-0.03em">{{ c.full }}</span>
+        
+      </div>
+    </div>
+
+    <span style="display:block;padding:18px 32px 0;text-align:center;font-size:15px;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:balance">{{ c.bio }}</span>
+    <div style="margin:28px 20px 0;height:0.5px;background:rgba(84,84,88,0.65)"></div>
+
+    <div style="padding:32px 0 0;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:10px;overflow-x:auto;padding:0 20px;scroll-snap-type:x mandatory;scroll-padding-left:20px;scrollbar-width:none">
+        <sc-for list="{{ tweets }}" as="t" hint-placeholder-count="3">
+          <div style="flex:none;width:300px;scroll-snap-align:start;border-radius:20px;background:#141414;padding:16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="flex:none;width:36px;height:36px;border-radius:50%;background-image:{{ c.avatar }};background-size:cover;background-position:center"></span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:700">{{ c.full }}</span><span style="font-size:12.5px;color:rgba(255,255,255,0.5)">{{ c.handle }}</span></span></div>
+            <span style="font-size:15px;line-height:1.45;text-wrap:pretty">{{ t.txt }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="padding:36px 0 0;display:flex;flex-direction:column;gap:12px">
+      <div style="padding:0 20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-weight:700;font-size:24px;letter-spacing:-0.025em">Ses programmes</span><span style="font-size:13px;color:rgba(255,255,255,0.5)">{{ count }}</span></div>
+      <span style="padding:0 20px;font-size:15px;line-height:1.5;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ c.progIntro }}</span>
+      <div style="margin-top:2px;display:flex;gap:10px;overflow-x:auto;padding:0 20px;scrollbar-width:none">
+        <sc-for list="{{ progs }}" as="p" hint-placeholder-count="3">
+          <button onClick="{{ p.open }}" style-active="transform:scale(.97)" style="flex:none;width:150px;border:none;background:transparent;padding:0;color:#fff;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:8px">
+            <span style="width:150px;height:188px;border-radius:18px;background-color:#141414;background-image:{{ p.img }};background-size:cover;background-position:{{ p.pos }}"></span>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:14px;font-weight:700;line-height:1.2;text-wrap:pretty">{{ p.t }}</span><span style="font-size:12px;color:rgba(255,255,255,0.5)">{{ p.s }}</span></span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ hasSports }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:36px 20px 0;display:flex;flex-direction:column;gap:10px">
+      <span style="font-weight:700;font-size:24px;letter-spacing:-0.025em">Sports</span>
+      <span style="font-size:16px;line-height:1.5;font-weight:500;color:rgba(255,255,255,0.85);text-wrap:pretty">{{ sportsLine }}</span>
+    </div>
+    </sc-if>
+    <div style="padding:36px 0 0;display:flex;flex-direction:column;gap:8px">
+      <span style="padding:0 20px;font-weight:700;font-size:24px;letter-spacing:-0.025em">Palmarès</span>
+      <div style="padding:0 20px">
+        <sc-for list="{{ palm }}" as="p" hint-placeholder-count="4">
+          <div style="display:flex;align-items:baseline;gap:16px;padding:14px 0;border-top:0.5px solid {{ p.sep }}">
+            <span style="flex:none;width:40px;font-size:15px;font-weight:600;color:rgba(235,235,245,0.6);font-variant-numeric:tabular-nums">{{ p.y }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600;line-height:1.3;text-wrap:pretty">{{ p.t }}</span><span style="font-size:13px;color:rgba(235,235,245,0.6)">{{ p.k }}</span></span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="padding:48px 24px 0;display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(235,235,245,0.6)">{{ why.title }}</span>
+      <span style="font-weight:400;font-size:18px;line-height:1.5;letter-spacing:-0.01em;color:rgba(255,255,255,0.9);text-wrap:pretty">« {{ why.text }} »</span>
+      <span style="font-size:14px;color:rgba(235,235,245,0.6)">— {{ c.full }}</span>
+    </div>
+    </div>
+
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:470,&quot;height&quot;:1012},&quot;creator&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thomas&quot;,&quot;Aurore&quot;,&quot;Marc&quot;,&quot;Léa&quot;,&quot;Inès&quot;],&quot;default&quot;:&quot;Thomas&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Démo&quot;},&quot;embedded&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;onClose&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onOpenProg&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(name: string) =&gt; void&quot;}}">
+// Démo : champs à ajouter à la fiche Équipe (Espace Coach) → cover, réseaux, palmarès, pourquoi, posts, intro programmes
+const X = {
+  Thomas: { years: 12, sports: ['Functional training', 'Running', 'Vélo', 'Trail', 'Alpinisme'], showFollowers: false, cover: 'assets/thomas-dos.webp', social: { insta: 38400, yt: 6200, tiktok: 12900 },
+    palm: [['2025', 'Finisher Hyrox Elite 15', 'Sport'], ['2024', 'Création de TCMV', 'Entrepreneur'], ['2023', 'Semi-marathon en 1h21', 'Sport'], ['2019', 'Diplôme BPJEPS Haltérophilie-musculation', 'Formation']],
+    whyT: 'Pourquoi l’hybride', why: 'Parce qu’on n’a pas à choisir entre être fort et être endurant. J’ai passé des années à faire l’un puis l’autre. L’hybride, c’est la version complète : soulever lourd le lundi, courir vite le jeudi, et être prêt pour tout le reste.',
+    tweets: [['Réveil 5h45, fractionné sous la pluie. Personne ne regarde, c’est pour ça que ça compte.', 'il y a 2 j'], ['Mon plaisir coupable : un squat lourd suivi d’un croissant. L’équilibre.', 'il y a 1 sem.'], ['Le meilleur programme, c’est celui que tu suis encore dans 6 semaines.', 'il y a 3 sem.']],
+    progIntro: 'Des programmes construits comme je m’entraîne : force et course dans la même semaine, des charges qui progressent, et des tests pour voir le chemin parcouru.' },
+  Aurore: { years: 10, sports: ['Pilates', 'Yoga', 'Danse'], showFollowers: true, social: { insta: 21500, yt: 3100, tiktok: 8700 }, palm: [['2022', 'Certification Pilates Mat & Reformer', 'Formation'], ['2020', '10 ans d’enseignement', 'Carrière']], whyT: 'Pourquoi le Pilates', why: 'Parce que bien bouger change tout le reste. Le Pilates m’a appris à écouter mon corps avant de le pousser.', tweets: [['Respirer avant de bouger. Toujours.', 'il y a 4 j'], ['Mon dos me remercie chaque matin.', 'il y a 2 sem.'], ['La souplesse, ça se construit, pas ça se force.', 'il y a 1 mois']], progIntro: 'Des séances courtes et précises pour gagner en posture, en mobilité et en contrôle.' }
+};
+const fmt = n => n >= 1000 ? (Math.round(n / 100) / 10).toString().replace('.', ',').replace(',0', '') + 'K' : String(n);
+const IC = { insta: 'M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4ZM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17.5 6.5h.01', yt: 'M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3ZM10 9.5v5l4.5-2.5Z', tiktok: 'M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.5 2.5 4.5 5 5' };
+class Component extends DCLogic {
+  componentDidMount() { this.off = window.TCMVC && window.TCMVC.on(() => this.forceUpdate()); if (!window.TCMVC) setTimeout(() => this.forceUpdate(), 300); }
+  componentWillUnmount() { this.off && this.off(); }
+  renderVals() {
+    const T = window.TCMVC, e = !!this.props.embedded, name = this.props.creator ?? 'Thomas';
+    const team = T ? T.team() : [], m = team.find(x => (x.display || x.first) === name) || team[0] || { first: name, tags: [] };
+    const x = { ...(X[m.display || m.first] || {}), ...(m.pub || {}) };
+    const cov = T ? T.img(x.cover || m.photo, 'assets/coach-thomas.png') : { src: x.cover || 'assets/coach-thomas.png', pos: '50% 50%' };
+    const av = T ? T.img(m.photo, 'assets/coach-thomas.png') : { src: 'assets/coach-thomas.png' };
+    const progs = (T ? T.programs() : []).filter(p => p.by === m.id && p.status === 'pub');
+    const so = x.social || {}, tot = (so.insta || 0) + (so.yt || 0) + (so.tiktok || 0), buyers = progs.reduce((s, p) => s + (+p.buyers || 0), 0);
+    const sep = i => (i ? '1px solid rgba(255,255,255,0.08)' : 'none');
+    return {
+      fr: { pad: e ? '0' : '40px 20px', oh: e ? '100%' : 'auto', w: e ? '100%' : '430px', h: e ? '100%' : '932px', r: e ? '0' : '56px', bd: e ? 'none' : '1px solid rgba(255,255,255,0.12)' },
+      close: () => this.props.onClose && this.props.onClose(),
+      c: { first: m.display || m.first, full: [m.display || m.first, m.last].filter(Boolean).join(' '), role: m.pubRole || 'Coach', bio: m.bio || '', handle: m.handle || '', photo: 'url("' + cov.src + '")', pos: cov.pos, avatar: 'url("' + av.src + '")', progIntro: x.progIntro || '' },
+      stats: (() => { const ses = progs.reduce((s, p) => s + (p.weeks || []).reduce((a, w) => a + (w || []).reduce((b, d) => b + ((d || []).length), 0), 0), 0), L = []; if (x.showFollowers) L.push([fmt(tot), 'Abonnés', ['insta', 'yt', 'tiktok'].filter(k => so[k]).map(k => IC[k])]); L.push([String(progs.length), 'Programmes', []]); if (ses) L.push([String(ses), 'Séances créées', []]); L.push([x.years ? x.years + ' ans' : '—', 'De pratique', []]); return L.slice(0, 3).map(([v, k, icons], i) => ({ v, k, icons, sep: sep(i) })); })(),
+      sportsLine: (x.sports || []).join('  ·  '), hasSports: !!(x.sports || []).length,
+      links: ['insta', 'yt', 'tiktok'].filter(k => so[k]).map(k => ({ d: IC[k] })),
+      end: (() => { const f = progs.find(p => p.une) || progs[0]; return { on: !!f, note: f ? f.name + ' · ' + f.disc : '', go: () => f && this.props.onOpenProg && this.props.onOpenProg(f.name) }; })(),
+      
+      palm: (x.palm || []).map(([y, t, k], i) => ({ y, t, k, sep: i ? 'rgba(84,84,88,0.65)' : 'transparent' })),
+      why: { title: x.whyT || 'Pourquoi ' + ((m.tags || [])[0] || 'sa discipline').toLowerCase(), text: x.why || '' },
+      tweets: (x.tweets || []).slice(0, 3).map(([txt, when]) => ({ txt, when })),
+      count: progs.length + ' programme' + (progs.length > 1 ? 's' : ''),
+      progs: progs.map(p => { const im = T.progImg(p.name) || T.img(T.discImg(p.disc) || 'assets/seance-cover.jpg'); return { t: p.name, s: p.disc + ' · ' + p.price + '€', img: 'url("' + im.src + '")', pos: im.pos, open: () => this.props.onOpenProg && this.props.onOpenProg(p.name) }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

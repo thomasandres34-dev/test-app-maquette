@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./run-model.js?v=1"></script><style>body{margin:0;background:#f2f2f2;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:600;color:#000}a{color:#000}a:hover{color:#555}input,select,button{font-family:inherit}</style></helmet>
+<div style="padding:28px 32px 60px;display:flex;flex-direction:column;gap:18px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:rgba(0,0,0,0.64)">COACHING · ALLURES, ZONES ET RESSENTI DES SÉANCES RUN</div><h1 style="margin:6px 0 0;font-weight:700;letter-spacing:-0.03em;font-size:30px;line-height:1">Intensités running</h1>
+  </div>
+  <div style="display:flex;gap:4px;padding:4px;border-radius:12px;background:#e6e6e6;align-self:flex-start">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+      <button onClick="{{ t.go }}" style="height:32px;padding:0 12px;border:none;border-radius:9px;background:{{ t.sbg }};box-shadow:{{ t.sh }};color:#000;font-size:12.5px;font-weight:600;cursor:pointer">{{ t.label }}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isInt }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.1);padding:20px;display:flex;flex-direction:column;gap:12px;overflow-x:auto">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <span style="font-size:13.5px;color:rgba(0,0,0,0.6);max-width:640px;line-height:1.5">Ce que tu choisis dans le bloc run. Chaque intensité a 3 traductions, et le client voit la meilleure dispo : allure si VMA, zone FC si FCmax, ressenti toujours.</span>
+        <div style="display:flex;gap:8px"><sc-if value="{{ canUndo }}" hint-placeholder-val="{{ false }}"><button onClick="{{ undo }}" style-active="transform:scale(.97)" style="height:34px;padding:0 12px;border-radius:10px;border:none;background:#f3f3f5;color:#000;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3"></path></svg>Annuler</button></sc-if><sc-if value="{{ edOn }}" hint-placeholder-val="{{ false }}"><button onClick="{{ addInt }}" style="height:34px;padding:0 12px;border-radius:10px;border:none;background:#f3f3f5;color:#000;font-size:12.5px;font-weight:600;cursor:pointer">+ Intensité</button><button onClick="{{ resetInts }}" style="height:34px;padding:0 12px;border-radius:10px;border:none;background:#f3f3f5;color:#000;font-size:12.5px;font-weight:600;cursor:pointer">Valeurs par défaut</button></sc-if><button onClick="{{ edToggle }}" style-active="transform:scale(.97)" style="height:34px;padding:0 14px;border-radius:10px;border:none;background:#000;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:transform .15s ease"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ edIc }}"></path></svg>{{ edLbl }}</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(150px,1.4fr) 64px 64px 60px 64px 64px 70px minmax(150px,1.4fr) 30px;gap:8px;min-width:900px;font-size:10.5px;font-weight:600;letter-spacing:0.04em;color:rgba(0,0,0,0.62);padding-bottom:4px;border-bottom:1px solid rgba(0,0,0,0.06)"><span>INTENSITÉ</span><span>% VMA MIN</span><span>% VMA MAX</span><span>ZONE FC</span><span>% FCMAX MIN</span><span>% FCMAX MAX</span><span>RPE</span><span>REPÈRE RESSENTI</span><span></span></div>
+      <sc-for list="{{ ints }}" as="r" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:minmax(150px,1.4fr) 64px 64px 60px 64px 64px 70px minmax(150px,1.4fr) 30px;gap:8px;align-items:center;min-width:900px">
+          
+          <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="8">
+            <input value="{{ c.value }}" onFocus="{{ c.onFocus }}" onChange="{{ c.onChange }}" readOnly="{{ edRO }}" style="height:36px;min-width:0;border-radius:10px;border:none;background:{{ edBg }};padding:0 9px;font-size:13.5px;font-weight:600;outline:none;cursor:{{ edCur }};transition:background .2s ease" style-focus="{{ edFocus }}">
+          </sc-for>
+          <span style="width:30px;height:30px;display:flex;align-items:center;justify-content:center"><sc-if value="{{ edOn }}" hint-placeholder-val="{{ false }}"><button onClick="{{ r.del }}" aria-label="Supprimer" style="width:22px;height:22px;border-radius:50%;border:none;background:#ff3b30;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M5 12h14"></path></svg></button></sc-if></span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTxt }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.1);padding:20px;display:flex;flex-direction:column;gap:14px;max-width:820px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-size:13.5px;color:rgba(0,0,0,0.6);line-height:1.5;max-width:560px">Textes des cartes dépliantes de la page client Running, messages et seuils de précision.</span><button onClick="{{ resetTexts }}" style="height:34px;padding:0 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.14);background:#fff;font-size:12.5px;font-weight:600;cursor:pointer">Valeurs par défaut</button></div>
+      <sc-for list="{{ txts }}" as="t" hint-placeholder-count="6">
+        <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.07)">
+          <span style="font-size:12px;font-weight:700;letter-spacing:0.04em;color:rgba(0,0,0,0.5)">{{ t.label }}</span>
+          <sc-if value="{{ t.isNum }}" hint-placeholder-val="{{ false }}"><input value="{{ t.value }}" onChange="{{ t.onChange }}" inputMode="numeric" style="height:36px;width:90px;border-radius:10px;border:none;background:#f3f3f5;padding:0 10px;font-size:14px;outline:none" style-focus="background:#fff;box-shadow:inset 0 0 0 1.5px #0a0a0a"></sc-if>
+          <sc-if value="{{ t.isText }}" hint-placeholder-val="{{ true }}"><textarea value="{{ t.value }}" onChange="{{ t.onChange }}" rows="2" style="border-radius:10px;border:1px solid rgba(0,0,0,0.14);padding:8px 10px;font-size:14px;line-height:1.45;outline:none;resize:vertical;font-family:inherit" style-focus="border-color:#000"></textarea></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCoef }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.1);padding:20px;display:flex;flex-direction:column;gap:10px;max-width:620px">
+      <span style="font-size:13.5px;color:rgba(0,0,0,0.6);line-height:1.5">VMA estimée = vitesse moyenne du chrono ÷ coefficient. Plus la course est longue, plus on court loin sous sa VMA.</span>
+      <sc-for list="{{ coefs }}" as="c" hint-placeholder-count="5">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid rgba(0,0,0,0.07)">
+          <span style="font-size:14px;font-weight:600">{{ c.name }}</span>
+          <input value="{{ c.f }}" onChange="{{ c.set }}" style="height:36px;border-radius:10px;border:none;background:#f3f3f5;padding:0 10px;font-size:14px;font-weight:600;outline:none;text-align:center" style-focus="background:#fff;box-shadow:inset 0 0 0 1.5px #0a0a0a">
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'int', cid: 'demo', form: { coef: 'c5', res: '', src: 'test' }, v: 0 };
+  componentDidMount() { const go = () => { if (window.TCMVRUN) { this.un = window.TCMVRUN.subscribe(() => this.setState(s => ({ v: s.v + 1 }))); this.forceUpdate(); } else setTimeout(go, 50); }; go(); }
+  componentWillUnmount() { this.un && this.un(); }
+  sec(t) { const p = String(t || '').trim().split(/[:'’h]/).map(Number); if (p.some(isNaN)) return 0; return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p.length === 2 ? p[0] * 60 + p[1] : p[0]; }
+  chart(refs) {
+    const W = 520, H = 180, pl = 36, pr = 16, pt = 22, pb = 34, n = refs.length, vs = refs.map(r => r.vma), mn = Math.floor(Math.min(...vs) - 0.4), mx = Math.ceil(Math.max(...vs) + 0.2), iw = W - pl - pr, ih = H - pt - pb, ins = 20;
+    const X = i => n === 1 ? pl + iw / 2 : pl + ins + (iw - 2 * ins) * i / (n - 1), Y = v => pt + ih * (1 - (v - mn) / (mx - mn || 1)), e = React.createElement, f1 = v => v.toFixed(1).replace('.', ',');
+    const ch = []; for (let v = mn; v <= mx + 0.001; v += 0.5) ch.push(e('line', { key: 'g' + v, x1: pl, x2: W - pr, y1: Y(v), y2: Y(v), stroke: 'rgba(0,0,0,0.07)' }), e('text', { key: 't' + v, x: pl - 8, y: Y(v) + 3, fontSize: 10, fill: 'rgba(0,0,0,0.45)', textAnchor: 'end' }, f1(v)));
+    let d = ''; refs.forEach((r, i) => { d += i ? ` H${X(i)} V${Y(r.vma)}` : `M${X(0)} ${Y(r.vma)}`; });
+    ch.push(e('path', { key: 'p', d, fill: 'none', stroke: '#000', strokeWidth: 2, strokeLinejoin: 'round' }));
+    refs.forEach((r, i) => { const x = X(i), y = Y(r.vma);
+      ch.push(e('circle', { key: 'c' + i, cx: x, cy: y, r: 5, fill: r.src === 'test' ? '#000' : '#fff', stroke: '#000', strokeWidth: 2 }), e('text', { key: 'v' + i, x, y: y - 10, fontSize: 11, fontWeight: 700, textAnchor: 'middle' }, f1(r.vma)),
+        e('text', { key: 'd' + i, x, y: H - pb + 15, fontSize: 10, fontWeight: 600, textAnchor: 'middle' }, r.date.slice(8, 10) + '/' + r.date.slice(5, 7)), e('text', { key: 'l' + i, x, y: H - pb + 27, fontSize: 9.5, fill: 'rgba(0,0,0,0.5)', textAnchor: 'middle' }, r.label)); });
+    return e('svg', { viewBox: `0 0 ${W} ${H}`, style: { width: '100%', height: 'auto', display: 'block' } }, ch);
+  }
+  renderVals() { const ed = !!this.state.ed; const EDV = { edOn: ed, edRO: !ed, edBg: ed ? '#f3f3f5' : 'transparent', edCur: ed ? 'text' : 'default', edFocus: ed ? 'background:#fff;box-shadow:inset 0 0 0 1.5px #0a0a0a' : '', edLbl: ed ? 'Terminé' : 'Modifier', edIc: ed ? 'M5 12l5 5L20 7' : 'M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z', edToggle: () => { this._undo = []; this.setState(st => ({ ed: !st.ed })); }, canUndo: ed && !!(this._undo && this._undo.length), undo: () => { const M = window.TCMVRUN, u = this._undo || []; const prev = u.pop(); if (!prev || !M) return; M.setAllInts(prev); this.forceUpdate(); } }; return { ...EDV, ...this.rv0() }; }
+  rv0() {
+    const M = window.TCMVRUN, s = this.state; if (!M) return { tabs: [], isInt: false };
+    const TABS = [['int', 'Intensités'], ['coef', 'Coefficients de test']];
+    const tabs = TABS.map(([id, label]) => { const on = s.tab === id; return { label, bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.14)', sbg: on ? '#fff' : 'transparent', sh: on ? '0 1px 2px rgba(0,0,0,0.12)' : 'none', go: () => this.setState({ tab: id }) }; });
+    const num = v => { const n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; };
+    const snap = () => { (this._undo = this._undo || []).push(JSON.parse(JSON.stringify(M.ints()))); if (this._undo.length > 30) this._undo.shift(); };
+    const ints = M.ints().map(x => ({ color: x.color, del: () => { snap(); M.delInt(x.id); },
+      cells: [['name', 0], ['vlo', 1], ['vhi', 1], ['z', 1], ['flo', 1], ['fhi', 1], ['rpe', 0], ['talk', 0]].map(([k, isN]) => ({ value: String(x[k] ?? ''), onFocus: () => snap(), onChange: ev => M.setInt(x.id, { [k]: isN ? num(ev.target.value) : ev.target.value }) })) }));
+    const CL = [['demo', 'Thomas · test fait'], ['lea', 'Léa · aucun profil'], ['hugo', 'Hugo · FC seule']];
+    const p = M.profile(s.cid), lv = M.level(p), v = M.vma(p);
+    const clients = CL.map(([id, name]) => { const on = s.cid === id; return { name, bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.14)', go: () => this.setState({ cid: id }) }; });
+    const MODES = [['auto', 'Auto'], ['fc', 'FC + ressenti'], ['feel', 'Ressenti seul']];
+    const HELP = { auto: 'Allure si VMA connue, sinon zone FC si FCmax, sinon ressenti.', fc: 'Jamais d\'allure : zone FC + ressenti, même si une VMA existe.', feel: 'Ni allure ni FC : RPE et repère de parole uniquement (reprise, débutant).' };
+    const mode = p.mode || 'auto';
+    const modes = MODES.map(([id, label]) => { const on = mode === id; return { label, bg: on ? '#000' : 'transparent', fg: on ? '#fff' : 'rgba(0,0,0,0.6)', go: () => M.patchProfile(s.cid, { mode: id }) }; });
+    const pv = mode === 'fc' ? { ...p, refs: [] } : p;
+    const preview = M.ints().map(x => { const c = M.cue(x.name, pv, { display: mode === 'feel' ? 'feel' : 'auto' }); return { name: x.name, color: x.color, txt: c ? c.txt : '' }; });
+    const refs = p.refs || [];
+    const co = M.coefs(), cf = co.find(c => c.id === s.form.coef) || co[0], isMin = !!cf.min, sec = this.sec(s.form.res), vm = isMin ? M.vmaFrom(cf.id, num(s.form.res)) : M.vmaFrom(cf.id, sec);
+    const setF = k => ev => { const val = ev.target.value; this.setState(st => ({ form: { ...st.form, [k]: val } })); };
+    const lvLabel = M.LEVELS[mode === 'feel' ? 'ressenti' : mode === 'fc' ? (p.fcmax ? 'fc' : 'ressenti') : lv];
+    return {
+      tabs, isTxt: s.tab === 'txt', resetTexts: () => M.resetTexts(), txts: (() => { const T = M.texts(), LB = { vma: 'VMA', seuil: 'Allure seuil', fc: 'FC max', prec: 'Précision', tip: 'Conseil', thr: 'Seuil de score (sur 100)' }, SUB = { what: 'C\'est quoi ?', use: 'À quoi ça sert ?', none: 'aucun chrono', ref: 'type de référence', fresh: 'fraîcheur', hist: 'historique', fc: 'FC max' }; return M.TXT_KEYS.map(k => { const [g, s2] = k.split('.'), isNum = g === 'thr'; return { label: LB[g] + ' · ' + (SUB[s2] || s2), value: String(T[k]), isNum, isText: !isNum, onChange: ev => M.setText(k, isNum ? (parseInt(ev.target.value) || 0) : ev.target.value) }; }); })(), isInt: s.tab === 'int', isCli: s.tab === 'cli', isCoef: s.tab === 'coef', ints, addInt: () => { snap(); M.addInt(); }, resetInts: () => { snap(); M.resetInts(); },
+      clients, modes, modeHelp: HELP[mode], fcmax: p.fcmax ? String(p.fcmax) : '', setFc: ev => M.patchProfile(s.cid, { fcmax: parseInt(ev.target.value) || 0 }),
+      kpis: [['VMA', v ? v.toFixed(1).replace('.', ',') + ' km/h' : '—'], ['Niveau', lvLabel], ['FC max', p.fcmax ? p.fcmax + ' bpm' : '—']].map(([k, val]) => ({ k, v: val })),
+      levelLabel: lvLabel.toLowerCase(), preview,
+      hasRefs: refs.length > 0, noRefs: !refs.length, noRefLabel: p.fcmax ? 'zone FC + ressenti' : 'ressenti', chart: refs.length ? this.chart(refs) : null,
+      refs: refs.map((r, i) => ({ date: r.date.slice(8, 10) + '/' + r.date.slice(5, 7) + '/' + r.date.slice(2, 4), label: r.label, res: r.res, vma: r.vma.toFixed(1).replace('.', ','), del: () => M.delRef(s.cid, i) })).reverse(),
+      coefOpts: co.map(c => ({ id: c.id, name: c.name })),
+      form: { coef: s.form.coef, res: s.form.res, src: s.form.src, ph: isMin ? 'mètres' : 'mm:ss', setCoef: setF('coef'), setRes: setF('res'), setSrc: setF('src'),
+        preview: vm ? 'VMA estimée ≈ ' + vm.toFixed(1).replace('.', ',') + ' km/h' : (isMin ? 'Distance parcourue en 6 min' : 'Temps du chrono'), btnBg: vm ? '#000' : 'rgba(0,0,0,0.25)',
+        add: () => { if (!vm) return; M.addRef(s.cid, { date: new Date().toISOString().slice(0, 10), src: s.form.src, label: (s.form.src === 'decl' ? cf.name.replace('Test ', '') + ' déclaré' : cf.name), res: s.form.res, vma: vm }); this.setState(st => ({ form: { ...st.form, res: '' } })); } },
+      coefs: co.map(c => ({ name: c.name, f: String(c.f), set: ev => { const n = num(ev.target.value); if (n) M.setCoef(c.id, n); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

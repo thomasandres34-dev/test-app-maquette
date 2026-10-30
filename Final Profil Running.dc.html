@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><style>@keyframes lineDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}@keyframes chartIn{from{clip-path:inset(0 100% 0 0);opacity:.3}to{clip-path:inset(0 0 0 0);opacity:1}}@keyframes headIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}@keyframes minIn{from{transform:scale(0);opacity:0}to{transform:none;opacity:1}}</style><script src="./run-model.js?v=1"></script><style>a{color:#000}a:hover{color:#555}button{font-family:inherit}</style></helmet>
+<div style="min-height:{{ fr.minH }};height:{{ fr.h0 }};display:flex;justify-content:center;align-items:flex-start;padding:{{ fr.pad }};box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:600;color:#000">
+  <div style="width:{{ fr.w }};height:{{ fr.h }};border-radius:{{ fr.rad }};border:{{ fr.bd }};background:#f2f2f2;overflow:hidden;position:relative;flex:none;box-shadow:{{ fr.sh }}">
+    <sc-if value="{{ fr.notch }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:34px;border-radius:20px;background:#000;z-index:5"></div></sc-if>
+    <div style="height:100%;overflow-y:auto;display:flex;flex-direction:column">
+      <div style="height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:15px;font-weight:600"><span>9:41</span><span style="font-size:12px">●●● ▮</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 0">
+        <button onClick="{{ back }}" aria-label="Retour" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <span style="font-size:16px;font-weight:600">Running</span>
+        <button onClick="{{ openAdd }}" aria-label="Ajouter un chrono" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0" style-active="background:#e8e8e8"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"></path></svg></button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 20px 8px;text-align:center;animation:headIn .5s cubic-bezier(.2,.8,.2,1) .05s both">
+        <span style="font-size:15px;color:rgba(0,0,0,0.5)">{{ head.label }}</span>
+        <span style="font-size:56px;font-weight:700;letter-spacing:-0.045em;line-height:1;font-variant-numeric:tabular-nums">{{ head.v }}<span style="font-size:20px;font-weight:600;letter-spacing:-0.02em;color:rgba(0,0,0,0.45);margin-left:6px">km/h</span></span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:14px;color:rgba(0,0,0,0.55)"><span style="width:16px;height:16px;border-radius:50%;background:{{ head.ac }};color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center">{{ head.arrow }}</span>{{ head.d }}</span>
+      </div>
+
+      <div style="padding:8px 8px 0">{{ chart }}</div>
+
+      <div style="padding:20px 16px 8px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;padding:0 6px;font-size:14px;color:rgba(0,0,0,0.5)"><span>Mes repères</span></div>
+        <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
+          <div onClick="{{ c.toggle }}" style="background:#fff;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;cursor:pointer">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:1;min-width:0;font-size:16px">{{ c.k }}</span>
+              <span style="font-size:16px;font-weight:600;font-variant-numeric:tabular-nums">{{ c.v }}</span>
+              <span style="width:26px;height:26px;flex:none;border-radius:50%;background:{{ c.ibg }};color:{{ c.ic }};display:flex;align-items:center;justify-content:center;transform:rotate({{ c.rot }});transition:transform .35s cubic-bezier(.3,1.4,.5,1),background .25s ease,color .25s ease"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18"></path></svg></span>
+            </div>
+            <div style="display:grid;grid-template-rows:{{ c.rows }};opacity:{{ c.op }};transition:grid-template-rows .4s cubic-bezier(.25,.8,.25,1),opacity .3s ease">
+              <div style="overflow:hidden;min-height:0">
+                <sc-if value="{{ c.paceNone }}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.07);display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;font-weight:600">Pas encore de VMA enregistrée</span><span style="font-size:13px;font-weight:500;line-height:1.4;color:rgba(0,0,0,0.55)">Ajoute un test ou un chrono récent dans « Mes tests » pour voir tes allures.</span></div></sc-if>
+                <sc-if value="{{ c.isPace }}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;padding-top:4px;border-top:1px solid rgba(0,0,0,0.07)"><sc-for list="{{ c.paceRows }}" as="pp" hint-placeholder-count="5"><div style="display:flex;align-items:center;gap:10px;min-height:50px;border-top:1px solid {{ pp.sep }}"><span style="flex:1;font-size:14px;font-weight:600">{{ pp.name }}</span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><span style="font-size:14px;font-weight:600;font-variant-numeric:tabular-nums">{{ pp.pace }}</span><span style="font-size:11.5px;color:rgba(0,0,0,0.45);font-variant-numeric:tabular-nums">{{ pp.sub }}</span></span></div></sc-for></div></sc-if>
+                <sc-if value="{{ c.isFc }}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;padding-top:4px;border-top:1px solid rgba(0,0,0,0.07)"><sc-for list="{{ c.fcZones }}" as="zz" hint-placeholder-count="5"><div style="display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:46px;border-top:1px solid {{ zz.sep }}"><span style="font-size:14px;font-weight:700">{{ zz.z }}</span><span style="font-size:14px;font-weight:600">{{ zz.name }}</span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><span style="font-size:14px;font-weight:600;font-variant-numeric:tabular-nums">{{ zz.bpm }}</span><span style="font-size:11.5px;color:rgba(0,0,0,0.45);font-variant-numeric:tabular-nums">{{ zz.pct }}</span></span></div></sc-for></div></sc-if>
+                <sc-if value="{{ c.notLv }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.07);font-size:13.5px;line-height:1.5;color:rgba(0,0,0,0.65)">
+                  <span><strong style="color:#000;font-weight:600">{{ c.whatLbl }}</strong> {{ c.what }}</span>
+                  <span><strong style="color:#000;font-weight:600">{{ c.useLbl }}</strong> {{ c.use }}</span>
+                  <span style="font-size:12px;color:rgba(0,0,0,0.45)">Source · {{ c.src }}</span>
+                </div></sc-if>
+                <sc-if value="{{ c.isLv }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
+                    <div style="position:relative;height:3px;border-radius:999px;background:linear-gradient(90deg,oklch(0.64 0.26 22),oklch(0.8 0.17 80) 50%,#22c55e)">
+                      <span style="position:absolute;top:50%;left:{{ c.pct }};width:9px;height:9px;border-radius:50%;background:#000;box-shadow:0 0 0 3px #fff;transform:translate(-50%,-50%);transition:left .5s cubic-bezier(.25,.8,.25,1)"></span>
+                    </div>
+                    <span style="font-size:14px;line-height:1.5;color:rgba(0,0,0,0.7)">{{ c.msg }}</span>
+                    <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.07);font-size:13.5px;line-height:1.5;color:rgba(0,0,0,0.65)">
+                      <span><strong style="color:#000;font-weight:600">Calculée sur ?</strong> {{ c.basis }}</span>
+                      <span><strong style="color:#000;font-weight:600">Pour l'améliorer ?</strong> {{ c.tip }}</span>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="padding:14px 16px 40px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;padding:0 6px;font-size:14px;color:rgba(0,0,0,0.5)"><span>Mes tests</span><span style="display:flex;gap:16px"></span></div>
+        <div style="background:#fff;border-radius:16px;padding:0 16px">
+          <sc-for list="{{ refs }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;border-top:1px solid {{ r.sep }}">
+              <div onClick="{{ r.toggle }}" style="display:flex;align-items:center;gap:10px;min-height:56px;cursor:pointer">
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px"><span style="font-size:15px">{{ r.label }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.45)">{{ r.date }} · {{ r.res }}</span></div>
+                <span style="font-size:15px;font-weight:600;font-variant-numeric:tabular-nums">{{ r.vma }}</span>
+                <span style="width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;transform:rotate({{ r.rot }});transition:transform .35s cubic-bezier(.3,1.4,.5,1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18"></path></svg></span>
+              </div>
+              <div style="display:grid;grid-template-rows:{{ r.rows }};opacity:{{ r.op }};transition:grid-template-rows .4s cubic-bezier(.25,.8,.25,1),opacity .3s ease">
+                <div style="overflow:hidden;min-height:0">
+                  <div style="display:flex;flex-direction:column;gap:8px;padding:0 0 14px">
+                    <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.6)">{{ r.info }}</span>
+                    <button onClick="{{ r.del }}" style-active="transform:scale(.98)" style="height:40px;border-radius:12px;border:none;background:{{ r.dBg }};color:{{ r.dFg }};font-size:14px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease,transform .15s ease">{{ r.dLbl }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="height:{{ fr.sp }};flex:none"></div>
+    </div>
+    <div onClick="{{ closeAdd }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.3);opacity:{{ sh.op }};pointer-events:{{ sh.pe }};transition:opacity .3s ease;z-index:10"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:11;background:#f2f2f2;border-radius:28px 28px 0 0;padding:10px 16px 34px;display:flex;flex-direction:column;gap:14px;transform:translateY({{ sh.ty }});transition:transform .42s cubic-bezier(.2,.9,.25,1)">
+      <div style="width:36px;height:5px;border-radius:3px;background:rgba(0,0,0,0.18);align-self:center"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between"><button onClick="{{ closeAdd }}" style="border:none;background:none;padding:0;font-size:15px;color:rgba(0,0,0,0.55);cursor:pointer">Annuler</button><span style="font-size:16px;font-weight:600">Nouveau chrono</span><button onClick="{{ save }}" style="border:none;background:none;padding:0;font-size:15px;font-weight:600;color:{{ sh.saveC }};cursor:pointer">Ajouter</button></div>
+      <div style="display:flex;gap:3px;padding:3px;border-radius:11px;background:#e4e4e4">
+        <sc-for list="{{ kinds }}" as="k" hint-placeholder-count="3"><button onClick="{{ k.go }}" style="flex:1;height:32px;border-radius:9px;border:none;background:{{ k.bg }};box-shadow:{{ k.sh }};font-size:13px;font-weight:600;color:#000;cursor:pointer">{{ k.label }}</button></sc-for>
+      </div>
+      <sc-if value="{{ sh.isDist }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+          <sc-for list="{{ dists }}" as="d" hint-placeholder-count="4"><button onClick="{{ d.go }}" style="height:34px;padding:0 14px;border-radius:999px;border:1px solid {{ d.bd }};background:{{ d.bg }};color:{{ d.fg }};font-size:13.5px;font-weight:600;cursor:pointer">{{ d.label }}</button></sc-for>
+        </div>
+      </sc-if>
+      <div style="background:#fff;border-radius:18px;padding:18px 10px;display:flex;justify-content:center;align-items:flex-start;gap:4px">
+        <sc-for list="{{ wheels }}" as="w" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px">
+            <button onClick="{{ w.up }}" style="width:44px;height:28px;border:none;background:none;color:rgba(0,0,0,0.35);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 15 6-6 6 6"></path></svg></button>
+            <span style="font-size:40px;font-weight:600;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;line-height:1">{{ w.v }}</span>
+            <span style="font-size:11px;color:rgba(0,0,0,0.45);font-weight:600">{{ w.u }}</span>
+            <button onClick="{{ w.dn }}" style="width:44px;height:28px;border:none;background:none;color:rgba(0,0,0,0.35);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg></button>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:0 16px">
+        <div style="display:flex;align-items:center;min-height:50px"><span style="flex:1;font-size:15px">Date</span><input type="date" max="{{ sh.max }}" value="{{ sh.date }}" onChange="{{ sh.setDate }}" style="border:none;background:#f2f2f2;border-radius:8px;padding:6px 8px;font-size:14px;font-family:inherit;outline:none"></div>
+        
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#fff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg><span style="font-size:13.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.7);text-wrap:pretty">Ajoute uniquement des courses ou tests courus à fond. Un chrono couru tranquille fausse ta VMA et toutes tes allures.</span></div>
+      <div style="text-align:center;font-size:14px;color:rgba(0,0,0,0.55)">{{ sh.preview }}</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:440,&quot;height&quot;:920},&quot;clientId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;demo&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;age&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:32,&quot;tsType&quot;:&quot;number&quot;},&quot;demoDown&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;},&quot;demo12&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;}}">
+class Component extends DCLogic {
+  state = { hi: -1, info: null, v: 0, add: false, f: { kind: 'dist', d: 5000, h: 0, m: 25, s: 0, vma: 13.0, m6: 1300, test: true, date: '' } };
+  componentDidMount() { const t0 = performance.now(), D = 1000; const tick = now => { const k = Math.min(1, (now - t0) / D); this.setState({ cu: k }); if (k < 1) this._raf = requestAnimationFrame(tick); }; this._raf = requestAnimationFrame(tick); const go = () => { if (window.TCMVRUN) { this.un = window.TCMVRUN.subscribe(() => this.setState(s => ({ v: s.v + 1 }))); this.forceUpdate(); } else setTimeout(go, 50); }; go(); }
+  componentWillUnmount() { this.un && this.un(); cancelAnimationFrame(this._raf); }
+  renderVals() {
+    const M = window.TCMVRUN; if (!M) return { head: {}, cards: [], paces: [], refs: [] };
+    const cid = this.props.clientId || 'demo', p0 = M.profile(cid), fo = { age: parseInt(this.props.age) || parseInt(p0.age) || 0 }, p = { ...p0, _fc: fo, refs: this.props.demo12 ? [['2025-11-05', 'decl', '10 km déclaré', '58:00', 11.6], ['2025-12-03', 'test', 'Test 5 km', '27:10', 11.8], ['2026-01-14', 'test', 'Test 6 min', '1180 m', 11.8], ['2026-02-11', 'test', 'Test 5 km', '26:20', 12.1], ['2026-03-11', 'test', 'Test 10 km', '54:30', 12.2], ['2026-04-08', 'test', 'Test 5 km', '25:50', 12.3], ['2026-05-06', 'test', 'Test 3 km', '14:50', 12.4], ['2026-06-10', 'test', 'Test 5 km', '26:05', 12.2], ['2026-07-08', 'test', 'Test 10 km', '53:10', 12.5], ['2026-08-19', 'test', 'Test 5 km', '25:00', 12.6], ['2026-09-29', 'test', 'Test 5 km', '24:30', 12.8], ['2026-10-14', 'test', 'Test 5 km', '24:10', 12.9]].map(([date, src, label, res, vma]) => ({ date, src, label, res, vma })) : this.props.demoDown ? [...(p0.refs || []), { date: '2026-11-10', src: 'test', label: 'Test 5 km', res: '24:40', vma: Math.max(8, M.vma(p0) - 0.3) }] : (p0.refs || []) }, refs = p.refs, f1 = v => v.toFixed(1).replace('.', ',');
+    const fr = d => +d.slice(8, 10) + ' ' + ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'][+d.slice(5, 7) - 1];
+    const e = React.createElement, n = refs.length, hi = this.state.hi >= 0 && this.state.hi < n ? this.state.hi : n - 1, r = refs[hi], pr = refs[hi - 1];
+    let chart = null;
+    if (n) {
+      const W = 374, H = 230, pt = 16, pb = 56, px = 26, t = x => new Date(x.date).getTime(), t0 = t(refs[0]), t1 = Math.max(t(refs[n - 1]), t0 + 864e5);
+      const vs = refs.map(x => x.vma), mn = Math.min(...vs) - 0.5, mx = Math.max(...vs) + 0.3, X = x => n === 1 ? W / 2 : px + 18 + (W - 2 * px - 36) * refs.indexOf(x) / (n - 1), Y = v => pt + (H - pt - pb) * (1 - (v - mn) / (mx - mn || 1));
+      const P = refs.map(x => [X(x), Y(x.vma)]); let d = 'M' + P[0][0] + ' ' + P[0][1];
+      for (let i = 1; i < n; i++) { const a = P[i - 1], b = P[i], m = (a[0] + b[0]) / 2; d += ` C${m} ${a[1]} ${m} ${b[1]} ${b[0]} ${b[1]}`; }
+      const H0 = P[hi], base = H - pb + 4, ch = [];
+      for (let x = px; x <= W - px; x += 9) ch.push(e('circle', { key: 'b' + x, cx: x, cy: base, r: 0.9, fill: 'rgba(0,0,0,0.3)' }));
+      ch.push(e('line', { key: 'c', x1: H0[0], x2: H0[0], y1: pt - 6, y2: base, stroke: 'rgba(0,0,0,0.25)', strokeWidth: 1.2, strokeDasharray: '2 3' }));
+      ch.push(e('path', { key: 'l', d, fill: 'none', stroke: '#000', strokeWidth: 3, strokeLinecap: 'round', strokeLinejoin: 'round', pathLength: 1, style: { strokeDasharray: 1, animation: 'lineDraw .7s cubic-bezier(.3,.7,.2,1) .2s both' } }));
+      P.forEach((q, i) => { const on = i === hi, anc = i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle', lx = i === 0 ? q[0] - 8 : i === n - 1 ? q[0] + 8 : q[0];
+        ch.push(e('circle', { key: 'p' + i, cx: q[0], cy: q[1], r: on ? 6 : n > 8 ? 2.6 : 4, fill: refs[i].src === 'test' ? '#000' : '#f2f2f2', stroke: '#000', strokeWidth: 2 }));
+        ch.push(e('line', { key: 't' + i, x1: q[0], x2: q[0], y1: base - 4, y2: base + 4, stroke: on ? '#000' : 'rgba(0,0,0,0.35)', strokeWidth: 1.4 }));
+        const many = n > 5, show = !many || on || ((i === 0 || i === n - 1) && Math.abs(i - hi) > 2);
+        if (!show) return;
+        ch.push(e('text', { key: 'd' + i, x: lx, y: base + 20, fontSize: 11.5, fontWeight: on ? 700 : 500, fill: on ? '#000' : 'rgba(0,0,0,0.45)', textAnchor: anc }, fr(refs[i].date)));
+        ch.push(e('text', { key: 'n' + i, x: lx, y: base + 34, fontSize: 10.5, fill: on ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0.38)', textAnchor: anc }, refs[i].label.replace(' déclaré', ' décl.'))); });
+      const move = ev => { const b = ev.currentTarget.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width * W; let k = 0, best = 1e9; P.forEach((q, i) => { const dx = Math.abs(q[0] - x); if (dx < best) { best = dx; k = i; } }); if (k !== this.state.hi) this.setState({ hi: k }); };
+      chart = e('svg', { viewBox: `0 0 ${W} ${H}`, onPointerMove: move, onPointerDown: ev => { try { ev.currentTarget.setPointerCapture(ev.pointerId); } catch (x) {} move(ev); }, onPointerUp: () => this.setState({ hi: -1 }), onPointerCancel: () => this.setState({ hi: -1 }), onPointerLeave: () => this.setState({ hi: -1 }), style: { width: '100%', height: 'auto', display: 'block', touchAction: 'none', animation: 'headIn .5s cubic-bezier(.2,.8,.2,1) .1s both' } }, ch);
+    }
+    const dv = r && pr ? r.vma - pr.vma : 0;
+    const v = M.vma(p), fi = M.fcInfo(p, fo), lv = M.dataLevel(p), seuil = M.int('Seuil');
+    const sp = it => { const c = M.cue(it.name, p); return c && c.pace ? c.pace.replace(' /km', '') : c && c.fc ? c.fc : 'RPE ' + it.rpe; };
+    const C = [
+      { id: 'vma', k: 'VMA', v: v ? f1(v) + ' km/h' : '—', what: M.txt('vma.what'), use: M.txt('vma.use'), src: r ? r.label + ' du ' + fr(r.date) : 'aucun chrono' },
+      { id: 'seuil', k: 'Mes allures', v: v ? M.ints().filter(x => ['ef', 'am', 'tempo', 'seuil', 'as10', 'vmal', 'vmac'].includes(x.id)).length + ' allures' : '—', what: '', use: '', src: '', isPace: true },
+      { id: 'fc', k: 'FC max', v: fi.v ? fi.v + ' bpm' : '—', what: M.txt('fc.what'), use: M.txt('fc.use'), src: fi.src || 'non renseignée', isFc: !!fi.v, fcZones: [[1, 'Récupération', 50, 60], [2, 'Endurance', 60, 70], [3, 'Aérobie', 70, 80], [4, 'Seuil', 80, 90], [5, 'Maximum', 90, 100]].map(([z, name, lo, hi], i) => ({ z: 'Z' + z, name, bpm: Math.round(fi.v * lo / 100) + '–' + Math.round(fi.v * hi / 100) + ' bpm', pct: lo + '–' + hi + ' %', sep: i ? 'rgba(0,0,0,0.07)' : 'transparent' })) },
+      (() => { const last = refs[refs.length - 1], nT = refs.filter(x => x.src === 'test').length, days = last ? Math.round((Date.now() - new Date(last.date).getTime()) / 864e5) : 999;
+        const F = [
+          ['Type de référence', !last ? 0 : last.src === 'test' ? 40 : 20, 40, !last ? 'aucune' : last.src === 'test' ? 'test couru à fond' : 'chrono déclaré'],
+          ['Fraîcheur', days <= 42 ? 30 : days <= 90 ? 20 : days <= 180 ? 10 : 0, 30, last ? (days < 1 ? 'aujourd\'hui' : 'il y a ' + (days < 60 ? days + ' j' : Math.round(days / 30) + ' mois')) : '—'],
+          ['Historique', nT >= 3 ? 15 : nT === 2 ? 10 : nT === 1 ? 5 : 0, 15, nT + ' test' + (nT > 1 ? 's' : '')],
+          ['FC max', fo.measured || (p.fcmax && p.fcSrc !== 'théorique') ? 15 : fi.v ? 8 : 0, 15, fi.v ? (fi.src.startsWith('théorique') ? 'théorique (âge)' : fi.src) : 'inconnue']];
+        const sc = F.reduce((x, f) => x + f[1], 0), tier = sc >= +M.txt('thr.Excellente') ? 'Excellente' : sc >= +M.txt('thr.Bonne') ? 'Bonne' : sc >= +M.txt('thr.Correcte') ? 'Correcte' : 'Faible';
+        const weak = F.map(f => [f, f[2] - f[1]]).sort((x, y) => y[1] - x[1])[0][0][0];
+        const tip = M.txt({ 'Type de référence': last ? 'tip.ref' : 'tip.none', 'Fraîcheur': 'tip.fresh', 'Historique': 'tip.hist', 'FC max': 'tip.fc' }[weak]);
+        const msg = M.txt('prec.' + tier);
+        return { id: 'lv', isLv: true, k: 'Précision de tes allures', v: tier, pct: sc + '%', score: sc + ' / 100', msg, tip,
+          factors: [], basis: 'ta dernière référence (' + F[0][3] + ', ' + F[1][3] + '), ton nombre de tests (' + F[2][3] + ') et ta FC max (' + F[3][3] + ').', what: '', use: '', src: '' }; })()];
+    const PACES = M.ints().filter(x => ['ef', 'am', 'tempo', 'seuil', 'as10', 'vmal', 'vmac'].includes(x.id)).map((x, i) => ({ name: x.name, pace: v ? M.fmtP(3600 / (v * x.vlo / 100)) + '–' + M.fmtP(3600 / (v * x.vhi / 100)) + ' /km' : '—', sub: [(() => { const fm = fi.v, Z = { 1: [50, 60], 2: [60, 70], 3: [70, 80], 4: [80, 90], 5: [90, 100] }[x.z]; return fm && Z ? 'Z' + x.z + ' · ' + Math.round(fm * Z[0] / 100) + '–' + Math.round(fm * Z[1] / 100) + ' bpm' : (x.z ? 'Z' + x.z : ''); })(), 'RPE ' + x.rpe].filter(Boolean).join(' · '), sep: i ? 'rgba(0,0,0,0.07)' : 'transparent' }));
+    const cards = C.map(c => ({ whatLbl: 'C\'est quoi ?', useLbl: 'À quoi ça sert ?', isLv: false, isFc: false, fcZones: [], isPace: false, notLv: c.id !== 'lv', factors: [], ...c })).map(c => { const open = this.state.info === c.id; return { ...c, paceRows: c.isPace && v ? PACES : [], paceNone: c.isPace && !v, notLv: c.notLv && !c.isPace, open, rows: open ? '1fr' : '0fr', op: open ? 1 : 0, rot: open ? '45deg' : '0deg', ibg: 'transparent', ic: '#000', toggle: () => this.setState(s => ({ info: s.info === c.id ? null : c.id })) }; });
+    const paces = M.ints().filter(x => ['ef', 'am', 'seuil', 'as10', 'vmac'].includes(x.id)).map((x, i) => ({ name: x.name, color: x.color, pace: v ? M.fmtP(3600 / (v * x.vlo / 100)) + '–' + M.fmtP(3600 / (v * x.vhi / 100)) + ' /km' : '—', zone: (() => { const c = M.cue(x.name, { ...p, mode: 'auto' }), fm = M.fcmax(p, fo); return [fm ? Math.round(fm * x.flo / 100) + '–' + Math.round(fm * x.fhi / 100) + ' bpm' : '', 'RPE ' + x.rpe].filter(Boolean).join(' · '); })(), sep: i ? 'rgba(0,0,0,0.07)' : 'transparent' }));
+    const hasVma = !!v, noVma = !v, vmaTxt = v ? f1(v) + ' km/h' : '';
+    const f = this.state.f, sf = patch => this.setState(st => ({ f: { ...st.f, ...patch } }));
+    const DI = [[5000, '5 km', 'c5'], [10000, '10 km', 'c10'], [21097, 'Semi', 'c21']], cur = DI.find(x => x[0] === f.d) || DI[1];
+    const sec = f.h * 3600 + f.m * 60 + f.s, cyc = (v, lo, hi) => v > hi ? lo : v < lo ? hi : v;
+    const vmaNew = f.kind === 'dist' ? M.vmaFrom(cur[2], sec) : f.kind === 'six' ? M.vmaFrom('c6', f.m6) : Math.round(f.vma * 10) / 10;
+    const W2 = f.kind === 'dist' ? [['h', f.h, 'h', 0, 5, 1], ['m', f.m, 'min', 0, 59, 1], ['s', f.s, 's', 0, 59, 1]] : f.kind === 'six' ? [['m6', f.m6, 'mètres en 6 min', 600, 2500, 10]] : [['vma', f.vma, 'km/h', 8, 25, 0.1]];
+    const today = new Date().toISOString().slice(0, 10), dt = f.date || today;
+    const em = !!this.props.embed;
+    return { hasVma, noVma, vmaTxt, 
+      fr: em ? { minH: '0', h0: '100%', pad: '0', w: '100%', h: '100%', rad: '0', bd: 'none', sh: 'none', notch: false, sp: '130px' } : { minH: '100vh', h0: 'auto', pad: '32px 16px', w: '390px', h: '844px', rad: '54px', bd: '10px solid #111', sh: '0 30px 60px rgba(0,0,0,0.18)', notch: true, sp: '0px' },
+      back: () => this.props.onBack && this.props.onBack(),
+      openAdd: () => this.setState({ add: true }), closeAdd: () => this.setState({ add: false }),
+      sh: { op: this.state.add ? 1 : 0, pe: this.state.add ? 'auto' : 'none', ty: this.state.add ? '0%' : '105%', isDist: f.kind === 'dist', saveC: vmaNew ? '#000' : 'rgba(0,0,0,0.3)', date: dt, max: today, setDate: ev => sf({ date: ev.target.value }), tgBg: f.test ? '#22c55e' : '#d4d4d4', tgX: f.test ? '22px' : '2px', toggleTest: () => sf({ test: !f.test }), preview: vmaNew ? 'VMA estimée · ' + f1(vmaNew) + ' km/h' : 'Choisis ton temps' },
+      kinds: [['dist', 'Course'], ['six', 'Test 6 min'], ['vma', 'VMA connue']].map(([id, label]) => { const on = f.kind === id; return { label, bg: on ? '#fff' : 'transparent', sh: on ? '0 1px 3px rgba(0,0,0,0.12)' : 'none', go: () => sf({ kind: id }) }; }),
+      dists: DI.map(([m, label]) => { const on = f.d === m; return { label, bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.12)', go: () => sf({ d: m, h: m >= 21097 ? 1 : 0, m: m === 3000 ? 14 : m === 5000 ? 25 : m === 10000 ? 52 : 55, s: 0 }) }; }),
+      wheels: W2.map(([k, v, u, lo, hi, st]) => ({ v: k === 'vma' ? f1(v) : k === 'm' || k === 's' ? String(v).padStart(2, '0') : String(v), u, up: () => sf({ [k]: Math.round(cyc(v + st, lo, hi) * 10) / 10 }), dn: () => sf({ [k]: Math.round(cyc(v - st, lo, hi) * 10) / 10 }) })),
+      save: () => { if (!vmaNew) return; const lab = f.kind === 'dist' ? (f.test ? 'Test ' + cur[1] : cur[1] + ' déclaré') : f.kind === 'six' ? 'Test 6 min' : 'VMA mesurée'; const res = f.kind === 'dist' ? (f.h ? f.h + ':' + String(f.m).padStart(2, '0') : f.m) + ':' + String(f.s).padStart(2, '0') : f.kind === 'six' ? f.m6 + ' m' : f1(f.vma) + ' km/h'; M.addRef(cid, { date: dt, src: 'test', label: lab, res, vma: vmaNew }); this.setState({ add: false, hi: -1 }); },
+      chart, level: M.LEVELS[lv],
+      head: { label: r ? (hi === n - 1 ? 'Ma VMA' : 'VMA au ' + fr(r.date)) : 'Ma VMA', v: r ? f1(r.vma * (this.state.cu == null || this.state.cu >= 1 ? 1 : 1 - Math.pow(1 - this.state.cu, 3))) : '—', arrow: dv > 0 ? '↑' : dv < 0 ? '↓' : '·', ac: dv > 0 ? '#22c55e' : dv < 0 ? 'oklch(0.64 0.26 22)' : 'rgba(0,0,0,0.35)', d: pr ? (dv >= 0 ? '+' : '−') + f1(Math.abs(dv)) + ' km/h depuis le ' + fr(pr.date) : r ? r.label : 'Ajoute un chrono pour la calculer' },
+      cards, paces, nRefs: String(n),
+      editLbl: this.state.edit ? 'OK' : 'Modifier', hasRefs: refs.length > 0, editToggle: () => this.setState(st => ({ edit: !st.edit, delAsk: null })),
+      refs: refs.map((x, i) => { const open = this.state.openRef === i, armed = open && this.state.delAsk === i; return { label: x.label, date: fr(x.date), res: x.res, vma: f1(x.vma), rot: open ? '45deg' : '0deg', rows: open ? '1fr' : '0fr', op: open ? 1 : 0, info: 'VMA ' + f1(x.vma) + ' km/h calculée à partir de ce chrono' + (x.src === 'test' ? ' couru à fond.' : ' déclaré.'), dLbl: armed ? 'Confirmer la suppression' : 'Supprimer ce test', dBg: armed ? '#ff3b30' : '#f2f2f4', dFg: armed ? '#fff' : '#ff3b30', toggle: () => this.setState(st => ({ openRef: st.openRef === i ? null : i, delAsk: null })), del: ev => { ev && ev.stopPropagation && ev.stopPropagation(); if (!armed) { this.setState({ delAsk: i }); return; } M.delRef(cid, i); this.setState({ delAsk: null, openRef: null }); } }; }).reverse().map((r, i) => ({ ...r, sep: i ? 'rgba(0,0,0,0.07)' : 'transparent' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

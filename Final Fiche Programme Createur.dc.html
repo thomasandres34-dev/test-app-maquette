@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./image-slot.js"></script>
+<style>[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.65)"]{color:rgba(0,0,0,0.58)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.65)"]{color:rgba(255,255,255,0.58)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.6)"]{color:rgba(0,0,0,0.53)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.6)"]{color:rgba(255,255,255,0.53)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.55)"]{color:rgba(0,0,0,0.48)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.55)"]{color:rgba(255,255,255,0.48)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.5)"]{color:rgba(0,0,0,0.43)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.5)"]{color:rgba(255,255,255,0.43)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.45)"]{color:rgba(0,0,0,0.38)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.45)"]{color:rgba(255,255,255,0.38)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.42)"]{color:rgba(0,0,0,0.35)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.42)"]{color:rgba(255,255,255,0.35)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.4)"]{color:rgba(0,0,0,0.33)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.4)"]{color:rgba(255,255,255,0.33)!important}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}body{margin:0;background:#1c1c1c;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#000}a:hover{color:#555}::-webkit-scrollbar{display:none}</style>
+</helmet>
+<div data-tb="1" style="font-weight:600;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:{{ oPad }};height:{{ oH }}">
+<div data-screen-label="Fiche programme créateur" style="position:relative;flex:none;width:{{ fW }};height:{{ fH }};border-radius:{{ fR }};overflow:hidden;border:{{ fB }};background:#000;color:#fff">
+  <div style="height:100%;overflow-y:auto;padding-bottom:140px">
+
+    <div style="position:relative;height:560px">
+      <div style="position:absolute;inset:0"><image-slot id="{{ heroSlot }}" shape="rect" placeholder="{{ heroPh }}" src="assets/seance-cover.jpg"></image-slot><sc-if value="{{ hasHeroBg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background-image:{{ heroBg }};background-size:cover;background-position:{{ heroPos }}"></div></sc-if><sc-if value="{{ isLogo }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center"><img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:46%;height:auto;margin-bottom:120px"></div></sc-if></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.75) 82%,#000 100%)"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:center;justify-content:space-between;padding:0 36px 0 48px;font-size:16px;font-weight:600;pointer-events:none"><span>9:41</span><span style="display:flex;align-items:center;gap:6px" aria-hidden="true"><svg width="19" height="12" viewBox="0 0 19 12" fill="currentColor"><rect x="0" y="8" width="3.2" height="4" rx="1"></rect><rect x="5" y="5.5" width="3.2" height="6.5" rx="1"></rect><rect x="10" y="3" width="3.2" height="9" rx="1"></rect><rect x="15" y="0" width="3.2" height="12" rx="1" opacity="0.3"></rect></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.2C14 1.6 11.4.5 8.5.5S3 1.6 1 3.5l1.2 1.2c1.7-1.6 3.9-2.5 6.3-2.5z"></path><path d="M8.5 5.6c1.5 0 2.8.5 3.9 1.5l1.2-1.2c-1.4-1.3-3.2-2-5.1-2s-3.7.7-5.1 2l1.2 1.2c1.1-1 2.4-1.5 3.9-1.5z"></path><path d="M8.5 9c.6 0 1.1.2 1.5.6L8.5 11.2 7 9.6c.4-.4.9-.6 1.5-.6z"></path></svg><span style="display:flex;align-items:center;gap:1px"><span style="height:13px;min-width:25px;padding:0 2px;border-radius:4px;background:currentColor;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:700;letter-spacing:-0.02em;line-height:1;color:#fff;mix-blend-mode:difference">100</span></span><span style="width:1.5px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:0.5"></span></span></span></div>
+      <button onClick="{{ close }}" aria-label="Fermer" style="position:absolute;top:72px;left:20px;width:44px;height:44px;border-radius:999px;border:none;background:rgba(255,255,255,0.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+      <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
+        <button aria-label="Lire la vidéo" style="position:absolute;top:220px;left:50%;transform:translateX(-50%);width:68px;height:68px;border-radius:999px;border:none;background:rgba(255,255,255,0.22);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button>
+      </sc-if>
+      <div style="position:absolute;left:20px;right:20px;bottom:6px;display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:40px;line-height:1;letter-spacing:-0.03em;text-wrap:balance">{{ title }}</span>
+        <span style="font-size:16px;line-height:1.4;color:rgba(255,255,255,0.75);text-wrap:pretty;font-weight:500">{{ pitch }}</span>
+      </div>
+    </div>
+
+    <div style="padding:20px 20px 0;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:999px;overflow:hidden;flex:none;position:relative;background:#222;border:1px solid rgba(255,255,255,0.2)"><image-slot id="{{ avatarSlot }}" shape="circle" placeholder="" src="assets/tcmv-monogramme.png"></image-slot><sc-if value="{{ hasCreatorBg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background-color:#fff;background-image:{{ creatorBg }};background-size:cover;background-position:{{ creatorPos }}"></div></sc-if><sc-if value="{{ isThomas }}" hint-placeholder-val="{{ false }}"><img src="assets/coach-thomas.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">avec {{ creator }}</span><span style="font-size:13px;color:rgba(255,255,255,0.55);font-weight:600">{{ creatorRole }}</span></div>
+      <span style="font-size:13px;color:rgba(255,255,255,0.55);font-weight:600">{{ handle }}</span>
+    </div>
+
+    <div style="margin:22px 20px 0;display:flex;flex-direction:column">
+      <sc-for list="{{ specs }}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;align-items:center;justify-content:space-between;height:46px;border-top:1px solid rgba(255,255,255,0.1);font-size:16px;font-weight:600">
+          <span style="color:rgba(255,255,255,0.65)">{{ r.k }}</span><span style="font-weight:600;font-variant-numeric:tabular-nums">{{ r.v }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="margin:22px 20px 0;display:flex;flex-direction:column;gap:10px">
+      <button onClick="{{ start }}" style="height:58px;border:none;border-radius:999px;background:#fff;color:#000;font-size:16px;font-weight:700;cursor:pointer">{{ cta }}</button>
+      <span style="text-align:center;font-size:13px;color:rgba(255,255,255,0.5);font-weight:600">{{ ctaNote }}</span>
+    </div>
+
+    <div style="margin-top:36px;background:#fff;color:#000;border-radius:28px 28px 0 0;padding:30px 20px 40px;display:flex;flex-direction:column;gap:30px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em">Le programme</span>
+        <span style="font-size:16px;line-height:1.5;color:rgba(0,0,0,0.75);text-wrap:pretty;font-weight:500">{{ overview }}</span>
+      </div>
+      <sc-if value="{{ hasWeek }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(0,0,0,0.5)">Une semaine type</span>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ week }}" as="w" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:14px;height:56px;border-top:1px solid rgba(0,0,0,0.08)">
+              <span style="width:30px;font-size:13px;color:rgba(0,0,0,0.5);font-weight:600">{{ w.d }}</span>
+              <span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">{{ w.t }}</span><span style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:600">{{ w.s }}</span></span>
+            </div>
+          </sc-for>
+        </div>
+      </div></sc-if>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em">Ta progression</span>
+        <sc-if value="{{ hasKpi }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:16px;line-height:1.5;color:rgba(0,0,0,0.75);text-wrap:pretty;font-weight:500">{{ kpiIntro }}</span>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;height:56px;border-top:1px solid rgba(0,0,0,0.08)">
+                <span style="width:26px;height:26px;border-radius:999px;background:#000;color:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ k.n }}</span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">{{ k.name }}</span><span style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:600">{{ k.measure }}</span></span>
+                <span style="font-size:13px;font-weight:600;color:rgba(0,0,0,0.55);font-variant-numeric:tabular-nums">{{ k.when }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div></sc-if>
+        <div style="margin-top:4px;border-radius:24px;background:#000;color:#fff;padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.55)">À la fin du programme</span><sc-if value="{{ hasKpi }}" hint-placeholder-val="{{ true }}"><span style="height:24px;padding:0 9px;border-radius:999px;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;font-size:11px;font-weight:600;color:rgba(255,255,255,0.7)">Exemple</span></sc-if></div>
+          <sc-if value="{{ hasKpiEx }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:baseline;padding:10px 0;border-top:1px solid rgba(255,255,255,0.12)">
+                <span style="font-size:15px;font-weight:600">{{ k.name }}</span>
+                <span style="font-size:13px;color:rgba(255,255,255,0.5);font-variant-numeric:tabular-nums;font-weight:600">{{ k.a }} → {{ k.b }}</span>
+                <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;min-width:74px;text-align:right">{{ k.d }}</span>
+              </div>
+            </sc-for>
+          </div></sc-if>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ rewards }}" as="r" hint-placeholder-count="3"><span style="height:32px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,0.12);display:flex;align-items:center;font-size:13px;font-weight:600">{{ r }}</span></sc-for>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ hasGear }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(0,0,0,0.5)">Ce dont tu as besoin</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ gear }}" as="g" hint-placeholder-count="3"><span style="height:34px;padding:0 14px;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;font-size:14px;font-weight:600">{{ g }}</span></sc-for>
+        </div>
+      </div>
+      </sc-if>
+      <div style="display:flex;gap:14px;padding:16px;border-radius:20px;background:#f2f2f2">
+        <div style="width:64px;height:64px;border-radius:16px;overflow:hidden;flex:none;position:relative;background:#ddd"><image-slot id="{{ avatarSlot }}" shape="rect" placeholder="" src="assets/tcmv-monogramme.png"></image-slot><sc-if value="{{ hasCreatorBg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background-color:#fff;background-image:{{ creatorBg }};background-size:cover;background-position:{{ creatorPos }}"></div></sc-if><sc-if value="{{ isThomas }}" hint-placeholder-val="{{ false }}"><img src="assets/coach-thomas.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:700">{{ creator }}</span><span style="font-size:14px;line-height:1.4;color:rgba(0,0,0,0.65);text-wrap:pretty;font-weight:500">{{ bio }}</span></div>
+      </div>
+      <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em">Tu aimeras aussi</span>
+        <div style="display:flex;gap:10px;overflow-x:auto;margin:0 -20px;padding:0 20px">
+          <sc-for list="{{ more }}" as="m" hint-placeholder-count="3">
+            <div style="flex:none;width:170px;display:flex;flex-direction:column;gap:8px">
+              <div style="position:relative;height:210px;border-radius:18px;overflow:hidden;background:#e6e6e6"><image-slot id="{{ m.slot }}" shape="rect" src="assets/seance-cover-2.jpg" placeholder="{{ m.title }}"></image-slot><sc-if value="{{ m.hasImg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background-image:{{ m.bg }};background-size:cover;background-position:{{ m.pos }}"></div></sc-if><span style="position:absolute;left:10px;top:10px;height:24px;padding:0 9px;border-radius:999px;background:rgba(255,255,255,0.9);display:flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase">{{ m.disc }}</span></div>
+              <span style="font-size:15px;font-weight:700;line-height:1.2">{{ m.title }}</span>
+              <span style="font-size:13px;color:rgba(0,0,0,0.55);margin-top:-4px;font-weight:600">avec {{ m.by }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+  <sc-if value="{{ withNav }}" hint-placeholder-val="{{ true }}"><dc-import name="Final Nav Barre" tab="{{ 0 }}" style="position:absolute;left:0;right:0;bottom:0;height:124px;z-index:20" hint-size="100%,124px"></dc-import></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;programme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Hybrid Fondation&quot;,&quot;Pilates Fondamentaux&quot;,&quot;Stretching Mobilité&quot;],&quot;default&quot;:&quot;Hybrid Fondation&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Démo&quot;},&quot;video&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Démo&quot;}}">
+// Chaque programme = row `programmes` (discipline_id, createur_id) — tout éditable dans l'Espace Coach. Données de démo.
+const P = {
+  'Hybrid Fondation': { slot: 'prog-fondation', creator: 'Thomas', role: 'Coach entraînement hybride', handle: '@tcmv', disc: 'Hybride', title: 'Hybrid Fondation', pitch: 'Force, hypertrophie et running dans une même semaine. Pose des bases solides.',
+    specs: [['Séances / semaine', '5'], ['Durée d\u2019une séance', '45-60 min'], ['Niveau', 'Tous niveaux'], ['Discipline', 'Hybride'], ['Durée', '6 semaines']], price: '79€', 
+    overview: 'Trois séances de renforcement et deux de running chaque semaine. Les charges progressent cycle après cycle, et chaque bloc prépare le suivant.',
+    week: [['Lun', 'Upperbody', 'Force / hypertrophie'], ['Mar', 'Run · Fractionné', '45 min'], ['Mer', 'Lowerbody', 'Force'], ['Ven', 'Full body', 'Supersets'], ['Dim', 'Run · Endurance', 'Zone 2 · 50 min']],
+    more: [['prog-performance', 'Hybrid Performance', 'Thomas', 'Hybride'], ['prog-hyrox', 'Hyrox Performance', 'Thomas', 'Hyrox']],
+    kpiTests: 'S1 et S6', kpis: [['Back squat', 'Charge max sur 5 reps', '80 kg', '95 kg', '+15 kg'], ['5 km', 'Chrono', '27:10', '24:35', '−2:35'], ['Tractions', 'Max de reps', '6', '11', '+5 reps']],
+    gear: ['Salle de sport', 'Chaussures de running', 'Montre cardio (conseillé)'], bio: 'Coach depuis 7 ans, fondateur de TCMV. Programme le système hybride qui allie force et endurance.' },
+  'Pilates Fondamentaux': { slot: 'prog-pilates', creator: 'Aurore', role: 'Coach Pilates', handle: '@aurore.pilates', disc: 'Pilates', title: 'Pilates Fondamentaux', pitch: 'Posture, mobilité et contrôle. La base du Pilates au sol, expliquée simplement.',
+    specs: [['Séances / semaine', '6'], ['Durée d\u2019une séance', '20-45 min'], ['Niveau', 'Tous niveaux'], ['Discipline', 'Pilates'], ['Durée', '6 semaines']], price: '59€',
+    overview: 'Un travail lent et précis sur la respiration, le centre et l\u2019alignement. Idéal en complément de tout autre entraînement.',
+    week: [['J1', 'Pilates · Centre', 'Mat · 40 min'], ['J2', 'Stretching · Hanches', '25 min'], ['J4', 'Pilates · Posture + Stretching · Dos', 'Matin · Soir'], ['J5', 'Pilates · Flow', 'Mat · 45 min'], ['J7', 'Mobilité douce', '20 min']],
+    gear: ['Tapis', 'Petit ballon (option)'], bio: 'Coach Pilates certifiée, elle enseigne le mouvement juste et la posture depuis 10 ans.', more: [['prog-stretching', 'Stretching Mobilité', 'Aurore', 'Stretching'], ['coach-aurore', 'Coaching privé', 'Aurore', 'Coaching privé']] },
+  'Stretching Mobilité': { slot: 'prog-stretching', creator: 'Aurore', role: 'Coach Pilates', handle: '@aurore.pilates', disc: 'Stretching', title: 'Stretching Mobilité', pitch: 'Souplesse, hanches et dos libérés. 20 minutes par jour, sans matériel.',
+    specs: [['Séances / semaine', '6'], ['Durée d\u2019une séance', '15-30 min'], ['Niveau', 'Tous niveaux'], ['Discipline', 'Stretching'], ['Durée', '4 semaines']], price: '39€',
+    overview: 'Une zone du corps par jour, des étirements tenus et une respiration guidée. Parfait seul ou en complément du Pilates ou de la musculation.',
+    week: [['J1', 'Hanches', 'Mobilité · 20 min'], ['J2', 'Dos & colonne', 'Détente · 20 min'], ['J3', 'Épaules & nuque', 'Mobilité · 15 min'], ['J5', 'Ischios & mollets', 'Souplesse · 20 min'], ['J6', 'Flow complet', 'Full body · 30 min'], ['J7', 'Respiration & relâchement', 'Récup · 15 min']],
+    more: [['prog-pilates', 'Pilates Fondamentaux', 'Aurore', 'Pilates'], ['coach-aurore', 'Coaching privé', 'Aurore', 'Coaching privé']],
+    kpiTests: 'J1 et S4', kpis: [['Flexion avant', 'Distance mains-sol', '−12 cm', '+2 cm', '+14 cm']],
+    gear: ['Tapis', 'Sangle ou serviette', 'Brique (option)'], bio: 'Coach Pilates certifiée, elle enseigne le mouvement juste et la posture depuis 10 ans.' }
+};
+class Component extends DCLogic {
+  renderVals() {
+    const k = this.props.programme ?? 'Hybrid Fondation', dd = this.props.data;
+    const p = dd && dd.full ? dd : P[k] || (dd ? { week: [], gear: [], overview: dd.pitch, bio: dd.role + ' sur TCMV.', specs: [['Discipline', dd.disc], ['Niveau', dd.level || 'Tous niveaux'], ['Durée', dd.length || '8 semaines']], handle: '', ...dd } : P['Hybrid Fondation']);
+    return {
+      oPad: this.props.embedded ? '0' : '40px 20px', oH: this.props.embedded ? '100%' : 'auto', fW: this.props.embedded ? '100%' : '430px', fH: this.props.embedded ? '100%' : '932px', fR: this.props.embedded ? '0' : '56px', fB: this.props.embedded ? 'none' : '1px solid rgba(255,255,255,0.12)',
+      withNav: !this.props.embedded, close: () => this.props.onClose && this.props.onClose(), start: () => this.props.onStart && this.props.onStart(), hasWeek: (p.week || []).length > 0,
+      isLogo: !!p.logo, isThomas: p.creator === 'Thomas',
+      hasCreatorBg: !!this.props.creatorBg, creatorBg: this.props.creatorBg || 'none', creatorPos: this.props.creatorPos || '50% 50%', hasHeroBg: !!this.props.heroBg, heroBg: this.props.heroBg || 'none', heroPos: this.props.heroPos || '50% 50%', heroSlot: p.slot + '-hero', heroPh: 'Photo de ' + p.creator + ' (vidéo plus tard)', hasVideo: this.props.video ?? false,
+      discipline: p.disc, title: p.title, pitch: p.pitch,
+      avatarSlot: 'creator-' + p.creator.toLowerCase(), creator: p.creator, creatorRole: p.role, handle: p.handle,
+      specs: p.specs.map(([kk, v]) => ({ k: kk, v })),
+      cta: this.props.ctaLabel ? this.props.ctaLabel : this.props.running ? 'Redémarrer le programme' : this.props.owned ? 'Démarrer le programme' : 'Débloquer · ' + p.price, ctaNote: this.props.ctaNote != null ? this.props.ctaNote : this.props.running ? 'En cours · ta progression repartira de la semaine 1' : this.props.owned ? 'Programme débloqué · tu choisis ta date de départ' : 'Paiement sécurisé par Stripe · accès à vie',
+      hasKpi: (p.kpis || []).length > 0, kpiIntro: (p.kpis || []).length > 1 ? (p.kpis.length + ' indicateurs mesurés pendant tes séances test, en ' + p.kpiTests + '. Rien à saisir en plus.') : ('1 indicateur mesuré pendant tes séances test, en ' + p.kpiTests + '. Rien à saisir en plus.'),
+      kpis: (p.kpis || []).map(([name, measure, a, b, d], i) => ({ n: String(i + 1), name, measure, a, b, d, when: p.kpiTests.replace(' et ', ' → ') })),
+      rewards: (p.kpis || []).length ? ['Bilan avant / après', 'Story à partager', 'Records ajoutés au profil'] : ['Bilan de fin', 'Story à partager', 'Programme suivant conseillé'],
+      overview: p.overview, week: p.week.map(([d, t, s]) => ({ d, t, s })), gear: p.gear, bio: p.bio,
+      more: (p.more || Object.keys(P).filter(x => x !== k).map(x => [P[x].slot, P[x].title, P[x].creator, P[x].disc])).map(([slot, title, by, disc, img, pos]) => ({ slot, title, by, disc, hasImg: !!img, bg: img ? 'url("' + img + '")' : 'none', pos: pos || '50% 50%' })),
+      hasKpiEx: (p.kpis || []).some(x => x[2] || x[3] || x[4]), hasGear: (p.gear || []).length > 0, hasMore: (p.more || [1]).length > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

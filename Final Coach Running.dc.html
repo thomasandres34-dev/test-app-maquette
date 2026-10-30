@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./run10k-data.js"></script>
+<script src="./run10k.js"></script>
+<style>body{margin:0;background:#f2f2f2;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#000}a:hover{color:#555}button,input,select,textarea{font-family:inherit}</style>
+</helmet>
+<div data-screen-label="Coach · Moteur running" style="display:flex;flex-direction:column;gap:14px;color:#000;font-size:13px;font-weight:600">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;gap:4px;padding:4px;border-radius:12px;background:#e6e6e6;flex-wrap:wrap">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="7"><button onClick="{{ t.pick }}" style="height:34px;padding:0 14px;border:none;border-radius:9px;background:{{ t.bg }};box-shadow:{{ t.sh }};color:#000;font-size:13px;font-weight:600;cursor:pointer">{{ t.label }}</button></sc-for>
+    </div>
+    <span style="flex:1;min-width:200px;font-size:12.5px;color:rgba(0,0,0,0.55);font-weight:600">{{ tabHelp }}</span>
+    <button onClick="{{ reset }}" style="height:34px;padding:0 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.14);background:#fff;font-size:12.5px;cursor:pointer;color:#000;font-weight:600">Valeurs TCMV par défaut</button>
+  </div>
+
+  <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,300px);gap:14px;align-items:start">
+      <div style="grid-column:1 / -1;display:flex;gap:4px;overflow-x:auto;background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,0.06);padding:6px">
+      
+        <sc-for list="{{ weeks }}" as="w" hint-placeholder-count="12"><button onClick="{{ w.pick }}" style="flex:none;display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:7px 10px;white-space:nowrap;border:none;border-radius:10px;background:{{ w.bg }};color:{{ w.fg }};cursor:pointer;text-align:left"><span style="font-size:13px;font-weight:700">S{{ w.n }}</span><span style="font-size:11px;opacity:0.65;font-weight:600">{{ w.phase }}</span></button></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+        <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:16px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+          <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:22px">Semaine {{ wN }}</span>
+          <label style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Phase</span><input value="{{ wPhase.v }}" onChange="{{ wPhase.set }}" style="height:34px;width:150px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:13px;outline:none;font-weight:600"></input></label>
+          <label style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Repère</span><input value="{{ wTag.v }}" onChange="{{ wTag.set }}" placeholder="ex. Test de contrôle" style="height:34px;width:170px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:13px;outline:none;font-weight:600"></input></label>
+          <span style="flex:1"></span>
+          <button onClick="{{ addSess }}" style="height:34px;padding:0 12px;border-radius:10px;border:none;background:#000;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">+ Séance</button>
+        </div>
+        <sc-for list="{{ sess }}" as="x" hint-placeholder-count="4">
+          <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <span style="height:24px;padding:0 8px;border-radius:7px;background:#000;color:#fff;display:flex;align-items:center;font-size:11px;font-weight:700">{{ x.slot }}</span>
+              <input value="{{ x.title.v }}" onChange="{{ x.title.set }}" style="flex:1;min-width:160px;height:34px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:14px;font-weight:700;outline:none"></input>
+              <select key="{{ x.kind.v }}" value="{{ x.kind.v }}" onChange="{{ x.kind.set }}" style="height:34px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;background:#fff;font-size:12.5px;font-weight:600"><option value="qual">Qualité</option><option value="ef">Endurance</option><option value="sl">Sortie longue</option><option value="test">Test</option></select>
+              <span style="display:flex;gap:3px;align-items:center"><span style="font-size:11px;color:rgba(0,0,0,0.5);margin-right:3px;font-weight:600">Visible si</span><sc-for list="{{ x.vis }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.toggle }}" style="width:30px;height:28px;border:1px solid {{ o.bd }};border-radius:8px;background:{{ o.bg }};color:{{ o.fg }};font-size:12px;font-weight:700;cursor:pointer;padding:0">{{ o.l }}</button></sc-for></span>
+              <div style="width:110px;flex:none"><dc-import name="Final Photo Coach" value="{{ x.imgV }}" on-change="{{ x.setImg }}" aspect="16/9" radius="8px" compact="{{ true }}" hint-size="110px,62px"></dc-import></div>
+              <button onClick="{{ x.remove }}" aria-label="Supprimer la séance" style="width:30px;height:30px;border:none;border-radius:8px;background:transparent;color:rgba(0,0,0,0.4);cursor:pointer;font-size:16px;font-weight:600">×</button>
+            </div>
+            <div style="display:grid;grid-template-columns:minmax(120px,1.6fr) 50px 60px 58px minmax(110px,1fr) 58px 26px;gap:6px;font-size:10.5px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(0,0,0,0.45)"><span>Étape</span><span>Répét.</span><span>Quantité</span><span>Unité</span><span>Zone</span><span>Récup s</span><span></span></div>
+            <sc-for list="{{ x.steps }}" as="st" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:minmax(120px,1.6fr) 50px 60px 58px minmax(110px,1fr) 58px 26px;gap:6px;align-items:center">
+                <input value="{{ st.label.v }}" onChange="{{ st.label.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+                <input value="{{ st.reps.v }}" onChange="{{ st.reps.set }}" inputmode="numeric" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+                <input value="{{ st.amt.v }}" onChange="{{ st.amt.set }}" inputmode="numeric" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+                <select key="{{ st.unit.v }}" value="{{ st.unit.v }}" onChange="{{ st.unit.set }}" style="height:32px;min-width:0;border:1px solid rgba(0,0,0,0.12);border-radius:8px;background:#fff;font-size:12px;font-weight:600"><option value="min">min</option><option value="s">s</option><option value="m">m</option></select>
+                <select key="{{ st.zone.v }}" value="{{ st.zone.v }}" onChange="{{ st.zone.set }}" style="height:32px;min-width:0;border:1px solid rgba(0,0,0,0.12);border-radius:8px;background:{{ st.zbg }};color:{{ st.zfg }};font-size:12px;font-weight:600"><option value="TROT">Récup trot</option><option value="EF">Endurance</option><option value="SEUIL">Seuil</option><option value="AS10">Allure 10 km</option><option value="V95">VMA longue</option><option value="VMA">VMA courte</option><option value="TEST">Test</option></select>
+                <input value="{{ st.rec.v }}" onChange="{{ st.rec.set }}" inputmode="numeric" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+                <button onClick="{{ st.remove }}" aria-label="Supprimer l’étape" style="width:26px;height:26px;border:none;background:transparent;color:rgba(0,0,0,0.4);cursor:pointer;font-size:15px;padding:0;font-weight:600">×</button>
+              </div>
+            </sc-for>
+            <button onClick="{{ x.addStep }}" style="align-self:flex-start;height:28px;padding:0 10px;border-radius:8px;border:1px dashed rgba(0,0,0,0.25);background:#fff;font-size:12px;cursor:pointer;color:#000;font-weight:600">+ Étape</button>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:16px;display:flex;flex-direction:column;gap:12px;position:sticky;top:12px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:15px">Aperçu athlète</span>
+        <span style="font-size:12px;line-height:1.4;color:rgba(0,0,0,0.55);font-weight:500">Ce que verra un athlète pour cette semaine. Allures calculées, jamais saisies.</span>
+        <div style="display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ pvLevels }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.pick }}" style="height:28px;padding:0 9px;border:none;border-radius:999px;background:{{ o.bg }};color:{{ o.fg }};font-size:11.5px;font-weight:600;cursor:pointer">{{ o.l }}</button></sc-for></div>
+        <div style="display:flex;gap:4px"><sc-for list="{{ pvPers }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="height:28px;padding:0 9px;border:none;border-radius:999px;background:{{ o.bg }};color:{{ o.fg }};font-size:11.5px;font-weight:600;cursor:pointer">{{ o.l }}</button></sc-for></div>
+        <label style="display:flex;align-items:center;gap:8px"><span style="font-size:12px;color:rgba(0,0,0,0.55);font-weight:600">Test 5 km</span><input value="{{ pvTest }}" onChange="{{ setPvTest }}" style="width:80px;height:30px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;font-weight:700;outline:none"></input><span style="font-size:12px;color:rgba(0,0,0,0.55);font-weight:600">→ VMA {{ pvVma }}</span></label>
+        <sc-for list="{{ pvSess }}" as="p" hint-placeholder-count="3">
+          <div style="padding:10px 12px;border-radius:12px;background:#f4f4f4;display:flex;flex-direction:column;gap:4px"><span style="font-size:12.5px;font-weight:700">{{ p.t }} · ~{{ p.dur }} min</span><sc-for list="{{ p.lines }}" as="l" hint-placeholder-count="2"><span style="font-size:11.5px;color:rgba(0,0,0,0.65);font-weight:600">{{ l.t }}</span></sc-for></div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isLevels }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+      <sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
+        <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:16px;display:flex;flex-direction:column;gap:10px">
+          <input value="{{ l.name.v }}" onChange="{{ l.name.set }}" style="height:36px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;outline:none"></input>
+          <textarea value="{{ l.who.v }}" onChange="{{ l.who.set }}" rows="2" style="padding:8px 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:12.5px;line-height:1.4;resize:vertical;outline:none;font-weight:500"></textarea>
+          <span style="display:flex;align-items:center;gap:4px"><span style="flex:1;font-size:12px;color:rgba(0,0,0,0.55);font-weight:600">Séances / semaine possibles</span><sc-for list="{{ l.sess }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.toggle }}" style="width:30px;height:28px;border:1px solid {{ o.bd }};border-radius:8px;background:{{ o.bg }};color:{{ o.fg }};font-size:12px;font-weight:700;cursor:pointer;padding:0">{{ o.l }}</button></sc-for></span>
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+            <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Facteur répétitions</span><input value="{{ l.repF.v }}" onChange="{{ l.repF.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label>
+            <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Facteur durées</span><input value="{{ l.durF.v }}" onChange="{{ l.durF.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label>
+            <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Gain max 12 sem. (%)</span><input value="{{ l.maxGain.v }}" onChange="{{ l.maxGain.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label>
+            <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">VMA par défaut (km/h)</span><input value="{{ l.vma0.v }}" onChange="{{ l.vma0.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Test d’entrée</span><select key="{{ l.test.v }}" value="{{ l.test.v }}" onChange="{{ l.test.set }}" style="height:32px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;background:#fff;font-size:12.5px;font-weight:600"><option value="t5k">Test 5 km</option><option value="t20">Test 20 min</option><option value="t10k">10 km chrono</option></select></label>
+          <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Conseil affiché sur les séances</span><input value="{{ l.note.v }}" onChange="{{ l.note.set }}" placeholder="Optionnel" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input></label>
+          <span style="font-size:11.5px;color:rgba(0,0,0,0.45);font-weight:600">Gain max 0 = objectif « finir » uniquement.</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isZones }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);overflow:hidden">
+      <div style="display:grid;grid-template-columns:70px minmax(0,1fr) 64px 64px 56px minmax(0,1.6fr) 130px 90px;gap:8px;padding:10px 16px;font-size:10.5px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(0,0,0,0.45);border-bottom:1px solid rgba(0,0,0,0.06)"><span>Code</span><span>Nom</span><span>% min</span><span>% max</span><span>Effort</span><span>Test de parole</span><span>Couleur</span><span>Ex. VMA 12,6</span></div>
+      <span style="display:block;padding:10px 16px 0;font-size:11.5px;color:rgba(0,0,0,0.5);font-weight:600">Allure 10 km : % utilisé jusqu’en S8, puis allure du chrono visé (si validé) de S9 à S12. Test : effort maximal, sans allure.</span>
+      <sc-for list="{{ zones }}" as="z" hint-placeholder-count="7">
+        <div style="display:grid;grid-template-columns:70px minmax(0,1fr) 64px 64px 56px minmax(0,1.6fr) 130px 90px;gap:8px;padding:8px 16px;align-items:center;border-bottom:1px solid rgba(0,0,0,0.05)">
+          <span style="font-size:12px;font-weight:700">{{ z.code }}</span>
+          <input value="{{ z.name.v }}" onChange="{{ z.name.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+          <input value="{{ z.min.v }}" onChange="{{ z.min.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+          <input value="{{ z.max.v }}" onChange="{{ z.max.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+          <input value="{{ z.rpe.v }}" onChange="{{ z.rpe.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+          <input value="{{ z.talk.v }}" onChange="{{ z.talk.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input>
+          <span style="display:flex;gap:6px"><sc-for list="{{ z.sw }}" as="w" hint-placeholder-count="5"><button onClick="{{ w.pick }}" aria-label="Couleur" style="width:18px;height:18px;border-radius:999px;border:1px solid rgba(0,0,0,0.15);background:{{ w.col }};box-shadow:{{ w.ring }};cursor:pointer;padding:0"></button></sc-for></span>
+          <span style="font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">{{ z.ex }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTests }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">
+      <sc-for list="{{ tests }}" as="t" hint-placeholder-count="3">
+        <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:16px;display:flex;flex-direction:column;gap:10px">
+          <input value="{{ t.name.v }}" onChange="{{ t.name.set }}" style="height:36px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:16px;outline:none"></input>
+          <span style="font-size:12px;color:rgba(0,0,0,0.55);font-weight:600">{{ t.kindTxt }}</span>
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+            <sc-if value="{{ t.isDist }}" hint-placeholder-val="{{ true }}"><label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Distance (m)</span><input value="{{ t.dist.v }}" onChange="{{ t.dist.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label></sc-if>
+            <sc-if value="{{ t.isTime }}" hint-placeholder-val="{{ false }}"><label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Durée (s)</span><input value="{{ t.dur.v }}" onChange="{{ t.dur.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label></sc-if>
+            <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Coefficient VMA</span><input value="{{ t.factor.v }}" onChange="{{ t.factor.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:13px;outline:none;font-weight:600"></input></label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Consigne athlète</span><textarea value="{{ t.help.v }}" onChange="{{ t.help.set }}" rows="3" style="padding:8px 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:12.5px;line-height:1.4;resize:vertical;outline:none;font-weight:500"></textarea></label>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isIntake }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ intake }}" as="q" hint-placeholder-count="7">
+        <div style="background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,0.06);padding:12px 14px;display:grid;grid-template-columns:28px minmax(0,1.2fr) minmax(0,1.4fr) 70px 60px;gap:10px;align-items:center">
+          <span style="width:24px;height:24px;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ q.n }}</span>
+          <span style="display:flex;flex-direction:column;gap:6px;min-width:0"><input value="{{ q.label.v }}" onChange="{{ q.label.set }}" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:13px;font-weight:600;outline:none"></input><input value="{{ q.help.v }}" onChange="{{ q.help.set }}" placeholder="Aide (optionnel)" style="height:28px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.08);border-radius:8px;font-size:12px;outline:none;font-weight:600"></input></span>
+          <sc-if value="{{ q.hasOpts }}" hint-placeholder-val="{{ true }}"><input value="{{ q.opts.v }}" onChange="{{ q.opts.set }}" title="Réponses séparées par /" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12px;outline:none;font-weight:600"></input></sc-if>
+          <span style="height:24px;padding:0 8px;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">{{ q.type }}</span>
+          <span style="display:flex;gap:4px"><button onClick="{{ q.up }}" aria-label="Monter" style="width:26px;height:26px;border:1px solid rgba(0,0,0,0.14);border-radius:7px;background:#fff;cursor:pointer;padding:0">↑</button><button onClick="{{ q.down }}" aria-label="Descendre" style="width:26px;height:26px;border:1px solid rgba(0,0,0,0.14);border-radius:7px;background:#fff;cursor:pointer;padding:0">↓</button></span>
+        </div>
+      </sc-for>
+      <span style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:600">Les types Chrono, Objectif et Jours alimentent le calcul (VMA de départ, faisabilité, planning) : leur logique est fixe, leurs textes sont éditables.</span>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isRules }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
+        <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:14px 16px;display:grid;grid-template-columns:44px minmax(0,1fr) minmax(0,1.6fr);gap:14px;align-items:start">
+          <button onClick="{{ r.toggle }}" aria-label="Activer" style="position:relative;width:44px;height:24px;border:none;border-radius:999px;background:{{ r.onBg }};cursor:pointer;padding:0;margin-top:6px"><span style="position:absolute;top:2px;left:{{ r.onX }}px;width:20px;height:20px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2);transition:left .2s ease"></span></button>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <input value="{{ r.label.v }}" onChange="{{ r.label.set }}" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:13px;font-weight:700;outline:none"></input>
+            <span style="font-size:12px;color:rgba(0,0,0,0.55);font-weight:600">Si {{ r.when }}</span>
+            <span style="display:flex;gap:8px;align-items:center"><sc-if value="{{ r.hasVal }}" hint-placeholder-val="{{ true }}"><label style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">{{ r.valLbl }}</span><input value="{{ r.value.v }}" onChange="{{ r.value.set }}" style="width:56px;height:30px;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input></label></sc-if><button onClick="{{ r.notify }}" style="height:28px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:999px;background:{{ r.nBg }};color:{{ r.nFg }};font-size:11.5px;font-weight:600;cursor:pointer">Alerte coach</button></span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <input value="{{ r.title.v }}" onChange="{{ r.title.set }}" placeholder="Titre affiché" style="height:32px;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:13px;font-weight:600;outline:none"></input>
+            <textarea value="{{ r.msg.v }}" onChange="{{ r.msg.set }}" rows="2" style="padding:8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;line-height:1.4;resize:vertical;outline:none;font-weight:500"></textarea>
+          </div>
+        </div>
+      </sc-for>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(0,0,0,0.6);font-weight:600">Écart d’effort ressenti vs cible qui compte comme « trop dur » / « trop facile » (points)<input value="{{ rpeGap.v }}" onChange="{{ rpeGap.set }}" style="width:56px;height:30px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input></label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(0,0,0,0.6);font-weight:600">Ajustement VMA maximum entre deux tests (%)<input value="{{ capVma.v }}" onChange="{{ capVma.set }}" style="width:56px;height:30px;padding:0 8px;border:1px solid rgba(0,0,0,0.14);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input></label>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isPack }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+        <label style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Nom affiché</span><input value="{{ pTitle.v }}" onChange="{{ pTitle.set }}" style="height:36px;width:220px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:14px;font-weight:700;outline:none"></input></label>
+        <label style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Créateur</span><input value="{{ pBy.v }}" onChange="{{ pBy.set }}" style="height:36px;width:140px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:14px;outline:none;font-weight:600"></input></label>
+        <label style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Prix du pack (€)</span><input value="{{ price.v }}" onChange="{{ price.set }}" style="height:36px;width:100px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:14px;font-weight:700;outline:none"></input></label>
+        <span style="flex:1"></span>
+        <button onClick="{{ addBonus }}" style="height:36px;padding:0 14px;border-radius:10px;border:none;background:#000;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">+ Séance complémentaire</button>
+      </div>
+      <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);padding:16px;display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:15px">Visuels du programme</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+          <dc-import name="Final Photo Coach" value="{{ cover }}" on-change="{{ setCover }}" aspect="4/5" label="Couverture · page « Le pack »" hint-size="100%,340px"></dc-import>
+          <dc-import name="Final Photo Coach" value="{{ byPhoto }}" on-change="{{ setByPhoto }}" aspect="1/1" label="Photo du créateur · fiche de vente" hint-size="100%,260px"></dc-import>
+          <dc-import name="Final Photo Coach" value="{{ sessImg }}" on-change="{{ setSessImg }}" aspect="16/9" label="Photo des séances par défaut · Aujourd’hui, prochaine séance, écran séance" hint-size="100%,180px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">
+        <sc-for list="{{ bonus }}" as="b" hint-placeholder-count="5">
+          <div style="background:#fff;border-radius:20px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;display:flex;flex-direction:column">
+            <div style="position:relative"><dc-import name="Final Photo Coach" value="{{ b.imgV }}" on-change="{{ b.setImg }}" aspect="5/6" radius="0" hint-size="100%,200px"></dc-import><button onClick="{{ b.remove }}" aria-label="Retirer" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border:none;border-radius:999px;background:rgba(255,255,255,0.92);cursor:pointer;font-size:15px;padding:0;font-weight:600">×</button></div>
+            <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+              <input value="{{ b.name.v }}" onChange="{{ b.name.set }}" style="height:34px;padding:0 10px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;font-size:14px;font-weight:700;outline:none"></input>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 70px;gap:6px"><input value="{{ b.sub.v }}" onChange="{{ b.sub.set }}" placeholder="Sous-titre" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input><input value="{{ b.dur.v }}" onChange="{{ b.dur.set }}" title="Durée (min)" style="height:32px;min-width:0;padding:0 8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12.5px;outline:none;font-weight:600"></input></div>
+              <textarea value="{{ b.ex.v }}" onChange="{{ b.ex.set }}" rows="5" title="Un exercice par ligne : nom | dosage" style="padding:8px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-size:12px;line-height:1.5;resize:vertical;outline:none;font-weight:500"></textarea>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <span style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:600">Côté athlète : page « Le pack » à l’ouverture du programme + carrousel sous la séance du jour. Une séance complémentaire faite va dans l’historique, sans cocher le planning.</span>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
+const TABS = [['plan', 'Planning 12 sem.', 'Séances par semaine. « Visible si » = version 3, 4 ou 5 séances. Les zones remplacent toute allure écrite.'], ['levels', 'Niveaux', 'Le niveau est proposé après le questionnaire. Les facteurs ajustent répétitions et durées du planning.'], ['zones', 'Zones d’allure', '% de VMA par zone. L’allure de chaque athlète est calculée : VMA × %.'], ['tests', 'Tests', 'Coefficient = part de la VMA tenue sur le test. VMA = vitesse du test ÷ coefficient.'], ['intake', 'Questionnaire', 'Questions d’entrée, dans l’ordre affiché à l’athlète.'], ['rules', 'Règles', 'Adaptations automatiques après les retours de séance.'], ['pack', 'Pack', 'Prix du pack et séances complémentaires en accès libre.']];
+const KINDS = [['qual', 'Qualité'], ['ef', 'Endurance'], ['sl', 'Sortie longue'], ['test', 'Test']];
+class Component extends DCLogic {
+  state = { tab: 'plan', wk: 0, pvL: 'int', pvN: 4, pvT: '25:00' };
+  componentDidMount() { const hook = () => { if (window.RUN10K && window.RUN10K_DEFAULT) { this.off = window.RUN10K.on(() => this.forceUpdate()); this.forceUpdate(); } else this.w = setTimeout(hook, 40); }; hook(); }
+  componentWillUnmount() { clearTimeout(this.w); this.off && this.off(); }
+  renderVals() {
+    const R = window.RUN10K, s = this.state;
+    const tabs = TABS.map(([id, label]) => ({ label, bg: s.tab === id ? '#fff' : 'transparent', sh: s.tab === id ? '0 1px 3px rgba(0,0,0,0.12)' : 'none', pick: () => this.setState({ tab: id }) }));
+    const base = { tabs, tabHelp: (TABS.find(t => t[0] === s.tab) || [])[2], isPlan: s.tab === 'plan', isLevels: s.tab === 'levels', isZones: s.tab === 'zones', isTests: s.tab === 'tests', isIntake: s.tab === 'intake', isRules: s.tab === 'rules', isPack: s.tab === 'pack' };
+    if (!R || !window.RUN10K_DEFAULT) return { ...base, weeks: [], sess: [] };
+    const c = R.cfg();
+    const upd = (fn) => { const n = JSON.parse(JSON.stringify(c)); fn(n); R.saveCfg(n); };
+    const num = (x) => { const v = parseFloat(String(x).replace(',', '.')); return isNaN(v) ? 0 : v; };
+    const F = (get, setter, cast) => ({ v: get(), set: (ev) => { const raw = ev.target.value, val = cast === 'n' && /^-?\d+([.,]\d+)?$/.test(raw) ? num(raw) : raw; upd(n => setter(n, val)); } });
+    const wk = Math.min(s.wk, c.weeks.length - 1), W = c.weeks[wk];
+    const zoneOpts = c.zones.map(z => ({ v: z.code, l: z.name }));
+    // Aperçu : athlète fictif construit avec le moteur
+    const pvA = { level: s.pvL, perWeek: s.pvN, days: [1, 3, 5, 6, 0].slice(0, s.pvN), slDay: 6, start: '2026-09-28', refs: [{ vma: R.vmaFromTest(c, 't5k', R.parseTime(s.pvT)) || 12 }], adj: 0, goal: { type: 'finish' }, done: {}, replaced: {} };
+    const pvItems = R.schedule(c, pvA).filter(x => x.week === wk + 1);
+    const lvl = R.level(c, s.pvL);
+    const out = { ...base, reset: () => { if (confirm('Remettre toutes les valeurs TCMV par défaut ?')) R.resetCfg(); },
+      weeks: c.weeks.map((w, i) => ({ n: i + 1, phase: w.phase + (w.tag ? ' · ' + w.tag : ''), bg: i === wk ? '#000' : 'transparent', fg: i === wk ? '#fff' : '#000', pick: () => this.setState({ wk: i }) })),
+      wN: wk + 1, wPhase: F(() => W.phase, (n, v) => { n.weeks[wk].phase = v; }), wTag: F(() => W.tag, (n, v) => { n.weeks[wk].tag = v; }),
+      addSess: () => upd(n => { const used = n.weeks[wk].s.map(x => x.slot); const slot = ['Q1', 'EF', 'Q2', 'SL', 'X', 'Y'].find(x => !used.includes(x)) || 'Y' + used.length; n.weeks[wk].s.push({ slot, kind: 'ef', title: 'Nouvelle séance', vis: [5], steps: [['Footing', 1, 30, 'min', 'EF', 0]] }); }),
+      kindOpts: KINDS.map(([v, l]) => ({ v, l })), zoneOpts,
+      sess: W.s.map((x, si) => ({ slot: x.slot, imgV: x.img || c.program.sessImg, setImg: (v) => upd(n => { n.weeks[wk].s[si].img = v; }),
+        title: F(() => x.title, (n, v) => { n.weeks[wk].s[si].title = v; }), kind: F(() => x.kind, (n, v) => { const t = n.weeks[wk].s[si]; t.kind = v; if (v === 'test' && !t.test) t.test = 't5k'; }),
+        vis: [3, 4, 5].map(k => { const on = (x.vis || []).includes(k); return { l: String(k), bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.14)', toggle: () => upd(n => { const t = n.weeks[wk].s[si]; t.vis = on ? t.vis.filter(y => y !== k) : t.vis.concat(k).sort(); }) }; }),
+        remove: () => upd(n => { n.weeks[wk].s.splice(si, 1); }),
+        addStep: () => upd(n => { const st = n.weeks[wk].s[si].steps, at = st.length && /retour au calme/i.test(st[st.length - 1][0]) ? st.length - 1 : st.length; st.splice(at, 0, ['Bloc', 1, 10, 'min', 'EF', 0]); }),
+        steps: x.steps.map((st, ti) => { const z = R.zone(c, st[4]); const P = (k, cast) => F(() => String(st[k]), (n, v) => { n.weeks[wk].s[si].steps[ti][k] = v; }, cast);
+          return { label: P(0), reps: P(1, 'n'), amt: P(2, 'n'), unit: P(3), zone: P(4), rec: P(5, 'n'), zbg: z.color, zfg: z.color === '#000' ? '#fff' : '#000', remove: () => upd(n => { n.weeks[wk].s[si].steps.splice(ti, 1); }) }; }) })),
+      pvLevels: c.levels.map(l => ({ l: l.name, bg: l.id === s.pvL ? '#000' : '#f2f2f2', fg: l.id === s.pvL ? '#fff' : '#000', pick: () => this.setState({ pvL: l.id, pvN: l.sessions.includes(s.pvN) ? s.pvN : l.sessions[l.sessions.length - 1] }) })),
+      pvPers: lvl.sessions.map(n => ({ l: n + ' séances', bg: n === s.pvN ? '#000' : '#f2f2f2', fg: n === s.pvN ? '#fff' : '#000', pick: () => this.setState({ pvN: n }) })),
+      pvTest: s.pvT, setPvTest: (ev) => this.setState({ pvT: ev.target.value }), pvVma: String(pvA.refs[0].vma).replace('.', ','),
+      pvSess: pvItems.map(it => { const inf = R.info(c, pvA, it); return { t: R.WF[it.wd].replace(/^./, m => m.toUpperCase()) + ' · ' + it.def.title, dur: inf.durMin, lines: inf.steps.map(x => ({ t: x.main + ' · ' + x.zoneName + (x.hasPace ? ' ' + x.pace : '') + (x.rec ? ' · ' + x.rec : '') })) }; })
+    };
+    // Niveaux
+    out.levels = c.levels.map((l, i) => { const P = (k, cast) => F(() => String(l[k] ?? ''), (n, v) => { n.levels[i][k] = v; }, cast);
+      return { name: P('name'), who: P('who'), repF: P('repF', 'n'), durF: P('durF', 'n'), maxGain: P('maxGain', 'n'), vma0: P('vma0', 'n'), note: P('note'), test: P('test'),
+        sess: [3, 4, 5].map(k => { const on = l.sessions.includes(k); return { l: String(k), bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.14)', toggle: () => upd(n => { const t = n.levels[i]; const ns = on ? t.sessions.filter(y => y !== k) : t.sessions.concat(k).sort(); if (ns.length) t.sessions = ns; }) }; }) }; });
+    out.testOpts = c.tests.map(t => ({ v: t.id, l: t.name }));
+    // Zones
+    const SW = ['#e6e6e6', '#d4e4cf', '#f0dca8', '#f2b8a0', '#000'];
+    out.zones = c.zones.map((z, i) => { const P = (k, cast) => F(() => String(z[k] ?? ''), (n, v) => { n.zones[i][k] = v; }, cast);
+      return { code: z.code, name: P('name'), min: P('min', 'n'), max: P('max', 'n'), rpe: P('rpe', 'n'), talk: P('talk'), isGoal: !!z.goal, notGoal: !z.goal, ex: z.code === 'TEST' ? 'à fond' : R.paceFor(c, { refs: [{ vma: 12.6 }], adj: 0, goal: { type: 'finish' } }, z.code, 1).txt,
+        sw: SW.map(col => ({ col, ring: z.color === col ? '0 0 0 2px #fff, 0 0 0 3.5px #000' : 'none', pick: () => upd(n => { n.zones[i].color = col; }) })) }; });
+    // Tests
+    out.tests = c.tests.map((t, i) => { const P = (k, cast) => F(() => String(t[k] ?? ''), (n, v) => { n.tests[i][k] = v; }, cast);
+      return { name: P('name'), factor: P('factor', 'n'), help: P('help'), isDist: t.kind === 'dist', isTime: t.kind === 'time', dist: P('dist', 'n'), dur: P('dur', 'n'), kindTxt: t.kind === 'dist' ? 'Chrono sur distance (m)' : 'Distance sur durée (s)' }; });
+    // Questionnaire
+    const TT = { choice: 'Choix', chrono: 'Chrono', goal: 'Objectif', days: 'Jours' };
+    out.intake = c.intake.map((q, i) => ({ n: String(i + 1), type: TT[q.type] || q.type, label: F(() => q.label, (n, v) => { n.intake[i].label = v; }), help: F(() => q.help || '', (n, v) => { n.intake[i].help = v; }),
+      hasOpts: !!q.options, opts: F(() => (q.options || []).join(' / '), (n, v) => { n.intake[i].options = v.split('/').map(x => x.trim()).filter(Boolean); }),
+      up: () => i > 0 && upd(n => { const a = n.intake; [a[i - 1], a[i]] = [a[i], a[i - 1]]; }), down: () => i < c.intake.length - 1 && upd(n => { const a = n.intake; [a[i + 1], a[i]] = [a[i], a[i + 1]]; }) }));
+    // Règles
+    out.rules = c.rules.map((r, i) => { const P = (k, cast) => F(() => String(r[k] ?? ''), (n, v) => { n.rules[i][k] = v; }, cast);
+      return { label: P('label'), when: r.when, value: P('value', 'n'), title: P('title'), msg: P('msg'), valLbl: r.action === 'vma' ? 'VMA %' : r.action === 'replace' ? 'Footing min' : '—', hasVal: r.action !== 'goal',
+        onBg: r.on ? '#22c55e' : '#e6e6e6', onX: r.on ? 20 : 2, toggle: () => upd(n => { n.rules[i].on = !n.rules[i].on; }),
+        nBg: r.notify ? '#000' : '#fff', nFg: r.notify ? '#fff' : '#000', notify: () => upd(n => { n.rules[i].notify = !n.rules[i].notify; }) }; });
+    out.capVma = F(() => String(c.capVma), (n, v) => { n.capVma = v; }, 'n');
+    out.rpeGap = F(() => String(c.rpeGap ?? 2), (n, v) => { n.rpeGap = v; }, 'n');
+    out.rules = out.rules.map((r, i) => ({ ...r, when: (window.RUN10K_DEFAULT.rules.find(x => x.id === c.rules[i].id) || c.rules[i]).when }));
+    // Pack
+    out.price = F(() => String(c.program.price), (n, v) => { n.program.price = v; }, 'n');
+    out.pTitle = F(() => c.program.title, (n, v) => { n.program.title = v; }); out.pBy = F(() => c.program.by, (n, v) => { n.program.by = v; });
+    out.bonus = c.bonus.map((b, i) => { const P = (k, cast) => F(() => String(b[k] ?? ''), (n, v) => { n.bonus[i][k] = v; }, cast);
+      return { img: b.img, name: P('name'), sub: P('sub'), dur: P('dur', 'n'), ex: F(() => b.ex.map(e => e[0] + ' | ' + e[1]).join('\n'), (n, v) => { n.bonus[i].ex = v.split('\n').map(l => l.split('|').map(x => x.trim())).filter(e => e[0]).map(e => [e[0], e[1] || '']); }),
+        remove: () => upd(n => { n.bonus.splice(i, 1); }) }; });
+    const pick = (apply) => (ev) => { const f = ev.target.files && ev.target.files[0]; if (!f) return; const rd = new FileReader();
+      rd.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 1000 / Math.max(im.width, im.height)), cv = document.createElement('canvas'); cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k); cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); const url = cv.toDataURL('image/jpeg', 0.82); upd(n => apply(n, url)); }; im.src = rd.result; };
+      rd.readAsDataURL(f); ev.target.value = ''; };
+    out.cover = c.program.cover; out.sessImg = c.program.sessImg;
+    out.byPhoto = c.program.byPhoto || 'assets/tcmv-monogramme.png'; out.setByPhoto = (v) => upd(n => { n.program.byPhoto = v; });
+    out.setCover = (v) => upd(n => { n.program.cover = v; }); out.setSessImg = (v) => upd(n => { n.program.sessImg = v; });
+    out.bonus = out.bonus.map((b, i) => ({ ...b, imgV: c.bonus[i].img, setImg: (v) => upd(n => { n.bonus[i].img = v; }) }));
+    out.addBonus = () => upd(n => { n.bonus.push({ id: 'b' + Date.now(), name: 'Nouvelle séance complémentaire', sub: '', dur: 20, img: 'assets/seance-cover.jpg', ex: [['Exercice', '3 × 10']] }); });
+    return out;
+  }
+}
+</script>
+</body>
+</html>

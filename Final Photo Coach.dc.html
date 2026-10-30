@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:flex;flex-direction:column;gap:6px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#000">
+  <div style="position:relative;width:100%;aspect-ratio:{{ ar }};border-radius:{{ radius }};overflow:hidden;background:#e8e8e8">
+    <sc-if value="{{ hasSrc }}" hint-placeholder-val="{{ true }}"><img src="{{ src }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ pos }};transform:scale({{ z }});transform-origin:{{ pos }};pointer-events:none"></img></sc-if>
+    <sc-if value="{{ noSrc }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(0,0,0,0.45)">Aucune photo</span></sc-if>
+    <sc-if value="{{ compact }}" hint-placeholder-val="{{ false }}"><button onClick="{{ openOrPick }}" aria-label="Modifier la photo" style="position:absolute;inset:0;border:none;background:transparent;cursor:pointer;padding:0"></button><span style="position:absolute;right:4px;bottom:4px;height:20px;padding:0 7px;border-radius:999px;background:rgba(255,255,255,0.94);display:flex;align-items:center;font-size:10.5px;font-weight:700;pointer-events:none">Modifier</span><input type="file" accept="image/*" onChange="{{ pick }}" ref="{{ fileRef }}" style="display:none"></input></sc-if>
+    <sc-if value="{{ full }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:8px;bottom:8px;display:flex;gap:6px">
+      <label style="height:28px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,0.94);display:flex;align-items:center;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.12)">{{ changeLbl }}<input type="file" accept="image/*" onChange="{{ pick }}" style="display:none"></input></label>
+      <sc-if value="{{ hasSrc }}" hint-placeholder-val="{{ true }}"><button onClick="{{ openCrop }}" style="height:28px;padding:0 10px;border:none;border-radius:999px;background:rgba(255,255,255,0.94);font-size:12px;font-weight:600;cursor:pointer;color:#000;box-shadow:0 1px 3px rgba(0,0,0,0.12)">Recadrer</button></sc-if>
+    </div></sc-if>
+  </div>
+  <sc-if value="{{ hasLabel }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:rgba(0,0,0,0.55)">{{ label }}</span></sc-if>
+
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ cancel }}" style="position:{{ edPos }};inset:0;z-index:200;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:24px">
+      <div onClick="{{ stop }}" style="width:100%;max-width:520px;background:#fff;border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:18px">Recadrer</span><span style="font-size:12px;color:rgba(0,0,0,0.5)">Glisse pour déplacer · format {{ arTxt }}</span></div>
+        <div onPointerDown="{{ down }}" style="position:relative;width:100%;max-height:60vh;aspect-ratio:{{ ar }};border-radius:14px;overflow:hidden;background:#111;cursor:grab;touch-action:none;user-select:none">
+          <img src="{{ src }}" alt="" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ dPos }};transform:scale({{ dZ }});transform-origin:{{ dPos }};pointer-events:none"></img>
+          <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.35) 1px,transparent 1px);background-size:33.333% 33.333%;background-position:-1px -1px"></div>
+        </div>
+        <label style="display:flex;align-items:center;gap:12px"><span style="font-size:12.5px;font-weight:600;width:44px">Zoom</span><input type="range" min="1" max="3" step="0.01" value="{{ dZ }}" onChange="{{ setZ }}" style="flex:1;accent-color:#000"></input><span style="font-size:12px;color:rgba(0,0,0,0.55);width:40px;text-align:right;font-variant-numeric:tabular-nums">{{ zTxt }}</span></label>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <label style="height:38px;padding:0 14px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;background:#fff;font-size:13px;cursor:pointer;color:#000;display:flex;align-items:center">Changer la photo<input type="file" accept="image/*" onChange="{{ pick }}" style="display:none"></input></label>
+          <button onClick="{{ reset }}" style="height:38px;padding:0 12px;border:none;border-radius:10px;background:transparent;font-size:13px;cursor:pointer;color:rgba(0,0,0,0.6);margin-right:auto">Centrer</button>
+          <button onClick="{{ cancel }}" style="height:38px;padding:0 14px;border:1px solid rgba(0,0,0,0.14);border-radius:10px;background:#fff;font-size:13px;cursor:pointer;color:#000">Annuler</button>
+          <button onClick="{{ save }}" style="height:38px;padding:0 16px;border:none;border-radius:10px;background:#000;color:#fff;font-size:13px;font-weight:700;cursor:pointer">Valider</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:360,&quot;height&quot;:260},&quot;value&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;assets/running-cover.jpg&quot;,&quot;tsType&quot;:&quot;string | {src:string,x:number,y:number,z:number}&quot;},&quot;aspect&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;16/9&quot;,&quot;4/5&quot;,&quot;1/1&quot;,&quot;3/4&quot;],&quot;default&quot;:&quot;16/9&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;radius&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;14px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onChange&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(v) =&gt; void&quot;}}">
+// Photo éditable : { src, x, y, z } → x/y = point de cadrage (%), z = zoom. Lovable : colonnes image_url, crop_x, crop_y, crop_zoom.
+const norm = (v) => typeof v === 'string' ? { src: v, x: 50, y: 50, z: 1 } : { x: 50, y: 50, z: 1, ...(v || {}) };
+const cl = (n, a, b) => Math.max(a, Math.min(b, n));
+class Component extends DCLogic {
+  state = { open: false, d: null };
+  componentWillUnmount() { this.unbind && this.unbind(); }
+  emit(v) { this.props.onChange && this.props.onChange(v); }
+  componentDidMount() { if (this.props.demo) setTimeout(() => { const D = this._D = { open: { open: true, d: { src: 'assets/coach-thomas.png', x: 50, y: 30, z: 1 } } }; const st = D[this.props.demo]; if (st) this.setState(st); }, 400); }
+  renderVals() { if (this.props.demo && (!this._rpSeen || this.props.replay !== this._rp)) { const first = !this._rpSeen; this._rpSeen = true; this._rp = this.props.replay; const st = this._D && this._D[this.props.demo]; if (!first && st) setTimeout(() => { const clr = {}; Object.keys(st).forEach(k => { if (!['view', 'f'].includes(k)) clr[k] = null; }); this.setState(clr); setTimeout(() => this.setState(st), 300); }); }
+    const v = norm(this.props.value), s = this.state, d = s.d || v, ar = this.props.aspect || '16/9';
+    return {
+      edPos: this.props.demo ? 'absolute' : 'fixed', ar, arTxt: ar.replace('/', ':'), radius: this.props.radius || '14px', label: this.props.label || '', hasLabel: !!this.props.label,
+      src: v.src || (this.state.d && this.state.d.src) || 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', hasSrc: !!v.src, noSrc: !v.src, pos: v.x + '% ' + v.y + '%', z: v.z, changeLbl: v.src ? 'Changer' : 'Ajouter une photo',
+      pick: (ev) => { const f = ev.target.files && ev.target.files[0]; if (!f) return; const rd = new FileReader();
+        rd.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 1400 / Math.max(im.width, im.height)), cv = document.createElement('canvas'); cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k); cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); const nv = { src: cv.toDataURL('image/jpeg', 0.82), x: 50, y: 50, z: 1 }; this.emit(nv); this.setState({ open: true, d: nv }); }; im.src = rd.result; };
+        rd.readAsDataURL(f); ev.target.value = ''; },
+      compact: !!this.props.compact, full: !this.props.compact, fileRef: (el) => { this.fileEl = el; },
+      openOrPick: () => v.src ? this.setState({ open: true, d: v }) : this.fileEl && this.fileEl.click(),
+      open: s.open, openCrop: () => this.setState({ open: true, d: v }), stop: (ev) => ev.stopPropagation(),
+      dPos: d.x + '% ' + d.y + '%', dZ: d.z, zTxt: Math.round(d.z * 100) + ' %',
+      setZ: (ev) => this.setState({ d: { ...d, z: parseFloat(ev.target.value) } }),
+      reset: () => this.setState({ d: { ...d, x: 50, y: 50, z: 1 } }),
+      cancel: () => this.setState({ open: false, d: null }),
+      save: () => { this.emit({ src: d.src || v.src, x: Math.round(d.x * 10) / 10, y: Math.round(d.y * 10) / 10, z: Math.round(d.z * 100) / 100 }); this.setState({ open: false, d: null }); },
+      down: (ev) => { ev.preventDefault(); const r = ev.currentTarget.getBoundingClientRect(), st = { px: ev.clientX, py: ev.clientY, x: d.x, y: d.y };
+        const mv = (e) => { const z = (this.state.d || d).z; this.setState(S => ({ d: { ...(S.d || d), x: cl(st.x - (e.clientX - st.px) / r.width * 160 / z, 0, 100), y: cl(st.y - (e.clientY - st.py) / r.height * 160 / z, 0, 100) } })); };
+        const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); this.unbind = null; };
+        window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); this.unbind = up; }
+    };
+  }
+}
+</script>
+</body>
+</html>

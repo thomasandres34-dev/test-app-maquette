@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./tcmv-accounts.js?v=4"></script><script src="./run-model.js?v=1"></script>
+<script src="./image-slot.js"></script>
+<script src="./run10k-data.js"></script>
+<script src="./run10k.js?v=4"></script>
+<script src="./tcmv-content.js?v=4"></script>
+<style>[data-faqs]::placeholder{color:rgba(255,255,255,0.45);-webkit-text-fill-color:rgba(255,255,255,0.45)}@keyframes faqIn{0%{transform:translateX(100%)}100%{transform:none}}@keyframes fadeInF{0%{opacity:0}100%{opacity:1}}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.65)"]{color:rgba(0,0,0,0.58)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.65)"]{color:rgba(255,255,255,0.58)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.6)"]{color:rgba(0,0,0,0.53)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.6)"]{color:rgba(255,255,255,0.53)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.55)"]{color:rgba(0,0,0,0.48)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.55)"]{color:rgba(255,255,255,0.48)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.5)"]{color:rgba(0,0,0,0.43)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.5)"]{color:rgba(255,255,255,0.43)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.45)"]{color:rgba(0,0,0,0.38)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.45)"]{color:rgba(255,255,255,0.38)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.42)"]{color:rgba(0,0,0,0.35)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.42)"]{color:rgba(255,255,255,0.35)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.4)"]{color:rgba(0,0,0,0.33)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.4)"]{color:rgba(255,255,255,0.33)!important}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}body{margin:0;background:#1c1c1c;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#fff;text-decoration:none}a:hover{color:#bdbdbd}input{font-family:inherit}input::placeholder{color:rgba(255,255,255,0.38)}input[type=date]{position:relative}input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:auto;height:auto;margin:0;padding:0;opacity:0;cursor:pointer}input[type=date]::-webkit-date-and-time-value{text-align:right}::-webkit-scrollbar{display:none}
+@keyframes prSheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes prFade{from{opacity:0}to{opacity:1}}
+@keyframes prIn{from{transform:translateX(100%)}to{transform:none}}
+@keyframes prPop{0%{opacity:0;transform:translateY(-50%) scale(.82)}60%{opacity:1;transform:translateY(-50%) scale(1.03)}100%{opacity:1;transform:translateY(-50%) scale(1)}}
+@keyframes prMedal{0%{opacity:0;transform:translateY(-24px) scale(.4) rotate(-25deg)}55%{opacity:1;transform:translateY(4px) scale(1.15) rotate(8deg)}75%{transform:translateY(-2px) scale(.96) rotate(-4deg)}100%{opacity:1;transform:none}}
+@keyframes prUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes prShine{0%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}</style>
+</helmet>
+<div data-tb="1" style="font-weight:600;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:{{ oPad }};height:{{ oH }}">
+  <sc-if value="{{ hasBilan }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Bilan programme" style="position:absolute;inset:0;z-index:58;background:#000;color:#fff;overflow-y:auto;padding-bottom:150px;animation:faqIn .4s cubic-bezier(.32,.72,0,1) backwards">
+      <div style="height:59px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 48px;font-size:16px;font-weight:600"><span>9:41</span><span style="display:flex;align-items:center;gap:5px" aria-hidden="true"><svg width="19" height="12" viewBox="0 0 19 12" fill="currentColor"><rect x="0" y="8" width="3.2" height="4" rx="1"></rect><rect x="5" y="5.5" width="3.2" height="6.5" rx="1"></rect><rect x="10" y="3" width="3.2" height="9" rx="1"></rect><rect x="15" y="0" width="3.2" height="12" rx="1" opacity="0.3"></rect></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.2C14 1.6 11.4.5 8.5.5S3 1.6 1 3.5l1.2 1.2c1.7-1.6 3.9-2.5 6.3-2.5z"></path><path d="M8.5 5.6c1.5 0 2.8.5 3.9 1.5l1.2-1.2c-1.4-1.3-3.2-2-5.1-2s-3.7.7-5.1 2l1.2 1.2c1.1-1 2.4-1.5 3.9-1.5z"></path><path d="M8.5 9c.6 0 1.1.2 1.5.6L8.5 11.2 7 9.6c.4-.4.9-.6 1.5-.6z"></path></svg><span style="display:flex;align-items:center;gap:1px"><span style="height:13px;min-width:25px;padding:0 2px;border-radius:4px;background:currentColor;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:700;letter-spacing:-0.02em;line-height:1;color:#fff;mix-blend-mode:difference">100</span></span><span style="width:1.5px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:0.5"></span></span></span></div>
+      <div style="padding:8px 20px 0"><button onClick="{{ closeBilan }}" aria-label="Retour" style-active="transform:scale(.95)" style="width:40px;height:40px;border-radius:999px;border:none;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button></div>
+      <div style="padding:20px 20px 0;display:flex;flex-direction:column;gap:16px">
+        <span style="align-self:flex-start;height:28px;padding:0 12px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:0.04em">PROGRAMME TERMINÉ</span>
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:34px;letter-spacing:-0.035em;line-height:1.05">{{ bl.hello }}</span><span style="font-size:13.5px;color:rgba(255,255,255,0.55);font-weight:600">{{ bl.sub }}</span></div>
+        <sc-if value="{{ bl.hasKpis }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column">
+            <span style="padding-bottom:10px;font-size:12px;font-weight:600;letter-spacing:0.05em;color:rgba(255,255,255,0.45)">TES PROGRÈS</span>
+            <sc-for list="{{ bl.kpis }}" as="k" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid rgba(255,255,255,0.12)"><span style="min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:700">{{ k.n }}</span><span style="font-size:13px;color:rgba(255,255,255,0.45);font-weight:600">{{ k.sub }}</span></span><span style="flex:none;height:30px;padding:0 12px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;font-size:14px;font-weight:700">{{ k.d }}</span></div></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ bl.hasMsg }}" hint-placeholder-val="{{ true }}"><div style="padding:16px;border-radius:18px;background:#fff;color:#000;font-size:15px;line-height:1.45;text-wrap:pretty;font-weight:500">{{ bl.msg }}</div></sc-if>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-if value="{{ bl.hasNext }}" hint-placeholder-val="{{ true }}"><button onClick="{{ bl.goNext }}" style-active="transform:scale(.98)" style="height:52px;border-radius:999px;border:none;background:#fff;color:#000;font:inherit;font-size:15px;font-weight:700;cursor:pointer">{{ bl.nextLbl }}</button></sc-if>
+          <sc-if value="{{ bl.canShare }}" hint-placeholder-val="{{ true }}"><button onClick="{{ bl.share }}" style-active="transform:scale(.98)" style="height:52px;border-radius:999px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer">Partager mon bilan</button></sc-if>
+          <sc-if value="{{ bl.canRestart }}" hint-placeholder-val="{{ true }}"><button onClick="{{ bl.restart }}" style-active="transform:scale(.98)" style="height:52px;border-radius:999px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer">Recommencer le programme</button></sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ hasFaq }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:60;background:#000;color:#fff;overflow-y:auto;padding-bottom:150px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;animation:faqIn .4s cubic-bezier(.32,.72,0,1) backwards">
+      <div style="height:59px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 48px;font-size:16px;font-weight:600"><span>9:41</span><span style="display:flex;align-items:center;gap:5px" aria-hidden="true"><svg width="19" height="12" viewBox="0 0 19 12" fill="currentColor"><rect x="0" y="8" width="3.2" height="4" rx="1"></rect><rect x="5" y="5.5" width="3.2" height="6.5" rx="1"></rect><rect x="10" y="3" width="3.2" height="9" rx="1"></rect><rect x="15" y="0" width="3.2" height="12" rx="1" opacity="0.3"></rect></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.2C14 1.6 11.4.5 8.5.5S3 1.6 1 3.5l1.2 1.2c1.7-1.6 3.9-2.5 6.3-2.5z"></path><path d="M8.5 5.6c1.5 0 2.8.5 3.9 1.5l1.2-1.2c-1.4-1.3-3.2-2-5.1-2s-3.7.7-5.1 2l1.2 1.2c1.1-1 2.4-1.5 3.9-1.5z"></path><path d="M8.5 9c.6 0 1.1.2 1.5.6L8.5 11.2 7 9.6c.4-.4.9-.6 1.5-.6z"></path></svg><span style="display:flex;align-items:center;gap:1px"><span style="height:13px;min-width:25px;padding:0 2px;border-radius:4px;background:currentColor;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:700;letter-spacing:-0.02em;line-height:1;color:#fff;mix-blend-mode:difference">100</span></span><span style="width:1.5px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:0.5"></span></span></span></div>
+      <div style="padding:8px 20px 0;display:flex;align-items:center;gap:12px">
+        <button onClick="{{ closeFaq }}" aria-label="Retour" style-active="transform:scale(.95)" style="width:40px;height:40px;flex:none;border-radius:999px;border:none;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s cubic-bezier(.25,.8,.25,1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em">Aide</span>
+      </div>
+      <div style="margin:18px 20px 0;height:46px;border-radius:14px;background:#1a1a1a;display:flex;align-items:center;gap:10px;padding:0 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input value="{{ faqQ }}" onChange="{{ setFaqQ }}" placeholder="Rechercher une question" data-faqs="1" style="flex:1;min-width:0;height:100%;border:none;background:transparent;color:#fff;-webkit-text-fill-color:#fff;font-family:inherit;font-size:16px;outline:none;font-weight:600"></input></div>
+      <div style="margin-top:14px;display:flex;gap:8px;overflow-x:auto;padding:0 20px">
+        <sc-for list="{{ faqCats }}" as="c" hint-placeholder-count="5"><button onClick="{{ c.pick }}" style="flex:none;height:34px;padding:0 14px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">{{ c.label }}</button></sc-for>
+      </div>
+      <div style="margin:16px 20px 0;border-radius:18px;background:#141414;border:1px solid rgba(255,255,255,0.08);overflow:hidden">
+        <sc-for list="{{ faqItems }}" as="q" hint-placeholder-count="6">
+          <div style="border-top:1px solid {{ q.sep }}">
+            <button onClick="{{ q.toggle }}" style="outline:none;-webkit-tap-highlight-color:transparent;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border:none;background:transparent;color:#fff;font-family:inherit;font-size:15px;font-weight:600;text-align:left;cursor:pointer"><span style="text-wrap:pretty">{{ q.q }}</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;transform:rotate({{ q.rot }}deg);transition:transform .25s cubic-bezier(.25,.8,.25,1)"><path d="m6 9 6 6 6-6"></path></svg></button>
+            <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}"><div style="padding:0 16px 16px;font-size:14px;line-height:1.55;color:rgba(255,255,255,0.72);text-wrap:pretty;animation:fadeInF .25s ease-out backwards;font-weight:500">{{ q.a }}</div></sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ faqEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:18px 16px;font-size:14px;color:rgba(255,255,255,0.6);font-weight:600">Aucune réponse trouvée. Écris-nous, on te répond vite.</div></sc-if>
+      </div>
+      <div style="margin:22px 20px 0;padding:18px;border-radius:18px;background:#fff;color:#000;display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:16px;font-weight:700">Tu ne trouves pas ta réponse ?</span>
+        <button onClick="{{ faqContact }}" style-active="transform:scale(.98)" style="height:46px;border-radius:14px;border:none;background:#000;color:#fff;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:transform .2s cubic-bezier(.25,.8,.25,1)">Contacter TCMV</button>
+      </div>
+    </div>
+  </sc-if>
+
+<div data-screen-label="Athlete" style="position:relative;flex:none;width:{{ fW }};height:{{ fH }};border-radius:{{ fR }};overflow:hidden;border:{{ fB }};color:#fff;background:linear-gradient(180deg,#000 0%,#08080a 45%,#16171a 100%)">
+  <div style="height:100%;overflow-y:auto;padding-bottom:140px">
+    <sc-if value="{{ onlyMode }}" hint-placeholder-val="{{ false }}"><div style="height:59px"></div><div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 0"><button onClick="{{ onlyBack }}" style-active="transform:scale(.94)" aria-label="Retour" style="width:44px;height:44px;border-radius:50%;border:none;background:#1c1c1e;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button></div></sc-if>
+    <sc-if value="{{ fullMode }}" hint-placeholder-val="{{ true }}">
+    <div style="height:59px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 48px;font-size:16px;font-weight:600"><span>9:41</span><span style="display:flex;align-items:center;gap:5px" aria-hidden="true"><svg width="19" height="12" viewBox="0 0 19 12" fill="currentColor"><rect x="0" y="8" width="3.2" height="4" rx="1"></rect><rect x="5" y="5.5" width="3.2" height="6.5" rx="1"></rect><rect x="10" y="3" width="3.2" height="9" rx="1"></rect><rect x="15" y="0" width="3.2" height="12" rx="1" opacity="0.3"></rect></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.2C14 1.6 11.4.5 8.5.5S3 1.6 1 3.5l1.2 1.2c1.7-1.6 3.9-2.5 6.3-2.5z"></path><path d="M8.5 5.6c1.5 0 2.8.5 3.9 1.5l1.2-1.2c-1.4-1.3-3.2-2-5.1-2s-3.7.7-5.1 2l1.2 1.2c1.1-1 2.4-1.5 3.9-1.5z"></path><path d="M8.5 9c.6 0 1.1.2 1.5.6L8.5 11.2 7 9.6c.4-.4.9-.6 1.5-.6z"></path></svg><span style="display:flex;align-items:center;gap:1px"><span style="height:13px;min-width:25px;padding:0 2px;border-radius:4px;background:currentColor;display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:700;letter-spacing:-0.02em;line-height:1;color:#fff;mix-blend-mode:difference">100</span></span><span style="width:1.5px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:0.5"></span></span></span></div>
+
+    <div style="padding:12px 20px 0;display:flex;align-items:center;gap:16px">
+      <div style="position:relative;width:84px;height:84px;flex:none">
+        <div style="position:relative;width:84px;height:84px;border-radius:999px;overflow:hidden;background:#1a1a1a;border:1px solid rgba(255,255,255,0.14)"><sc-if value="{{ hasAvatarSlot }}" hint-placeholder-val="{{ false }}"><image-slot id="{{ avatarSlot }}" shape="circle" src="assets/tcmv-monogramme.png" placeholder="Photo"></image-slot></sc-if><sc-if value="{{ noAvatarSlot }}" hint-placeholder-val="{{ true }}"><img src="assets/coach-thomas.png" alt="Photo de profil" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ hasMyPhoto }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background-image:{{ myPhoto }};background-size:cover;background-position:center"></span></sc-if></div>
+        
+      </div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;line-height:1;letter-spacing:-0.03em">{{ name }}</span>
+        <span style="font-size:13.5px;color:rgba(255,255,255,0.55);font-weight:600">{{ since }}</span>
+      </div>
+      <button onClick="{{ openEdit }}" aria-label="Modifier le profil" style="align-self:flex-start;margin-top:4px;flex:none;width:38px;height:38px;border-radius:999px;border:none;background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+      
+    </div>
+
+
+    </sc-if>
+    <sc-if value="{{ shProgs }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:32px;padding:0 20px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">Mes programmes</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:rgba(255,255,255,0.07)"><sc-for list="{{ progTabs }}" as="sg" hint-placeholder-count="2"><button onClick="{{ sg.pick }}" style="height:34px;border:none;border-radius:9px;background:{{ sg.bg }};color:{{ sg.fg }};font-size:13.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">{{ sg.label }}<span style="font-size:12px;opacity:0.55;font-weight:600">{{ sg.n }}</span></button></sc-for></div>
+      <sc-if value="{{ isCur }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ progs }}" as="p" hint-placeholder-count="2">
+            <button onClick="{{ p.onView }}" style="display:flex;flex-direction:column;gap:12px;padding:12px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);text-align:left;cursor:pointer;color:#fff">
+              <span style="display:flex;align-items:center;gap:12px;width:100%">
+                <span style="position:relative;width:52px;height:52px;border-radius:12px;overflow:hidden;flex:none;background:#222"><image-slot id="{{ p.slot }}" shape="rect" placeholder="" src="assets/seance-cover.jpg"></image-slot><sc-if value="{{ p.hasBg }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background-image:{{ p.bg }};background-size:cover;background-position:{{ p.bgPos }}"></span></sc-if><sc-if value="{{ p.logo }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center"><img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:58%;height:auto"></span></sc-if></span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:700">{{ p.title }}</span><span style="font-size:13px;color:rgba(255,255,255,0.55);font-weight:600">avec {{ p.by }} · {{ p.state }}</span></span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+              </span>
+              <sc-if value="{{ p.hasBar }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:3px;width:100%"><sc-for list="{{ p.segs }}" as="sg" hint-placeholder-count="6"><span style="flex:1;height:4px;border-radius:999px;background:{{ sg.bg }}"></span></sc-for></span></sc-if>
+            </button>
+          </sc-for>
+          <sc-if value="{{ noCur }}" hint-placeholder-val="{{ false }}"><span style="padding:18px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);font-size:14px;color:rgba(255,255,255,0.55);text-align:center;font-weight:600">Aucun programme en cours</span></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ doneProgs }}" as="d" hint-placeholder-count="2">
+            <div style="display:flex;flex-direction:column;gap:12px;padding:12px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="position:relative;width:52px;height:52px;border-radius:12px;overflow:hidden;flex:none;background:#222"><image-slot id="{{ d.slot }}" shape="rect" placeholder="" src="assets/seance-cover.jpg"></image-slot><sc-if value="{{ d.hasBg }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background-image:{{ d.bg }};background-size:cover;background-position:{{ d.bgPos }}"></span></sc-if></span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:700">{{ d.title }}</span><span style="font-size:13px;color:rgba(255,255,255,0.55);font-weight:600">Terminé le {{ d.end }} · {{ d.done }}</span></span>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ d.kpis }}" as="k" hint-placeholder-count="3"><span style="height:28px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,0.08);display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600"><span style="color:rgba(255,255,255,0.6)">{{ k.n }}</span><b>{{ k.d }}</b></span></sc-for></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button onClick="{{ d.bilan }}" style="height:40px;border-radius:999px;border:none;background:#fff;color:#000;font-size:14px;font-weight:700;cursor:pointer">Voir le bilan</button><button onClick="{{ d.restart }}" style="height:40px;border-radius:999px;border:1px solid rgba(255,255,255,0.22);background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Recommencer</button></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <button onClick="{{ openProgAll }}" style="height:40px;margin-top:-4px;border:none;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer">{{ progAllLbl }}</button>
+    </div>
+
+    </sc-if>
+    <sc-if value="{{ fullMode }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:34px;padding:0 20px">
+      <button onClick="{{ openRun }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:inherit;text-align:left;cursor:pointer" style-active="background:rgba(255,255,255,0.1)">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:rgba(255,255,255,0.55)">Running · Ma VMA</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">{{ runVma }}</span></div>
+        <span style="font-size:13px;color:rgba(255,255,255,0.55)">Allures &amp; tests</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="flex:none;opacity:0.5"><path d="m9 18 6-6-6-6"></path></svg>
+      </button>
+    </div>
+    </sc-if>
+    <sc-if value="{{ shRecs }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:34px;padding:0 20px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">Mes records</span><button onClick="{{ addRecord }}" style="border:none;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;padding:4px 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>Ajouter</button></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:rgba(255,255,255,0.07)"><sc-for list="{{ recTabs }}" as="sg" hint-placeholder-count="2"><button onClick="{{ sg.pick }}" style="height:34px;border:none;border-radius:9px;background:{{ sg.bg }};color:{{ sg.fg }};font-size:13.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">{{ sg.label }}<span style="font-size:12px;opacity:0.55;font-weight:600">{{ sg.n }}</span></button></sc-for></div>
+      <sc-if value="{{ hasPace }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-size:10.5px;font-weight:600;letter-spacing:0.05em;color:rgba(255,255,255,0.45)">TES ALLURES</span><span style="font-size:12px;color:rgba(255,255,255,0.55);text-align:right;font-weight:600">{{ paceSrc }}</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px"><sc-for list="{{ paceZones }}" as="z" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:12px;color:rgba(255,255,255,0.6);font-weight:600">{{ z.name }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.02em">{{ z.pace }}</span></div></sc-for></div>
+          <span style="font-size:12px;line-height:1.4;color:rgba(255,255,255,0.55);text-wrap:pretty;font-weight:500">Utilisées dans toutes tes séances running. Ajoute un chrono 3, 5 ou 10 km pour les mettre à jour.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPace }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ addPace }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:16px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px dashed rgba(255,255,255,0.25);color:#fff;font:inherit;text-align:left;cursor:pointer"><span style="font-size:15px;font-weight:600">Calcule tes allures</span><span style="font-size:12.5px;color:rgba(255,255,255,0.6);font-weight:600">Ajoute un chrono 3, 5 ou 10 km récent. Sans chrono, tes séances se font au ressenti.</span></button>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);overflow:hidden">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 76px 76px 14px;gap:8px;padding:12px 16px 8px;font-size:10.5px;font-weight:600;letter-spacing:0.05em;color:rgba(255,255,255,0.45)"><span>{{ recHead }}</span><span style="text-align:right">TESTÉ</span><span style="text-align:right">ESTIMÉ</span><span></span></div>
+        <sc-for list="{{ recRows }}" as="r" hint-placeholder-count="4">
+          <button onClick="{{ r.open }}" style="display:grid;grid-template-columns:minmax(0,1fr) 76px 76px 14px;gap:8px;align-items:center;min-height:60px;padding:10px 16px;border:none;border-top:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;text-align:left;cursor:pointer;font-family:inherit">
+            <span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span><span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600">{{ r.sub }}</span></span>
+            <span style="text-align:right;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ r.tc }}">{{ r.tested }}</span>
+            <span style="text-align:right;font-size:14px;font-variant-numeric:tabular-nums;color:rgba(255,255,255,0.5);font-weight:600">{{ r.est }}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ recMore }}" hint-placeholder-val="{{ false }}"><button onClick="{{ toggleRec }}" style="height:40px;margin-top:-6px;border:none;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer">{{ recMoreLbl }}</button></sc-if>
+      <span style="font-size:12px;line-height:1.45;color:rgba(255,255,255,0.45);font-weight:500">Testé : ajouté par toi, partageable. Estimé : calculé depuis tes séances de programme, pour suivre ta progression.</span>
+    </div>
+
+    </sc-if>
+    <sc-if value="{{ shWeight }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:34px;padding:0 20px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">Poids</span><button onClick="{{ addBody }}" style="border:none;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;padding:4px 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>Ajouter</button></div>
+      <div style="padding:18px 16px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:rgba(255,255,255,0.6);font-weight:600">Actuel</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:34px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">{{ weightNow }}</span></div>
+          <span style="font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.7);font-variant-numeric:tabular-nums">{{ weightDelta }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:end;height:96px">
+          <sc-for list="{{ wBars }}" as="w" hint-placeholder-count="6">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end"><span style="font-size:10.5px;color:rgba(255,255,255,0.55);font-variant-numeric:tabular-nums;font-weight:600">{{ w.v }}</span><div style="width:100%;height:{{ w.h }}px;border-radius:7px;background:{{ w.bg }}"></div><span style="font-size:10.5px;color:rgba(255,255,255,0.45);font-weight:600">{{ w.m }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    </sc-if>
+    <sc-if value="{{ shHist }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:34px;padding:0 20px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">Historique</span><span style="font-size:13px;color:rgba(255,255,255,0.55);font-weight:600">{{ histCount }}</span></div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ history }}" as="h" hint-placeholder-count="4">
+          <button onClick="{{ h.open }}" style="display:flex;align-items:center;gap:14px;height:62px;width:100%;border:none;border-bottom:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;text-align:left;cursor:pointer;padding:0;font-family:inherit">
+            <span style="width:44px;font-size:12px;color:rgba(255,255,255,0.5);font-variant-numeric:tabular-nums;font-weight:600">{{ h.date }}</span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">{{ h.t }}</span><span style="font-size:13px;color:rgba(255,255,255,0.5);font-weight:600">{{ h.s }}</span></span>
+            <span style="width:24px;height:24px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </sc-for>
+      </div>
+      <button onClick="{{ toggleHist }}" style="height:44px;border:none;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">{{ histBtn }}</button>
+    </div>
+
+    </sc-if>
+    <sc-if value="{{ fullMode }}" hint-placeholder-val="{{ true }}">
+    <div style="margin:40px 20px 0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09)">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="5">
+        <button onClick="{{ l.onClick }}" style="display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 16px;border:none;border-top:{{ l.sep }};background:transparent;color:#fff;font-size:15px;font-weight:600;cursor:pointer;text-align:left">{{ l.label }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+      </sc-for>
+    </div>
+    <div style="margin:12px 20px 0;display:flex;flex-direction:column;gap:4px">
+      <button onClick="{{ logout }}" style="height:52px;border:none;background:transparent;color:#fff;font-size:15px;font-weight:600;cursor:pointer;text-align:left;padding:0 16px">Me déconnecter</button>
+      <button onClick="{{ askDelete }}" style="height:52px;border:none;background:transparent;color:#ef4444;font-size:15px;font-weight:600;cursor:pointer;text-align:left;padding:0 16px">Supprimer mon compte et mes données</button>
+    </div>
+    <div style="margin:20px 20px 0;display:flex;justify-content:center"><img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:64px;height:auto;opacity:.35"></div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ withNav }}" hint-placeholder-val="{{ true }}">
+    <dc-import name="Final Nav Barre" tab="{{ 3 }}" style="position:absolute;left:0;right:0;bottom:0;height:124px;z-index:20" hint-size="100%,124px"></dc-import>
+  </sc-if>
+
+  <sc-if value="{{ hasSheet }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.6);z-index:45;animation:prFade .2s ease-out both"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:46;padding:22px 20px 40px;border-radius:28px 28px 0 0;background:#141414;border-top:1px solid rgba(255,255,255,0.12);display:flex;flex-direction:column;gap:16px">
+      <div style="width:40px;height:5px;border-radius:999px;background:rgba(255,255,255,0.2);align-self:center"></div>
+      <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">{{ sheetTitle }}</span>
+      <sc-if value="{{ sheetIsRun }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:rgba(255,255,255,0.07)"><sc-for list="{{ evtTabs }}" as="sg" hint-placeholder-count="2"><button onClick="{{ sg.pick }}" style="height:34px;border:none;border-radius:9px;background:{{ sg.bg }};color:{{ sg.fg }};font-size:13.5px;font-weight:600;cursor:pointer">{{ sg.label }}</button></sc-for></div>
+      </sc-if>
+      <sc-if value="{{ isEvt }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 4px;border-bottom:1px solid rgba(255,255,255,0.1)"><span style="font-size:14px;color:rgba(255,255,255,0.55);flex:none;font-weight:600">Course</span><input value="{{ evName }}" onChange="{{ setEvName }}" placeholder="Ex. 10k de Nice" style="flex:1;min-width:0;margin-left:16px;height:100%;border:none;outline:none;background:transparent;color:#fff;font-size:16px;font-weight:600;text-align:right"></div>
+      </sc-if>
+      <sc-if value="{{ sheetHasKinds }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 4px;border-bottom:1px solid rgba(255,255,255,0.1)">
+          <span style="font-size:14px;color:rgba(255,255,255,0.55);font-weight:600">{{ kindLbl }}</span>
+          <label style="position:relative;display:flex;align-items:center;gap:6px;cursor:pointer;max-width:70%"><span style="font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ selKind }}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+            <select value="{{ selKindKey }}" onChange="{{ setKind }}" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:16px;font-weight:600"><sc-for list="{{ kindOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+          </label>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sheetIsGym }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 4px;border-bottom:1px solid rgba(255,255,255,0.1)">
+          <span style="font-size:14px;color:rgba(255,255,255,0.55);font-weight:600">Reps</span>
+          <label style="position:relative;display:flex;align-items:center;gap:6px;cursor:pointer;max-width:70%"><span style="font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ selRm }}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+            <select value="{{ selRmKey }}" onChange="{{ setRm }}" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:16px;font-weight:600"><sc-for list="{{ rmOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+          </label>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showCustom }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;height:56px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)">
+          <span style="width:100px;padding-left:16px;font-size:14px;color:rgba(255,255,255,0.55);font-weight:600">Nom</span>
+          <input value="{{ customEx }}" onChange="{{ setCustomEx }}" placeholder="{{ customPh }}" style="flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;color:#fff;font-size:16px;padding:0 16px 0 0;font-weight:600"></input>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sheetIsRun }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;height:120px;display:grid;grid-template-columns:repeat(3,64px);justify-content:center;gap:18px">
+          <span style="position:absolute;left:50%;top:50%;transform:translate(-50px,-55%);font-size:26px;font-weight:300;color:rgba(255,255,255,0.4);pointer-events:none">:</span>
+          <span style="position:absolute;left:50%;top:50%;transform:translate(44px,-55%);font-size:26px;font-weight:300;color:rgba(255,255,255,0.4);pointer-events:none">:</span>
+          <sc-for list="{{ wheels }}" as="w" hint-placeholder-count="3">
+            <div ref="{{ w.ref }}" onScroll="{{ w.onScroll }}" style="height:120px;overflow-y:auto;scroll-snap-type:y mandatory;padding:40px 0;-webkit-mask-image:linear-gradient(180deg,transparent,#000 35%,#000 65%,transparent);mask-image:linear-gradient(180deg,transparent,#000 35%,#000 65%,transparent)">
+              <sc-for list="{{ w.items }}" as="it" hint-placeholder-count="3"><div style="height:40px;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:{{ it.c }}">{{ it.v }}</div></sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-for list="{{ sheetFields }}" as="f" hint-placeholder-count="2">
+        <div style="display:flex;align-items:center;height:56px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)">
+          <span style="width:100px;padding-left:16px;font-size:14px;color:rgba(255,255,255,0.55);font-weight:600">{{ f.label }}</span>
+          <input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.ph }}" style="flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;color:#fff;font-size:16px;padding:0 16px 0 0;color-scheme:dark;font-weight:600"></input>
+        </div>
+      </sc-for>
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 4px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <span style="font-size:14px;color:rgba(255,255,255,0.55);font-weight:600">Date</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <label style="position:relative;display:flex;align-items:center;gap:6px;cursor:pointer"><span style="font-size:16px;font-weight:600">{{ dLabel }}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg><input type="date" value="{{ dVal }}" max="{{ dMax }}" onChange="{{ dSet }}" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;color-scheme:dark"></label>
+        </div>
+      </div>
+      <button onClick="{{ saveSheet }}" style="height:56px;border:none;border-radius:999px;background:#fff;color:#000;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px">Enregistrer</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasDelete }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.7);z-index:40;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="width:100%;padding:24px;border-radius:24px;background:#141414;border:1px solid rgba(255,255,255,0.12);display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">Supprimer ton compte ?</span>
+        <span style="font-size:15px;line-height:1.45;color:rgba(255,255,255,0.7);font-weight:500">Cette action est définitive. Elle supprime ton profil, tes records, ton historique <strong style="color:#fff">et l’accès à tous tes programmes achetés</strong>, sans remboursement.</span>
+        <span style="font-size:13px;color:rgba(255,255,255,0.5);font-weight:600">Tape SUPPRIMER pour confirmer.</span>
+        <input value="{{ delText }}" onChange="{{ setDel }}" placeholder="SUPPRIMER" style="height:52px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.05);color:#fff;font-size:16px;padding:0 14px;outline:none;font-weight:600"></input>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+          <button onClick="{{ cancelDelete }}" style="height:52px;border-radius:999px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;font-size:15px;font-weight:600;cursor:pointer">Annuler</button>
+          <button onClick="{{ confirmDelete }}" disabled="{{ delBlocked }}" style="height:52px;border-radius:999px;border:none;background:#ef4444;color:#fff;font-size:15px;font-weight:700;cursor:pointer;opacity:{{ delOp }}">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ runOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:15;background:#000">
+      <dc-import name="Final Profil Running" embed="{{ true }}" on-back="{{ closeRun }}" age="{{ runAge }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
+    </div>
+  </sc-if>
+  <sc-if value="{{ hasEdit }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:38;background:#000;overflow-y:auto;animation:prIn .28s cubic-bezier(.2,.8,.2,1) both">
+      <div style="height:59px"></div>
+      <div style="padding:0 20px 60px;display:flex;flex-direction:column;gap:26px">
+        <div style="display:flex;align-items:center;justify-content:flex-end"><button onClick="{{ saveEdit }}" style="height:36px;padding:0 16px;border-radius:999px;border:none;background:#fff;color:#000;font-size:14px;font-weight:700;cursor:pointer">OK</button></div>
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1;margin-top:-8px">Modifier le profil</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="position:relative;width:96px;height:96px;border-radius:999px;overflow:hidden;background:#1a1a1a;border:1px solid rgba(255,255,255,0.14)"><img src="assets/coach-thomas.png" alt="Photo de profil" style="width:100%;height:100%;object-fit:cover;display:block"><sc-if value="{{ hasMyPhoto }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background-image:{{ myPhoto }};background-size:cover;background-position:center"></span></sc-if></div><input type="file" accept="image/*" ref="{{ photoRef }}" onChange="{{ onPhoto }}" style="display:none">
+          <button onClick="{{ changePhoto }}" style="border:none;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Changer la photo</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="padding:0 4px;font-size:12px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.45)">MES INFOS</span><div style="border-radius:16px;background:rgba(255,255,255,0.06);overflow:hidden"><sc-for list="{{ infoFields }}" as="f" hint-placeholder-count="5"><label style="display:flex;align-items:center;height:52px;padding:0 16px;border-top:{{ f.sep }}"><span style="width:120px;flex:none;font-size:15px;color:rgba(255,255,255,0.6);font-weight:600">{{ f.label }}</span><input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.onChange }}" inputmode="{{ f.mode }}" style="flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;color:#fff;font-size:16px;text-align:right;color-scheme:dark;font-weight:600"></label></sc-for></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="padding:0 4px;font-size:12px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.45)">AFFICHER SUR MON PROFIL</span><div style="border-radius:16px;background:rgba(255,255,255,0.06);overflow:hidden"><sc-for list="{{ showToggles }}" as="t" hint-placeholder-count="4"><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:0 16px;border-top:{{ t.sep }}"><span style="font-size:15px;font-weight:600">{{ t.label }}</span><button onClick="{{ t.toggle }}" role="switch" aria-checked="{{ t.on }}" style="flex:none;position:relative;width:51px;height:31px;border-radius:999px;border:none;background:{{ t.bg }};cursor:pointer;padding:0;transition:background .25s ease"><span style="position:absolute;top:2px;left:{{ t.x }};width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,0.15),0 1px 1px rgba(0,0,0,0.16);transition:left .25s cubic-bezier(.25,.8,.25,1)"></span></button></div></sc-for>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:0 16px;border-top:1px solid rgba(255,255,255,0.08)"><span style="font-size:15px;font-weight:600">Records : onglet par défaut</span><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;border-radius:10px;background:rgba(255,255,255,0.08)"><sc-for list="{{ defTabs }}" as="d" hint-placeholder-count="2"><button onClick="{{ d.pick }}" style="height:30px;padding:0 12px;border:none;border-radius:8px;background:{{ d.bg }};color:{{ d.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ d.label }}</button></sc-for></div></div></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="padding:0 4px;font-size:12px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.45)">SÉANCE</span><div style="border-radius:16px;background:rgba(255,255,255,0.06);overflow:hidden"><sc-for list="{{ seanceToggles }}" as="t" hint-placeholder-count="1"><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:8px 16px;border-top:{{ t.sep }}"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">{{ t.label }}</span><span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600">{{ t.sub }}</span></span><button onClick="{{ t.toggle }}" role="switch" aria-checked="{{ t.on }}" style="flex:none;position:relative;width:51px;height:31px;border-radius:999px;border:none;background:{{ t.bg }};cursor:pointer;padding:0;transition:background .25s ease"><span style="position:absolute;top:2px;left:{{ t.x }};width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,0.15),0 1px 1px rgba(0,0,0,0.16);transition:left .25s cubic-bezier(.25,.8,.25,1)"></span></button></div></sc-for></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="padding:0 4px;font-size:12px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.45)">NOTIFICATIONS</span><div style="border-radius:16px;background:rgba(255,255,255,0.06);overflow:hidden"><sc-for list="{{ notifToggles }}" as="t" hint-placeholder-count="3"><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:8px 16px;border-top:{{ t.sep }}"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">{{ t.label }}</span><span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600">{{ t.sub }}</span></span><button onClick="{{ t.toggle }}" role="switch" aria-checked="{{ t.on }}" style="flex:none;position:relative;width:51px;height:31px;border-radius:999px;border:none;background:{{ t.bg }};cursor:pointer;padding:0;transition:background .25s ease"><span style="position:absolute;top:2px;left:{{ t.x }};width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,0.15),0 1px 1px rgba(0,0,0,0.16);transition:left .25s cubic-bezier(.25,.8,.25,1)"></span></button></div></sc-for></div></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasProgAll }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeProgAll }}" style="position:absolute;inset:0;z-index:44;background:rgba(0,0,0,0.6);animation:prFade .2s ease-out both"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;top:90px;z-index:45;border-radius:28px 28px 0 0;background:#141414;border-top:1px solid rgba(255,255,255,0.12);display:flex;flex-direction:column;animation:prSheetUp .32s cubic-bezier(.2,.8,.2,1) both">
+      <div style="padding:12px 20px 14px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="width:40px;height:5px;border-radius:999px;background:rgba(255,255,255,0.2);align-self:center"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">Mes programmes</span><button onClick="{{ closeProgAll }}" aria-label="Fermer" style="width:36px;height:36px;border-radius:999px;border:none;background:rgba(255,255,255,0.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+        <div style="display:flex;gap:6px;overflow-x:auto;margin:0 -20px;padding:0 20px">
+          <sc-for list="{{ pfChips }}" as="c" hint-placeholder-count="4"><button onClick="{{ c.pick }}" style="flex:none;height:34px;padding:0 14px;border-radius:999px;border:none;background:{{ c.bg }};color:{{ c.fg }};font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">{{ c.label }}</button></sc-for>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;overflow-y:auto;padding:8px 20px 40px;display:flex;flex-direction:column;gap:18px">
+        <sc-for list="{{ progAllGroups }}" as="g" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="padding:10px 0 4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.45)">{{ g.t }}</span>
+            <sc-for list="{{ g.items }}" as="p" hint-placeholder-count="2">
+              <button onClick="{{ p.open }}" style="display:flex;align-items:center;gap:12px;width:100%;min-height:68px;padding:8px 0;border:none;border-bottom:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;text-align:left;cursor:pointer;font-family:inherit">
+                <span style="position:relative;width:48px;height:48px;border-radius:12px;overflow:hidden;flex:none;background:#222"><image-slot id="{{ p.slot }}" shape="rect" placeholder="" src="assets/seance-cover.jpg"></image-slot><sc-if value="{{ p.hasBg }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background-image:{{ p.bg }};background-size:cover;background-position:{{ p.bgPos }}"></span></sc-if></span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:15px;font-weight:700">{{ p.title }}</span><span style="font-size:12.5px;color:rgba(255,255,255,0.5);font-weight:600">{{ p.sub }}</span></span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+              </button>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasProgAct }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeProgAct }}" style="position:absolute;inset:0;z-index:46;background:rgba(0,0,0,0.5);animation:prFade .2s ease-out both"></div>
+    <div style="position:absolute;left:12px;right:12px;bottom:12px;z-index:47;border-radius:28px;background:#1c1c1c;border:1px solid rgba(255,255,255,0.1);padding:18px;display:flex;flex-direction:column;gap:14px;animation:prSheetUp .3s cubic-bezier(.2,.8,.2,1) both">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="position:relative;width:48px;height:48px;border-radius:12px;overflow:hidden;flex:none;background:#222"><image-slot id="{{ pa.slot }}" shape="rect" placeholder="" src="assets/seance-cover.jpg"></image-slot><sc-if value="{{ pa.hasBg }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background-image:{{ pa.bg }};background-size:cover;background-position:{{ pa.bgPos }}"></span></sc-if></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:700">{{ pa.title }}</span><span style="font-size:12.5px;color:rgba(255,255,255,0.5);font-weight:600">{{ pa.sub }}</span></span>
+      </div>
+      <sc-if value="{{ paMain }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;border-radius:18px;background:rgba(255,255,255,0.05);overflow:hidden">
+          <sc-for list="{{ paActs }}" as="a" hint-placeholder-count="3">
+            <button onClick="{{ a.run }}" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 16px;border:none;border-bottom:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;text-align:left;cursor:pointer;font-family:inherit">
+              <span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">{{ a.label }}</span><span style="font-size:12.5px;color:rgba(255,255,255,0.5);font-weight:600">{{ a.hint }}</span></span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ paConfirm }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em">Redémarrer {{ pa.title }} ?</span><span style="font-size:14px;line-height:1.45;color:rgba(255,255,255,0.6);font-weight:500">Le programme repart en semaine 1. Tes records et ton historique restent enregistrés.</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ backProgAct }}" style="height:52px;border-radius:999px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#fff;font-size:15px;font-weight:700;cursor:pointer">Annuler</button>
+          <button onClick="{{ doRestart }}" style="height:52px;border-radius:999px;border:none;background:#fff;color:#000;font-size:15px;font-weight:700;cursor:pointer">Redémarrer</button>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasRecAll }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeRecAll }}" style="position:absolute;inset:0;z-index:44;background:rgba(0,0,0,0.6);animation:prFade .2s ease-out both"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;top:90px;z-index:45;border-radius:28px 28px 0 0;background:#141414;border-top:1px solid rgba(255,255,255,0.12);display:flex;flex-direction:column;animation:prSheetUp .32s cubic-bezier(.2,.8,.2,1) both">
+      <div style="padding:12px 20px 14px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="width:40px;height:5px;border-radius:999px;background:rgba(255,255,255,0.2);align-self:center"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em">{{ recAllTitle }}</span><button onClick="{{ closeRecAll }}" aria-label="Fermer" style="width:36px;height:36px;border-radius:999px;border:none;background:rgba(255,255,255,0.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+        <label style="display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border-radius:12px;background:rgba(255,255,255,0.08)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input value="{{ recQ }}" onChange="{{ setRecQ }}" placeholder="{{ recQPh }}" style="flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;color:#fff;font-size:16px;font-weight:600"></label>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 76px 76px 14px;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:0.05em;color:rgba(255,255,255,0.45)"><span>{{ recHead }}</span><span style="text-align:right">TESTÉ</span><span style="text-align:right">ESTIMÉ</span><span></span></div>
+      </div>
+      <div style="flex:1;min-height:0;overflow-y:auto;padding:0 20px 40px">
+        <sc-for list="{{ recAllRows }}" as="r" hint-placeholder-count="8">
+          <button onClick="{{ r.open }}" style="display:grid;grid-template-columns:minmax(0,1fr) 76px 76px 14px;gap:8px;align-items:center;width:100%;min-height:60px;padding:10px 0;border:none;border-bottom:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;text-align:left;cursor:pointer;font-family:inherit">
+            <span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span><span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600">{{ r.sub }}</span></span>
+            <span style="text-align:right;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ r.tc }}">{{ r.tested }}</span>
+            <span style="text-align:right;font-size:14px;font-variant-numeric:tabular-nums;color:rgba(255,255,255,0.5);font-weight:600">{{ r.est }}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </sc-for>
+        <sc-if value="{{ recNone }}" hint-placeholder-val="{{ false }}"><span style="display:block;padding:28px 0;text-align:center;font-size:14px;color:rgba(255,255,255,0.5);font-weight:600">Aucun résultat</span></sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasHist }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:36;animation:prIn .28s cubic-bezier(.2,.8,.2,1) both">
+      <dc-import name="Final Fin de Seance" embedded="{{ true }}" from-history="{{ true }}" date="{{ hs.date }}" sub="{{ hs.sub }}" stats="{{ hs.stats }}" prs="{{ hs.prs }}" week="{{ hs.week }}" weeks="{{ 6 }}" on-close="{{ closeHist }}" style="position:absolute;inset:0" hint-size="100%,100%"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:35;background:#000;overflow-y:auto;animation:prIn .28s cubic-bezier(.2,.8,.2,1) both">
+      <div style="height:59px"></div>
+      <div style="padding:6px 20px 40px;display:flex;flex-direction:column;gap:18px">
+        <button onClick="{{ closeDetail }}" style="align-self:flex-start;height:36px;padding:0 12px 0 6px;border-radius:999px;border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg>Records</button>
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.03em;line-height:1">{{ dt.name }}</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="border-radius:22px;background:#fff;color:#000;padding:16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:rgba(0,0,0,0.5)">{{ dt.tK }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums">{{ dt.tV }}</span><span style="font-size:12px;color:rgba(0,0,0,0.55);font-weight:600">{{ dt.tD }}</span></div>
+          <div style="border-radius:22px;border:1px dashed rgba(255,255,255,0.35);padding:16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.55)">{{ dt.eK }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums">{{ dt.eV }}</span><span style="font-size:12px;color:rgba(255,255,255,0.55);font-weight:600">{{ dt.eD }}</span></div>
+        </div>
+        <sc-if value="{{ dt.canShareTop }}" hint-placeholder-val="{{ false }}"><button onClick="{{ dt.shareTop }}" style="height:44px;border-radius:999px;border:1px solid rgba(255,255,255,0.22);background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Partager mon record</button></sc-if>
+        <sc-if value="{{ dt.hasEvents }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column">
+          <span style="padding-bottom:8px;font-size:11px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.5)">MES COURSES ET CHRONOS</span>
+          <sc-for list="{{ dt.events }}" as="ev" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:12px;min-height:56px;border-top:1px solid rgba(255,255,255,0.1)">
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ev.n }}</span><span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600">{{ ev.d }}</span></span>
+              <sc-if value="{{ ev.medal }}" hint-placeholder-val="{{ false }}"><svg width="18" height="20" viewBox="0 0 24 27" style="flex:none"><path d="M5 1h5l3 8H8z" fill="#fff"></path><path d="M19 1h-5l-3 8h5z" fill="#bdbdbd"></path><circle cx="12" cy="17.5" r="8.5" fill="{{ ev.mc }}"></circle><circle cx="12" cy="17.5" r="6" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="1"></circle></svg></sc-if>
+              <span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums">{{ ev.t }}</span>
+            </div>
+          </sc-for>
+        </div></sc-if>
+        <sc-if value="{{ dt.isGym }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column">
+          <div style="display:grid;grid-template-columns:48px minmax(0,1fr) 84px 32px;gap:8px;align-items:center;padding-bottom:8px;font-size:11px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.5)"><span>REPS</span><span style="text-align:right">TESTÉ</span><span style="text-align:right">ESTIMÉ</span><span></span></div>
+          <sc-for list="{{ dt.table }}" as="t" hint-placeholder-count="10">
+            <div style="display:grid;grid-template-columns:48px minmax(0,1fr) 84px 32px;gap:8px;align-items:center;height:42px;border-top:1px solid rgba(255,255,255,0.1);font-size:15px;font-variant-numeric:tabular-nums;font-weight:600">
+              <span style="font-weight:700">{{ t.rm }}</span>
+              <span onClick="{{ t.edit }}" style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:0;cursor:pointer"><span style="font-weight:700;color:{{ t.tc }}">{{ t.tested }}</span><span style="font-size:10.5px;color:rgba(255,255,255,0.4);font-weight:600">{{ t.date }}</span></span>
+              <span style="text-align:right;color:rgba(255,255,255,0.5)">{{ t.est }}</span>
+              <sc-if value="{{ t.share }}" hint-placeholder-val="{{ false }}"><button onClick="{{ t.pick }}" aria-label="Partager" style="justify-self:end;width:28px;height:28px;border-radius:999px;border:none;background:rgba(255,255,255,0.14);color:#fff;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m7 8 5-5 5 5"></path><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg></button></sc-if>
+            </div>
+          </sc-for>
+        </div></sc-if>
+        <sc-if value="{{ dt.isGym }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:10px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,0.06)"><span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.65);text-wrap:pretty">Une charge d’essai a faussé tes chiffres ? Touche une valeur testée pour la corriger, ou recalcule ton 1RM estimé à partir de tes records.</span><button onClick="{{ dt.fix }}" style="align-self:flex-start;height:36px;padding:0 14px;border-radius:999px;border:none;background:rgba(255,255,255,0.14);color:#fff;font-size:13px;font-weight:600;cursor:pointer">Recalculer l’estimé</button></div></sc-if>
+        <button onClick="{{ dt.add }}" style="height:54px;border-radius:999px;border:none;background:#fff;color:#000;font-size:15px;font-weight:700;cursor:pointer">+ Ajouter un record testé</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasReward }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:60">
+      <div onClick="{{ closeReward }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.6);animation:prFade .25s ease-out both"></div>
+      <div style="position:absolute;left:20px;right:20px;top:50%;transform:translateY(-50%);border-radius:36px;background:#000;color:#fff;border:1px solid rgba(255,255,255,0.12);padding:30px 22px 22px;display:flex;flex-direction:column;gap:18px;overflow:hidden;animation:prPop .45s cubic-bezier(.2,.9,.3,1.2) both">
+        <span style="position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.12),rgba(255,255,255,0));pointer-events:none;animation:prShine 1.1s .55s ease-out both"></span>
+        <span style="align-self:center;color:{{ rw.medal }};display:flex;animation:prMedal .8s .2s cubic-bezier(.3,1.4,.5,1) both"><svg width="40" height="45" viewBox="0 0 24 27"><path d="M5 1h5l3 8H8z" fill="{{ rw.ribL }}"></path><path d="M19 1h-5l-3 8h5z" fill="{{ rw.ribR }}"></path><circle cx="12" cy="17.5" r="8.5" fill="currentColor"></circle><circle cx="12" cy="17.5" r="6" fill="none" stroke="#000" stroke-opacity="0.25" stroke-width="1"></circle><path d="m12 13.6 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff" fill-opacity="0.9"></path></svg></span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:prUp .4s .35s ease-out both">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:rgba(255,255,255,0.55)">{{ rw.title }}</span>
+          <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:52px;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums">{{ rw.v }}</span>
+          <span style="font-size:15px;color:rgba(255,255,255,0.7);font-weight:600">{{ rw.label }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;animation:prUp .4s .48s ease-out both">
+          <div style="padding:14px;border-radius:18px;background:#1f1f1f;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:rgba(255,255,255,0.5);font-weight:600">{{ rw.prevK }}</span><span style="font-size:17px;font-weight:700;color:rgba(255,255,255,0.6)">{{ rw.prev }}</span></div>
+          <div style="padding:14px;border-radius:18px;background:#1f1f1f;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:rgba(255,255,255,0.5);font-weight:600">Ton estimé</span><span style="font-size:17px;font-weight:700;color:rgba(255,255,255,0.6)">{{ rw.est }}</span></div>
+        </div>
+        <span style="text-align:center;font-size:14px;font-weight:600;color:{{ rw.dColor }};animation:prUp .4s .6s ease-out both">{{ rw.delta }}</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;animation:prUp .4s .7s ease-out both">
+          <button onClick="{{ closeReward }}" style="height:52px;border-radius:999px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#fff;font-size:15px;font-weight:700;cursor:pointer">Fermer</button>
+          <button onClick="{{ rw.share }}" style="height:52px;border-radius:999px;border:none;background:{{ rw.shBg }};color:{{ rw.shFg }};font-size:15px;font-weight:700;cursor:pointer">Partager</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasShare }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;padding:62px 0 44px;gap:18px;animation:prFade .25s ease-out both">
+      <div style="align-self:stretch;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.6)">{{ shTitle }}</span>
+      <button onClick="{{ closeShare }}" aria-label="Fermer" style="flex:none;width:40px;height:40px;border-radius:999px;border:none;background:rgba(255,255,255,0.16);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+      <div onScroll="{{ onShScroll }}" style="flex:1;min-height:0;align-self:stretch;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px;gap:40px;scroll-padding:0 20px">
+        <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:repeating-conic-gradient(#3a3a3a 0% 25%,#2b2b2b 0% 50%) 0 0/22px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:18px 14px">
+          <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:96px;height:auto;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.35))">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:28px;align-self:stretch"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">Record testé</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.sub }}</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">{{ sh.ek }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.ex }}</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">{{ sh.vk }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.v }}</span></div></div>
+          <svg width="26" height="29" viewBox="0 0 24 27" style="flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35))"><path d="M5 1h5l3 8H8z" fill="#fff"></path><path d="M19 1h-5l-3 8h5z" fill="#d4d4d4"></path><circle cx="12" cy="17.5" r="8.5" fill="#eab308"></circle><circle cx="12" cy="17.5" r="6" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="1"></circle><path d="m12 13.6 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff" fill-opacity="0.9"></path></svg>
+        </div></div>
+        <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:repeating-conic-gradient(#3a3a3a 0% 25%,#2b2b2b 0% 50%) 0 0/22px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:18px 14px">
+          <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:96px;height:auto;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.35))">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:28px;align-self:stretch"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">Record testé</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.sub }}</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">{{ sh.ek }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.ex }}</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">{{ sh.vk }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.v }}</span></div></div>
+          <svg width="24" height="30" viewBox="0 0 24 30" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" style="flex:none;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.35))"><path d="M6 1.5h4.5l2.5 7H8.5z"></path><path d="M18 1.5h-4.5L11 8.5h4.5z"></path><circle cx="12" cy="19" r="8.5"></circle><path d="m12 15.2 1.1 2.2 2.4.35-1.75 1.7.4 2.4L12 20.7l-2.15 1.15.4-2.4-1.75-1.7 2.4-.35z"></path></svg>
+        </div></div>
+        <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="width:260px;height:100%;max-height:462px;border-radius:20px;overflow:hidden;background:repeating-conic-gradient(#3a3a3a 0% 25%,#2b2b2b 0% 50%) 0 0/22px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:22px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:13px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">{{ sh.ex }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.v }}</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:13px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">Record testé</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.sub }}</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:13px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.35)">Date</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 2px 10px rgba(0,0,0,0.35)">{{ sh.date }}</span></div><svg width="40" height="45" viewBox="0 0 24 27" style="flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35))"><path d="M5 1h5l3 8H8z" fill="#fff"></path><path d="M19 1h-5l-3 8h5z" fill="#d4d4d4"></path><circle cx="12" cy="17.5" r="8.5" fill="#eab308"></circle><circle cx="12" cy="17.5" r="6" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="1"></circle><path d="m12 13.6 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff" fill-opacity="0.9"></path></svg><img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:74px;height:auto;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.35))">
+        </div></div>
+        <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:260px;height:100%;max-height:462px;border-radius:20px;overflow:hidden;background:#1f1f1f">
+          <image-slot id="pr-share-photo" shape="rect" src="assets/seance-cover.jpg" placeholder="Photo de l’athlète"></image-slot>
+          <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 45%,rgba(0,0,0,0.85) 80%,#000 100%)"></div>
+          <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="position:absolute;top:18px;left:18px;width:60px;height:auto;pointer-events:none">
+          <div style="position:absolute;left:18px;right:18px;bottom:20px;display:flex;flex-direction:column;gap:6px;pointer-events:none">
+            <span style="align-self:flex-start;height:24px;padding:0 10px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.05em">NOUVEAU PR</span>
+            <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:40px;letter-spacing:-0.03em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ sh.v }}</span>
+            <span style="font-size:15px;font-weight:700;color:#fff">{{ sh.ex }} · {{ sh.sub }}</span>
+            <span style="font-size:15px;color:rgba(255,255,255,0.65);font-weight:600">{{ sh.date }}</span>
+          </div>
+        </div></div>
+      </div>
+      <div style="display:flex;gap:6px"><sc-for list="{{ shDots }}" as="d" hint-placeholder-count="4"><span style="width:{{ d.w }};height:6px;border-radius:999px;background:{{ d.bg }};transition:all .2s"></span></sc-for></div>
+      <div style="display:flex;justify-content:center;gap:34px">
+        <button onClick="{{ shCopy }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:60px;height:60px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2.5"></rect><path d="M16 8V5.5A2.5 2.5 0 0 0 13.5 3h-8A2.5 2.5 0 0 0 3 5.5v8A2.5 2.5 0 0 0 5.5 16H8"></path></svg></span><span style="font-size:13px;font-weight:600">Copier</span></button><button onClick="{{ shSave }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:60px;height:60px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v8"></path><path d="m8.5 12.5 3.5 3.5 3.5-3.5"></path></svg></span><span style="font-size:13px;font-weight:600">Enregistrer</span></button><button onClick="{{ shShare }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;font-family:inherit;padding:0"><span style="width:60px;height:60px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 7.5 4.5-4.5 4.5 4.5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="font-size:13px;font-weight:600">Partager</span></button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:50%;bottom:140px;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:#fff;color:#000;font-size:13px;font-weight:600;z-index:90;white-space:nowrap">{{ toast }}</div></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;only&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;recs&quot;,&quot;weight&quot;,&quot;hist&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Affichage&quot;},&quot;onBack&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Affichage&quot;}}">
+// Données de démo = rows Supabase (athlete_records, body_measurements, session_logs). Types de records = table coach.
+const RUN_KINDS = ['5 km', '10 km', 'Semi-marathon', 'Marathon', '1 km', 'Trail'];
+const GYM_KINDS = ['Bench', 'Squat', 'Deadlift traditionnel', 'Deadlift sumo', 'Clean & Jerk', 'Snatch', 'Clean', 'Split Jerk', 'Push Jerk', 'Push press', 'Strict press', 'Dips', 'Pull up'];
+const RMS = ['1RM', '2RM', '3RM', '4RM', '5RM', '6RM', '7RM', '8RM', '9RM', '10RM'];
+const PCT = [100, 95, 93, 90, 86, 83, 80, 78, 76, 74];
+const kg = v => (Math.round(v * 10) / 10).toString().replace('.', ',') + ' kg';
+const r25 = v => Math.round(v / 2.5) * 2.5;
+const num = v => parseFloat(String(v).replace(',', '.').replace(/[^0-9.]/g, '')) || 0;
+const secs = t => { const p = String(t).split(':').map(x => parseInt(x, 10)); if (p.some(isNaN) || p.length < 2) return 0; return p.reduce((a, x) => a * 60 + x, 0); };
+const mmss = s => { const hh = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60; return (hh ? hh + ':' + String(m).padStart(2, '0') : m) + ':' + String(ss).padStart(2, '0'); };
+// Estimation running (formule de Riegel : T2 = T1 × (D2/D1)^1,06) à partir de la meilleure perf récente en séance de programme.
+const RUN_KM = { '1 km': 1, '5 km': 5, '10 km': 10, 'Semi-marathon': 21.0975, 'Marathon': 42.195 };
+// Perfs running récentes en séance de programme (calculé) : l'estimation part toujours de la distance la plus proche.
+const RUN_REFS = [
+  { km: 1, sec: 3 * 60 + 41, label: '1 km en 3:41 · fractionné 3 oct.' },
+  { km: 5, sec: 21 * 60 + 20, label: '5 km en 21:20 · tempo 30 sept.' },
+  { km: 13.8, sec: 75 * 60, label: '13,8 km en 1:15:00 · sortie longue 30 sept.' },
+  { km: 18, sec: 95 * 60 + 30, label: '18 km en 1:35:30 · sortie longue 14 sept.' }
+];
+const runEst = name => { const d = RUN_KM[name]; if (!d) return ['', ''];
+  const ref = RUN_REFS.reduce((x, r) => Math.abs(Math.log(d / r.km)) < Math.abs(Math.log(d / x.km)) ? r : x);
+  const s = Math.round(ref.sec * Math.pow(d / ref.km, 1.06)); const hh = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
+  return [(hh ? hh + ':' + String(m).padStart(2, '0') : m) + ':' + String(ss).padStart(2, '0'), ref.label]; };
+// Historique par distance : chronos perso (n vide) et courses officielles (n = nom de l'événement). Saisi par le client.
+const RUN_EVENTS = {
+  '10 km': [{ n: '10k de Nice', t: '46:10', d: '3 août' }, { n: '10k Hyères', t: '47:32', d: '12 mai' }, { n: 'Corrida de Noël', t: '48:05', d: '21 déc.' }],
+  'Semi-marathon': [{ n: 'Semi de Paris', t: '1:44:32', d: '14 avr.' }, { n: 'Semi de Cannes', t: '1:47:10', d: '10 nov.' }]
+};
+const shortDate = () => new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+const today = () => new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+
+// FAQ = table `faq` · éditable dans Espace Coach › Admin › Contenus › Aide & FAQ (tcmv-content.js)
+const FAQ_ = () => (window.TCMVC ? window.TCMVC.faq().map(f => [f.cat, f.q, f.a]) : []);
+class Component extends DCLogic {
+  state = {
+    // gym : tested = records testés saisis par l'athlète {reps: [kg, date]} · est1 = 1RM estimé calculé depuis les séances (exercices étoilés en Bibliothèque)
+    gym: [
+      { name: 'Squat', tested: { 1: [115, '3 juil.'], 3: [102.5, '28 août'], 5: [100, '12 sept.'] }, est1: 117, estFrom: '100 kg × 5 · 3 oct.' },
+      { name: 'Bench', tested: { 1: [100, '19 sept.'] }, est1: 98, estFrom: '85 kg × 5 · 2 oct.' },
+      { name: 'Deadlift traditionnel', tested: { 1: [170, '2 sept.'] }, est1: 165, estFrom: '140 kg × 5 · 29 sept.' },
+      { name: 'Strict press', tested: {}, est1: 62, estFrom: '52,5 kg × 5 · 2 oct.' },
+      { name: 'Pull up lesté', tested: { 5: [20, '25 août'] }, est1: 0, estFrom: '' },
+      // perso = exercice ajouté par l'athlète : records testés + popup, mais pas d'estimation ni de reward en séance
+      { name: 'Presse à cuisses', perso: true, tested: { 8: [220, '18 sept.'] }, est1: 0, estFrom: '' },
+      { name: 'Deadlift sumo', tested: { 3: [160, '20 août'] }, est1: 168, estFrom: '145 kg × 5 · 22 sept.' },
+      { name: 'Front squat', tested: { 1: [95, '10 juil.'] }, est1: 97, estFrom: '82,5 kg × 5 · 1 oct.' },
+      { name: 'Clean', tested: { 1: [85, '2 juin'] }, est1: 0, estFrom: '' },
+      { name: 'Snatch', tested: { 1: [65, '2 juin'] }, est1: 0, estFrom: '' },
+      { name: 'Push press', tested: { 1: [80, '15 août'] }, est1: 82, estFrom: '70 kg × 5 · 2 oct.' },
+      { name: 'Hip thrust', tested: { 10: [120, '14 juin'] }, est1: 165, estFrom: '130 kg × 8 · 3 oct.' },
+      { name: 'Dips lestés', tested: { 5: [30, '1 sept.'] }, est1: 0, estFrom: '' },
+      { name: 'Rowing barre', tested: {}, est1: 92, estFrom: '75 kg × 8 · 2 oct.' },
+      { name: 'Développé incliné', tested: { 5: [75, '19 sept.'] }, est1: 86, estFrom: '75 kg × 5 · 2 oct.' },
+      { name: 'Fentes bulgares', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Curl biceps', perso: true, tested: { 8: [18, '5 oct.'] }, est1: 0, estFrom: '' }
+    ],
+    // run : t = chrono testé [temps, date] · est = chrono estimé depuis les séances running du programme
+    run: [
+      ['1 km', null], ['5 km', ['21:48', '12 sept.']], ['10 km', ['46:10', '3 août']], ['Semi-marathon', ['1:44:32', '14 avr.']], ['Marathon', null]
+    ].map(([name, t]) => { const [est, estFrom] = runEst(name); return { name, t, est, estFrom, events: RUN_EVENTS[name] || (t ? [{ n: '', t: t[0], d: t[1] }] : []) }; }), _r: [
+    ], detail: null, reward: null, share: null,
+    body: [['1 oct. 2026', '78,4 kg', '82 cm'], ['1 sept. 2026', '79,6 kg', '84 cm'], ['1 août 2026', '81,0 kg', '86 cm'], ['1 juil. 2026', '81,8 kg', '87 cm'], ['1 juin 2026', '82,5 kg', '88 cm'], ['1 mai 2026', '83,1 kg', '89 cm']], pTab: 'cur', rTab: 'gym', histAll: false,
+    edit: false, prof: { first: 'Thomas', last: 'Andres', email: 'thomas@tcmv.fr', birth: '1994-05-12', height: '178' },
+    show: { progs: true, recs: true, weight: true, hist: true }, defTab: 'gym', prefs: { timerSound: true }, notif: { seance: true, records: true, coach: true, news: false },
+    sheet: null, f: {}, del: false, delText: '', toast: ''
+  };
+  flash(m) { this.setState({ toast: m }); clearTimeout(this.t); this.t = setTimeout(() => this.setState({ toast: '' }), 1800); }
+    acctSync() { const A = window.TCMVA; if (!A) return; const a = A.current(), id = a ? a.id : null; if (id === this._acc) return; this._acc = id; if (!id) return; const g = A.get(id, 'recGym'), r = A.get(id, 'recRun'); if (g || r) { this._skipSave = true; this.setState({ ...(g ? { gym: g } : {}), ...(r ? { run: r } : {}) }); } else if (!A.isSeed(id)) { this._skipSave = true; this.setState(s => ({ gym: [], run: (s.run || []).map(x => ({ ...x, tested: null, t: null, est: null, estFrom: '' })) })); } }
+  componentDidUpdate(pp, ps) { this.acctSync(); if (this._skipSave) { this._skipSave = false; this._lg = this.state.gym; this._lr = this.state.run; return; } const A = window.TCMVA; if (!A || !this._acc) return; if (this._lg === undefined) { this._lg = this.state.gym; this._lr = this.state.run; return; } if (this.state.gym !== this._lg) { this._lg = this.state.gym; A.put(this._acc, 'recGym', this.state.gym); } if (this.state.run !== this._lr) { this._lr = this.state.run; A.put(this._acc, 'recRun', this.state.run); } }
+  componentDidMount() { if (this.props.demo) setTimeout(() => { const D = this._D = { ...{ ...{ detail: { detail: { kind: 'gym', name: 'Développé couché' } }, fix: { detail: { kind: 'gym', name: 'Développé couché' }, sheet: 'gym', f: { kind: 'Développé couché', value: '110', rm: '1RM', edit: true, date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, reward: { reward: { kind: 'gym', name: 'Développé couché', n: 1, v: 100, date: '27 oct.', prev: null, better: true, est: 0 } }, faq: { faq: true } }, ...{ hist: { histSel: 0 }, runOpen: { runOpen: true }, share: { share: { v: '100 kg', label: 'Développé couché · 1RM', date: '27 oct.' }, shIdx: 0 }, edit: { edit: true } } }, ...{ addGym: { sheet: 'gym', f: { kind: 'Développé couché', value: '', rm: '1RM', date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, addRun: { sheet: 'run', f: { kind: '5 km', hh: 0, mm: 24, ss: 30, value: '', rm: '1RM', date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, addBody: { sheet: 'body', f: { kind: '', value: '', rm: '1RM', date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, del: { del: true, delText: '' }, recAll: { recAll: true, recQ: '' }, progAll: { progAll: true }, bilan: { bilan: { title: 'Hybrid Fondation', end: '12 oct.', done: '30 séances sur 30', kpis: [], slot: 'prog-fondation' } } } }; const st = D[this.props.demo]; if (st) this.setState(st); }, 400); const ga = () => { if (window.TCMVA) { this.offAcc = window.TCMVA.subscribe(() => this.acctSync()); this.acctSync(); } else setTimeout(ga, 50); }; ga(); this.offPace = window.RUN10K && window.RUN10K.on(() => this.forceUpdate()); const h = () => { if (window.TCMVC) { this.offC = window.TCMVC.on(() => this.forceUpdate()); this.forceUpdate(); } else this.rwc = setTimeout(h, 50); }; h(); }
+  componentWillUnmount() { this.offAcc && this.offAcc(); this.offPace && this.offPace(); clearTimeout(this.t); clearTimeout(this.rwc); this.offC && this.offC(); }
+  open(kind, preset) { this.wEls = {}; this.setState(s => ({ sheet: kind, f: { ...(kind === 'run' ? (() => { const r = s.run.find(x => x.name === (preset || s.run[0].name)) || {}; const src = r.t ? r.t[0] : r.est; const p = src ? String(src).split(':').map(Number) : [0, 0, 0]; const [hh, mm, ss] = p.length === 3 ? p : [0, p[0] || 0, p[1] || 0]; return { hh, mm, ss }; })() : {}), kind: preset || (kind === 'run' ? s.run[0].name : kind === 'gym' ? s.gym[0].name : ''), value: '', date: (() => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); })(), taille: '', rm: '1RM', custom: '' } })); }
+  wEls = {};
+  setWheels(name, f) { const est = (this.state.run.find(r => r.name === name) || {}); const src = est.t ? est.t[0] : est.est; const p = src ? String(src).split(':').map(Number) : [0, 0, 0]; const [hh, mm, ss] = p.length === 3 ? p : [0, p[0] || 0, p[1] || 0];
+    ['hh', 'mm', 'ss'].forEach((k, i) => { const el = this.wEls[k]; if (el) el.scrollTop = [hh, mm, ss][i] * 40; });
+    return { ...f, kind: name, hh, mm, ss }; }
+  // Liens = app_settings (Espace Coach › Admin › Contenus › Liens de l'app)
+  openLink(k) { const ST = window.TCMVC ? window.TCMVC.settings() : {}, L = { instagram: ST.instagram || 'https://instagram.com/tcmv.training', contact: 'mailto:' + (ST.contactEmail || 'contact@tcmv.app'), review: ST.reviewUrl || 'https://apps.apple.com' }; try { window.open(L[k], '_blank'); } catch (e) {} }
+  save() {
+    const { sheet, f } = this.state;
+    if (sheet !== 'run' && !f.value) return this.flash('Renseigne une valeur');
+    if (sheet === 'body') { const date = f.date ? new Date(f.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }) : today(); this.setState(s => ({ body: [[date, f.value + ' kg', f.taille ? f.taille + ' cm' : '—'], ...s.body], sheet: null })); return this.flash('Mesure enregistrée'); }
+    const date = f.date ? new Date(f.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : shortDate();
+    if (sheet === 'gym') {
+      const w = num(f.value), n = parseInt(f.rm, 10); if (!w) return this.flash('Indique une charge en kg');
+      const name = f.newEx ? (f.custom || '').trim() : f.kind; if (!name) return this.flash('Donne un nom à ton exercice');
+      this.setState(s => {
+        let gym = s.gym.map(e => ({ ...e, tested: { ...e.tested } })); let ex = gym.find(e => e.name === name);
+        if (!ex) { ex = { name, perso: true, tested: {}, est1: 0, estFrom: '' }; gym = [...gym, ex]; }
+        const prev = ex.tested[n], better = !prev || w > prev[0];
+        if (f.edit) { ex.tested[n] = [w, date]; setTimeout(() => this.flash('Record corrigé')); return { gym, sheet: null }; }
+        if (better) ex.tested[n] = [w, date];
+        const est = ex.est1 ? (n === 1 ? ex.est1 : r25(ex.est1 * PCT[n - 1] / 100)) : 0;
+        return { gym, sheet: null, reward: { kind: 'gym', name, n, v: w, date, prev, better, est } };
+      });
+    } else {
+      const sc = (f.hh || 0) * 3600 + (f.mm || 0) * 60 + (f.ss || 0); if (!sc) return this.flash('Choisis un temps'); if (f.evt && !(f.evName || '').trim()) return this.flash('Indique le nom de la course');
+      const name = f.newEx ? (f.custom || '').trim() : f.kind; if (!name) return this.flash('Donne un nom à ta distance');
+      // Chrono 3/5/10 km → met à jour le profil allures partagé (pace_profiles) utilisé par toutes les séances running
+      { const DM = { '3 km': 3000, '5 km': 5000, '10 km': 10000 }[name]; if (DM && window.RUN10K) window.RUN10K.setProfile(DM, sc, 'Chrono ' + name + (f.evt ? ' · ' + (f.evName || '').trim() : '')); }
+      this.setState(s => {
+        let run = s.run.map(r => ({ ...r })); let r = run.find(x => x.name === name);
+        if (!r) { r = { name, perso: true, t: null, est: '', estFrom: '', events: [] }; run = [...run, r]; }
+        r.events = [{ n: f.evt ? (f.evName || '').trim() : '', t: mmss(sc), d: date }, ...(r.events || [])];
+        const prev = r.t, better = !prev || sc < secs(prev[0]);
+        if (better) r.t = [mmss(sc), date];
+        return { run, sheet: null, reward: { kind: 'run', name, v: mmss(sc), sc, date, prev, better, est: r.est } };
+      });
+    }
+  }
+  renderVals() { if (this.props.demo && (!this._rpSeen || this.props.replay !== this._rp)) { const first = !this._rpSeen; this._rpSeen = true; this._rp = this.props.replay; const st = this._D && this._D[this.props.demo]; if (!first && st) setTimeout(() => { const clr = {}; Object.keys(st).forEach(k => { if (!['tab', 'f', 'shIdx', 'coachRead', 'chat', 'rTab', 'detail'].includes(k)) clr[k] = null; }); this.setState(clr); setTimeout(() => this.setState(st), 300); }); } const FX = this.props.focus; if (FX && FX.at !== this._fxAt) { this._fxAt = FX.at; if (FX.ex) setTimeout(() => this.setState({ rTab: 'gym', detail: { kind: 'gym', name: FX.ex } }), 50); }
+    const s = this.state, embedded = this.props.embedded ?? false, f = s.f;
+    const sf = (k, label, ph, type = 'text') => ({ label, ph, type, value: f[k] || '', onChange: (e) => this.setState({ f: { ...f, [k]: e.target.value } }) });
+    const kinds = s.sheet === 'run' ? s.run.map(r => r.name) : s.sheet === 'gym' ? s.gym.map(e => e.name) : [];
+    const w = s.body.map(b => parseFloat(b[1].replace(',', '.')));
+    const delta = w.length > 1 ? (w[0] - w[w.length - 1]) : 0;
+    return {
+      ...(() => { const s = this.state, FQ = FAQ_(), cats = ['Tout', ...[...new Set(FQ.map(f => f[0]))]], cat = s.faqCat || 'Tout', q = (s.faqQ || '').trim().toLowerCase(), N = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        const L = FQ.map((f, i) => ({ f, i })).filter(({ f }) => (cat === 'Tout' || f[0] === cat) && (!q || N(f[1] + ' ' + f[2]).includes(N(q))));
+        return { hasFaq: !!s.faq, closeFaq: () => this.setState({ faq: false, faqOpen: null, faqQ: '' }), faqQ: s.faqQ || '', setFaqQ: e => this.setState({ faqQ: e.target.value }),
+          faqCats: cats.map(label => { const on = cat === label; return { label, bg: on ? '#fff' : 'transparent', fg: on ? '#000' : '#fff', bd: on ? '#fff' : 'rgba(255,255,255,0.22)', pick: () => this.setState({ faqCat: label, faqOpen: null }) }; }),
+          faqItems: L.map(({ f, i }, k) => { const open = s.faqOpen === i; return { q: f[1], a: f[2], open, rot: open ? 180 : 0, sep: k ? 'rgba(255,255,255,0.08)' : 'transparent', toggle: () => this.setState({ faqOpen: open ? null : i }) }; }),
+          faqEmpty: !L.length, faqContact: () => this.openLink('contact') }; })(),
+      oPad: embedded ? '0' : '40px 20px', oH: embedded ? '100%' : 'auto', fW: embedded ? '100%' : '430px', fH: embedded ? '100%' : '932px', fR: embedded ? '0' : '56px', fB: embedded ? 'none' : '1px solid rgba(255,255,255,0.12)',
+      withNav: !embedded,
+      hFont: "-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif", hSize: 20, hCase: 'none',
+      name: this.props.userName || (s.prof.first + ' ' + s.prof.last).trim(), avatarSlot: this.props.avatarSlot || '', hasAvatarSlot: !!this.props.avatarSlot, noAvatarSlot: !this.props.avatarSlot,
+      ...(() => {
+        const TH = (t) => { const R = window.RUN10K; if (/10 km/.test(t || '')) { const im = R && window.RUN10K_DEFAULT ? R.img(R.cfg().program.cover) : { src: 'assets/running-cover.jpg', pos: '50% 50%' }; return { hasBg: true, bg: 'url("' + im.src + '")', bgPos: im.pos }; } const T = window.TCMVC, pi = T && T.progImg(t, 'card'); if (pi && pi.src) return { hasBg: true, bg: 'url("' + pi.src + '")', bgPos: pi.pos }; const d = /Pilates/.test(t) ? 'Pilates' : /Stretch|Mobilit/.test(t) ? 'Stretching' : /Hybrid/.test(t) ? 'Hybride' : /Hyrox/.test(t) ? 'Hyrox' : /Coaching/.test(t) ? 'Coaching privé' : 'Force'; return { hasBg: true, bg: 'url("' + ((T && T.discImg(d)) || 'assets/seance-cover.jpg') + '")', bgPos: '50% 50%' }; };
+        const raw = (this.props.myProgs || [
+          { title: 'Hybrid Fondation', by: 'Thomas', slot: 'prog-fondation', state: 'Actif · semaine 4 sur 6', onView: () => this.flash('Ouverture du programme') },
+          { title: 'Pilates Fondamentaux', by: 'Aurore', slot: 'prog-pilates', state: 'Acheté · pas encore lancé', onView: () => this.flash('Ouverture du programme') }
+        ]).filter(p => !/^Termin/.test(p.state || ''));
+        const progs = raw.map(p => { const m = (p.state || '').match(/semaine (\d+) sur (\d+)/); const n = m ? +m[1] : 0, L = m ? +m[2] : 0; return { ...p, ...(p.hasBg ? {} : TH(p.title)), logo: !!p.logo, hasBar: !!m, segs: Array.from({ length: L }, (_, i) => ({ bg: i < n - 1 ? 'rgba(255,255,255,0.55)' : i === n - 1 ? '#fff' : 'rgba(255,255,255,0.12)' })) }; });
+        const active = progs.filter(p => /^Actif/.test(p.state || '')), others = progs.filter(p => !/^Actif/.test(p.state || ''));
+        const done = [
+          { title: 'Force 5×5', slot: 'prog-force', end: '14 sept.', done: '23/24 séances', kpis: [['Squat', '+15 kg'], ['Soulevé', '+20 kg'], ['Militaire', '+7,5 kg']] },
+          { title: 'Objectif 10 km', slot: 'prog-10k', end: '2 juil.', done: '28/30 séances', kpis: [['10 km', '−3:12'], ['5 km', '−1:40']] }
+        ].map(d => ({ ...d, ...TH(d.title), kpis: d.kpis.map(([n, dd]) => ({ n, d: dd })), bilan: () => this.setState({ bilan: { title: d.title, end: d.end, done: d.done, kpis: d.kpis, slot: d.slot, ...TH(d.title) } }), restart: () => this.props.onOpenProg ? this.props.onOpenProg(d.title, 'restart') : this.flash('Quand veux-tu commencer ?') }));
+        const segBtn = (cur, set) => ([id, label, n]) => ({ label, n: n == null ? '' : String(n), bg: cur === id ? '#fff' : 'transparent', fg: cur === id ? '#000' : '#fff', pick: () => this.setState({ [set]: id }) });
+        const recs = s[s.rTab];
+        const wv = s.body.slice(0, 6).reverse(), nums = wv.map(b => parseFloat(b[1].replace(',', '.'))), mn = Math.min(...nums) - 1, mx = Math.max(...nums);
+        // Historique = rows session_logs (calculé depuis les séances validées). stats = 3 chiffres du récap selon le type de séance.
+        const H = [
+          ['4 oct.', 'Run · EF', '50 min · Zone 2', [['Durée', '50 min'], ['Distance', '9,2 km'], ['Allure', '5:26 /km']], 4],
+          ['3 oct.', 'Lowerbody', 'Force · 58 min', [['Durée', '58 min'], ['Séries', '18'], ['Volume', '7 120 kg']], 4, [{ ex: 'Back squat', v: '117 kg', from: '100 kg × 5' }]],
+          ['2 oct.', 'Upperbody 2', 'Supersets · 52 min', [['Durée', '52 min'], ['Séries', '16'], ['Volume', '4 860 kg']], 4],
+          ['30 sept.', 'Run · Sortie longue', '1 h 15 · Zone 2', [['Durée', '1 h 15'], ['Distance', '13,8 km'], ['Allure', '5:26 /km']], 3],
+          ['29 sept.', 'Metcon', 'EMOM 20', [['Durée', '20 min'], ['Tours', '20'], ['Format', 'EMOM']], 3],
+          ['28 sept.', 'Upperbody 1', 'Force · 55 min', [['Durée', '55 min'], ['Séries', '17'], ['Volume', '5 240 kg']], 3],
+          ['26 sept.', 'Run · Fractionné', '6 × 800 m', [['Durée', '48 min'], ['Distance', '8,1 km'], ['Allure', '5:55 /km']], 3]
+        ];
+        return {
+          since: 'Membre depuis mai 2026 · Hybride',
+          topStats: [['112', 'séances'], ['2', 'programmes terminés'], ['5 sem.', 'de régularité']].map(([v, k], i) => ({ v, k, pl: i ? '14px' : '0', bl: i ? '1px solid rgba(255,255,255,0.1)' : 'none' })),
+          progTabs: [['cur', 'En cours', active.length], ['done', 'Terminés', done.length]].map(segBtn(s.pTab, 'pTab')),
+          isCur: s.pTab === 'cur', isDone: s.pTab === 'done',
+          progAllLbl: 'Voir tous mes programmes (' + (progs.length + done.length) + ')', openProgAll: () => this.setState({ progAll: true }), closeProgAll: () => this.setState({ progAll: false }), hasProgAll: !!s.progAll,
+          ...(() => { const op = (title, mode) => { this.setState({ progAll: false, progAct: null }); this.props.onOpenProg ? this.props.onOpenProg(title, mode) : this.flash(mode === 'restart' ? 'Redémarrage · ' + title : 'Ouverture · ' + title); };
+            const mk = (kind, p, sub) => ({ slot: p.slot, title: p.title, sub, hasBg: p.hasBg, bg: p.bg, bgPos: p.bgPos, open: () => this.setState({ progAct: { kind, title: p.title, sub, slot: p.slot, hasBg: p.hasBg, bg: p.bg, bgPos: p.bgPos, fiche: p.onView, bilan: p.bilan } }) });
+            const G = [['En cours', 'cur', active.map(p => mk('cur', p, 'avec ' + p.by + ' · ' + p.state))], ['Achetés · en pause', 'pause', others.map(p => mk('pause', p, 'avec ' + p.by + ' · ' + p.state))], ['Terminés', 'done', done.map(d => mk('done', d, 'Terminé le ' + d.end + ' · ' + d.done))]];
+            const pf = s.pf || 'all', A = s.progAct;
+            const acts = !A ? [] : [['Voir le programme', 'Semaines et séances', () => op(A.title, A.kind === 'done' ? 'view-done' : 'view')]]
+              .concat(A.kind === 'done' ? [['Voir le bilan', 'Résultats et KPI', () => { this.setState({ progAct: null, progAll: false }); A.bilan && A.bilan(); }], ['Redémarrer le programme', 'Repart en semaine 1 · historique conservé', () => this.setState({ progAct: { ...A, confirm: true } })]] : [['Voir la fiche', 'Présentation, coach, contenu', () => { this.setState({ progAct: null, progAll: false }); A.fiche && A.fiche(); }]]);
+            return { pfChips: [['all', 'Tous'], ['cur', 'En cours'], ['pause', 'En pause'], ['done', 'Terminés']].map(([id, label]) => { const n = id === 'all' ? G.reduce((x, g) => x + g[2].length, 0) : (G.find(g => g[1] === id) || [0, 0, []])[2].length; return { label: label + ' · ' + n, bg: pf === id ? '#fff' : 'rgba(255,255,255,0.08)', fg: pf === id ? '#000' : '#fff', pick: () => this.setState({ pf: id }) }; }),
+              progAllGroups: G.filter(g => (pf === 'all' || g[1] === pf) && g[2].length).map(([t, , items]) => ({ t, items })),
+              hasProgAct: !!A, pa: A || {}, paActs: acts.map(([label, hint, run]) => ({ label, hint, run })), paConfirm: !!(A && A.confirm), paMain: !!(A && !A.confirm),
+              closeProgAct: () => this.setState({ progAct: null }), backProgAct: () => this.setState({ progAct: { ...A, confirm: false } }),
+              doRestart: () => op(A.title, 'restart') }; })(), progs: active, noCur: !active.length, doneProgs: done,
+          // Bilan de fin de programme = programmes (endMsg, next, restart, share, hide) · Espace Coach › Suivi & fin · progrès = calculé (séances test)
+          ...(() => { const B = s.bilan, T = window.TCMVC, p = B && T ? T.programs().find(x => x.name === B.title) : null, H = (p && p.hide) || {}, k = (B && B.kpis) || [];
+            const nx = p && !H.next && p.next ? p.next : '', first = s.prof.first || '';
+            const msg = p && !H.endMsg && p.endMsg ? p.endMsg.replace(/\{kpi(\d)\}/g, (m0, n) => (k[n - 1] || [])[1] || '').replace('{suivant}', nx || 'la suite').replace('{prenom}', first) : '';
+            return { hasBilan: !!B, closeBilan: () => this.setState({ bilan: null }), bl: B ? { title: B.title, sub: 'Terminé le ' + B.end + ' · ' + B.done, slot: B.slot, hasBg: !!B.hasBg, bg: B.bg || 'none', bgPos: B.bgPos || '50% 50%',
+              hello: 'Bravo' + (first ? ' ' + first : ''), hasKpis: !H.kpis && k.length > 0, kpis: k.map(([n, d], i) => { const N = t => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''), pk = ((p && p.kpis) || []).filter(x => x.name).find(x => N(x.name).includes(N(n)) || N(n).includes(N(x.name))); return { n, sub: pk ? [pk.sess, (pk.w0 || 'S1') + ' → ' + (pk.w1 || 'fin')].filter(Boolean).join(' · ') : 'Début → fin', d }; }), hasMsg: !!msg, msg, hasNext: !!nx, nextLbl: 'Programme suivant · ' + nx,
+              goNext: () => { this.setState({ bilan: null }); this.props.onOpenProg ? this.props.onOpenProg(nx) : this.flash(nx); },
+              canRestart: !p || p.restart !== false, restart: () => { this.setState({ bilan: null }); this.props.onOpenProg ? this.props.onOpenProg(B.title, 'restart') : this.flash('Quand veux-tu commencer ?'); },
+              canShare: (!p || p.share !== false) && k.length > 0 && !H.kpis, share: () => this.setState({ share: { v: k[0][1], label: B.title + ' · ' + k[0][0], date: B.end }, shIdx: 0 }) } : {} }; })(),
+          recTabs: [['gym', 'Force', s.gym.length], ['run', 'Running', s.run.length]].map(segBtn(s.rTab, 'rTab')),
+          ...(() => { const R = window.RUN10K, p = s.rTab === 'run' && R ? R.profile() : null, on = s.rTab === 'run' && !!R;
+            return { hasPace: on && !!p, noPace: on && !p, addPace: () => this.open('run'), paceSrc: p ? p.label + ' · ' + p.date.split('-').reverse().slice(0, 2).join('/') : '',
+              paceZones: p ? ['Endurance', 'Seuil', 'Allure 10 km'].map(n => ({ name: n, pace: (R.zoneCue(n) || {}).pace || '—' })) : [] }; })(),
+          recHead: s.rTab === 'gym' ? '1RM' : 'CHRONO',
+          ...(() => { const all = s.rTab === 'gym'
+            ? s.gym.map((e, i) => { const t1 = e.tested[1], nT = Object.keys(e.tested).length; return { name: e.name, sub: (e.perso ? 'Perso · ' : '') + (nT ? nT + ' record' + (nT > 1 ? 's' : '') + ' testé' + (nT > 1 ? 's' : '') : 'Pas encore testé'), tested: t1 ? kg(t1[0]) : '—', tc: t1 ? '#fff' : 'rgba(255,255,255,0.3)', est: e.est1 ? kg(e.est1) : '—', open: () => this.setState({ detail: { kind: 'gym', name: e.name } }) }; })
+            : s.run.map(r => ({ name: r.name, sub: (r.perso ? 'Perso · ' : '') + (r.t ? 'testé le ' + r.t[1] : 'Pas encore testé'), tested: r.t ? r.t[0] : '—', tc: r.t ? '#fff' : 'rgba(255,255,255,0.3)', est: r.est || '—', open: () => this.setState({ detail: { kind: 'run', name: r.name } }) })); const L = 5, n = all.length;
+            return { recRows: all.slice(0, L), recMore: n > L, recMoreLbl: 'Voir tout (' + n + ')', toggleRec: () => this.setState({ recAll: true }),
+              hasRecAll: !!s.recAll, closeRecAll: () => this.setState({ recAll: false, recQ: '' }),
+              recQ: s.recQ || '', setRecQ: ev => this.setState({ recQ: ev.target.value }), recQPh: s.rTab === 'gym' ? 'Rechercher un exercice' : 'Rechercher une distance',
+              recNone: all.filter(r => r.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes((s.recQ || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim())).length === 0, recAllTitle: (s.rTab === 'gym' ? 'Records force' : 'Records running') + ' · ' + n,
+              recAllRows: all.filter(r => r.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes((s.recQ || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim())).map(r => ({ ...r, open: () => { this.setState({ recAll: false, recQ: '' }); r.open(); } })) }; })(),
+          addRecord: () => this.open(s.rTab),
+          wBars: wv.map((b, i) => ({ v: b[1].replace(' kg', ''), m: b[0].split(' ')[1].replace('.', ''), h: Math.round(16 + (nums[i] - mn) / (mx - mn || 1) * 48), bg: i === wv.length - 1 ? '#fff' : 'rgba(255,255,255,0.22)' })),
+          history: (s.histAll ? H : H.slice(0, 4)).map(([date, tt, sub], i) => ({ date, t: tt, s: sub, open: () => this.setState({ histSel: i }) })),
+          hasHist: s.histSel != null, closeHist: () => this.setState({ histSel: null }),
+          hs: (() => { const x = H[s.histSel ?? 0]; return { date: x[0], sub: x[1] + ' · Hybrid Fondation · S' + x[4], stats: x[3], prs: x[5] || [], week: x[4] }; })(), histCount: '112 séances', histBtn: s.histAll ? 'Réduire' : 'Voir plus', toggleHist: () => this.setState({ histAll: !s.histAll }),
+          editProfile: () => this.setState({ edit: true })
+        }; })(),
+      addBody: () => this.open('body'),
+      weightNow: s.body[0] ? s.body[0][1] : '—', weightDelta: (delta > 0 ? '+' : '') + delta.toFixed(1).replace('.', ',') + ' kg en 6 mois',
+      body: s.body.map(([date, poids, taille]) => ({ date, poids, taille: 'Taille ' + taille })),
+      links: ['Instagram', 'Aide & FAQ', 'Contacter TCMV', 'Laisser un avis'].map((label, i) => ({ label, sep: i ? '1px solid rgba(255,255,255,0.08)' : 'none', onClick: () => label === 'Aide & FAQ' ? this.setState({ faq: true }) : this.openLink({ 'Instagram': 'instagram', 'Contacter TCMV': 'contact', 'Laisser un avis': 'review' }[label]) })),
+      logout: () => this.flash('Déconnexion'),
+      askDelete: () => this.setState({ del: true, delText: '' }), cancelDelete: () => this.setState({ del: false }),
+      hasDelete: s.del, delText: s.delText, setDel: (e) => this.setState({ delText: e.target.value }),
+      delBlocked: s.delText.trim().toUpperCase() !== 'SUPPRIMER', delOp: s.delText.trim().toUpperCase() === 'SUPPRIMER' ? 1 : 0.35,
+      confirmDelete: () => { this.setState({ del: false }); this.flash('Compte supprimé (démo)'); },
+      hasSheet: !!s.sheet, closeSheet: () => this.setState({ sheet: null }),
+      sheetTitle: s.sheet === 'run' ? 'Ajouter un chrono' : s.sheet === 'gym' ? 'Nouveau record force' : 'Nouvelle mesure',
+      sheetHasKinds: kinds.length > 0,
+      sheetIsGym: s.sheet === 'gym', sheetRms: RMS.map(k => { const on = f.rm === k; return { label: k, bg: on ? '#fff' : 'transparent', fg: on ? '#000' : '#fff', bd: on ? '#fff' : 'rgba(255,255,255,0.2)', onClick: () => this.setState({ f: { ...f, rm: k } }) }; }),
+      customEx: f.custom || '', setCustomEx: (e) => this.setState({ f: { ...f, custom: e.target.value } }),
+      sheetKinds: kinds.map(k => { const on = f.kind === k && !(s.sheet === 'gym' && f.newEx); return { label: k, bg: on ? '#fff' : 'transparent', fg: on ? '#000' : '#fff', bd: on ? '#fff' : 'rgba(255,255,255,0.2)', onClick: () => this.setState({ f: s.sheet === 'run' ? this.setWheels(k, f) : { ...f, kind: k, newEx: false } }) }; }),
+      sheetIsRun: s.sheet === 'run',
+      wheels: [['hh', 6, 'h'], ['mm', 60, 'min'], ['ss', 60, 's']].map(([k, n, unit]) => ({ unit,
+        items: Array.from({ length: n }, (_, i) => ({ v: k === 'hh' ? String(i) : String(i).padStart(2, '0'), c: (f[k] || 0) === i ? '#fff' : 'rgba(255,255,255,0.25)' })),
+        ref: el => { if (el && !this.wEls[k]) { this.wEls[k] = el; el.scrollTop = (f[k] || 0) * 40; } },
+        onScroll: ev => { const v = Math.max(0, Math.min(n - 1, Math.round(ev.currentTarget.scrollTop / 40))); if (v !== (this.state.f[k] || 0)) this.setState(st => ({ f: { ...st.f, [k]: v } })); } })),
+      wheelTxt: (f.hh ? f.hh + ' h ' : '') + String(f.mm || 0).padStart(2, '0') + ' min ' + String(f.ss || 0).padStart(2, '0') + ' s',
+      kindLbl: s.sheet === 'run' ? 'Distance' : 'Exercice',
+      evtTabs: [[false, 'Chrono perso'], [true, 'Course officielle']].map(([v, label]) => ({ label, bg: !!f.evt === v ? '#fff' : 'transparent', fg: !!f.evt === v ? '#000' : '#fff', pick: () => this.setState(st => ({ f: { ...st.f, evt: v } })) })),
+      isEvt: s.sheet === 'run' && !!f.evt, evName: f.evName || '', setEvName: ev => { const v = ev.target.value; this.setState(st => ({ f: { ...st.f, evName: v } })); },
+      selKind: f.newEx ? (s.sheet === 'run' ? '+ Nouvelle distance' : '+ Nouvel exercice') : f.kind || '', selKindKey: f.newEx ? '__new' : f.kind || '',
+      kindOpts: [...kinds.map(k => ({ v: k, l: k })), { v: '__new', l: s.sheet === 'run' ? '+ Nouvelle distance' : '+ Nouvel exercice' }],
+      customPh: s.sheet === 'run' ? 'Ex. Trail 25 km' : 'Ex. Presse à cuisses',
+      setKind: ev => { const v = ev.target.value; if (v === '__new') this.setState(st => ({ f: { ...st.f, newEx: true } })); else this.setState(st => ({ f: st.sheet === 'run' ? this.setWheels(v, st.f) : { ...st.f, kind: v, newEx: false } })); },
+      selRm: f.rm || '1RM', selRmKey: f.rm || '1RM', rmOpts: RMS.map(k => ({ v: k, l: k })), setRm: ev => { const v = ev.target.value; this.setState(st => ({ f: { ...st.f, rm: v } })); },
+      pickNewEx: () => this.setState({ f: { ...f, newEx: true } }), showCustom: (s.sheet === 'gym' || s.sheet === 'run') && !!f.newEx,
+      newExBg: f.newEx ? '#fff' : 'transparent', newExFg: f.newEx ? '#000' : '#fff', newExBd: f.newEx ? '#fff' : 'rgba(255,255,255,0.35)',
+      sheetFields: s.sheet === 'body' ? [sf('value', 'Poids', '78,4 kg'), sf('taille', 'Tour de taille', '82 cm')]
+        : s.sheet === 'run' ? [] : [sf('value', 'Charge', 'kg')],
+      saveSheet: () => this.save(),
+      ...(() => { const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        const t0 = new Date(); t0.setHours(12, 0, 0, 0); const cur = f.date ? new Date(f.date + 'T12:00:00') : t0; const diff = Math.round((t0 - cur) / 864e5);
+        const step = k => () => { const d = new Date(cur); d.setDate(d.getDate() + k); if (d > t0) return; this.setState(st => ({ f: { ...st.f, date: iso(d) } })); };
+        return { dLabel: diff === 0 ? 'Aujourd’hui' : diff === 1 ? 'Hier' : cur.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }), dVal: iso(cur), dMax: iso(t0), dSet: ev => { const v = ev.target.value; if (v) this.setState(st => ({ f: { ...st.f, date: v } })); } }; })(),
+      ...(() => {
+        const d = s.detail; if (!d) return { hasDetail: false, dt: { name: '', tK: '', tV: '', tD: '', eK: '', eV: '', eD: '', isGym: false, table: [], hasEvents: false, events: [], canShareTop: false, shareTop: () => {}, add: () => {}, fix: () => {} } };
+        const shareGym = (name, n) => () => { const e = s.gym.find(x => x.name === name); this.setState({ shIdx: 0, share: { v: kg(e.tested[n][0]), label: name + ' · ' + n + 'RM', date: e.tested[n][1] } }); };
+        if (d.kind === 'gym') {
+          const e = s.gym.find(x => x.name === d.name) || s.gym[0], t1 = e.tested[1];
+          return { hasDetail: true, dt: { name: e.name, isGym: true, hasEvents: false, events: [], tK: '1RM TESTÉ', tV: t1 ? kg(t1[0]) : '—', tD: t1 ? 'ajouté le ' + t1[1] : 'pas encore testé', eK: '1RM ESTIMÉ', eV: e.est1 ? kg(e.est1) : '—', eD: e.perso ? 'exercice perso · non suivi en séance' : e.est1 ? 'depuis ' + e.estFrom : 'pas encore fait en séance',
+            canShareTop: false, shareTop: () => {},
+            fix: () => this.setState(st => ({ gym: st.gym.map(x => { if (x.name !== e.name) return x; const b = Math.max(0, ...Object.entries(x.tested || {}).map(([k, v]) => v[0] * (1 + (parseInt(k) > 1 ? parseInt(k) / 30 : 0)))); return { ...x, est1: b ? r25(b) : 0, estFrom: b ? 'tes records testés' : '' }; }) }), () => this.flash('1RM estimé recalculé')),
+            table: PCT.map((p, i) => { const n = i + 1, t = e.tested[n]; return { edit: () => { this.open('gym', e.name); this.setState(st => ({ f: { ...st.f, rm: n + 'RM', value: t ? String(t[0]).replace('.', ',') : '', edit: !!t } })); }, rm: n + 'RM', tested: t ? kg(t[0]) : '—', date: t ? t[1] : '', tc: t ? '#fff' : 'rgba(255,255,255,0.3)', est: e.est1 ? (n === 1 ? kg(e.est1) : kg(r25(e.est1 * p / 100))) : '—', share: !!t, pick: t ? shareGym(e.name, n) : () => {} }; }),
+            add: () => this.open('gym', e.name) } };
+        }
+        const r = s.run.find(x => x.name === d.name) || s.run[0];
+        return { hasDetail: true, dt: { name: r.name, isGym: false, tK: 'CHRONO TESTÉ', tV: r.t ? r.t[0] : '—', tD: r.t ? 'ajouté le ' + r.t[1] : 'pas encore testé', eK: 'CHRONO ESTIMÉ', eV: r.est || '—', eD: r.perso ? 'distance perso · pas d’estimation' : r.est ? 'à partir de ' + r.estFrom : 'pas encore fait en séance',
+          hasEvents: (r.events || []).length > 0, events: (() => { const L = r.events || [], rk = [...L].sort((a, b) => secs(a.t) - secs(b.t)); return L.map(ev => { const i = rk.indexOf(ev); return { n: ev.n || 'Chrono perso', d: ev.d, t: ev.t, medal: i >= 0 && i < 3, mc: ['#eab308', '#c0c4cc', '#c27c3e'][i] || 'transparent' }; }); })(),
+          fix: () => {}, canShareTop: !!r.t, shareTop: () => this.setState({ shIdx: 0, share: { v: r.t[0], label: r.name, date: r.t[1] } }), table: [], add: () => this.open('run', r.name) } };
+      })(),
+      closeDetail: () => this.setState({ detail: null }),
+      hasReward: !!s.reward, closeReward: () => this.setState({ reward: null }),
+      rw: (() => { const R = s.reward; if (!R) return { title: '', v: '', label: '', prevK: '', prev: '', est: '', delta: '', dColor: '#000', medal: '#eab308', ribL: '#fff', ribR: '#bdbdbd', shBg: '#fff', shFg: '#000', share: () => {} };
+        const gym = R.kind === 'gym', vS = gym ? kg(R.v) : R.v, prevS = R.prev ? (gym ? kg(R.prev[0]) : R.prev[0]) : '—';
+        const delta = !R.better ? 'Ton record reste ' + prevS + '. Rien n’a été remplacé.' : !R.prev ? 'Premier record testé enregistré' : gym ? '+' + kg(R.v - R.prev[0]) + ' sur ton record' : '−' + mmss(secs(R.prev[0]) - R.sc) + ' sur ton record';
+        return { title: R.better ? 'NOUVEAU RECORD TESTÉ' : 'RECORD NON BATTU', v: vS, label: gym ? R.n + 'RM · ' + R.name : R.name, prevK: R.prev ? 'Ancien testé · ' + R.prev[1] : 'Ancien testé', prev: prevS,
+          est: R.est ? (gym ? kg(R.est) : R.est) : '—', delta, dColor: R.better ? '#4ade80' : 'rgba(255,255,255,0.6)', medal: R.better ? '#eab308' : '#5a5a5a', ribL: R.better ? '#fff' : '#3a3a3a', ribR: R.better ? '#bdbdbd' : '#2a2a2a', shBg: R.better ? '#fff' : 'rgba(255,255,255,0.15)', shFg: R.better ? '#000' : 'rgba(255,255,255,0.5)',
+          share: () => R.better ? this.setState({ reward: null, shIdx: 0, share: { v: vS, label: gym ? R.name + ' · ' + R.n + 'RM' : R.name, date: R.date } }) : this.flash('Seul un record battu se partage') }; })(),
+      hasShare: !!s.share, closeShare: () => this.setState({ share: null }), sh: s.share ? { v: s.share.v, ex: s.share.label.split(' · ')[0], sub: s.share.label.split(' · ')[1] || 'Running', vk: s.share.label.includes(' · ') ? 'Charge' : 'Chrono', ek: s.share.label.includes(' · ') ? 'Exercice' : 'Distance', date: s.share.date } : { v: '', ex: '', sub: '', vk: '', ek: '', date: '' },
+      shTitle: ['Sans fond · horizontal', 'Sans fond · horizontal blanc', 'Sans fond · vertical', 'Avec ta photo'][this.state.shIdx || 0],
+      shDots: [0, 1, 2, 3].map(i => ({ w: (this.state.shIdx || 0) === i ? '18px' : '6px', bg: (this.state.shIdx || 0) === i ? '#fff' : 'rgba(255,255,255,0.3)' })),
+      onShScroll: ev => { const el = ev.currentTarget, i = Math.round(el.scrollLeft / (el.clientWidth - 40 + 40 - 0 || 1)); const n = Math.max(0, Math.min(3, Math.round(el.scrollLeft / Math.max(1, el.scrollWidth / 4)))); if (n !== (this.state.shIdx || 0)) this.setState({ shIdx: n }); },
+      shCopy: () => { this.setState({ share: null }); this.flash('Image copiée'); }, shSave: () => { this.setState({ share: null }); this.flash('Image enregistrée dans tes photos'); }, shShare: () => { this.setState({ share: null }); this.flash('Menu de partage du téléphone'); },
+      openEdit: () => this.setState({ edit: true }), closeEdit: () => this.setState({ edit: false }), saveEdit: () => { this.setState({ edit: false }); this.flash('Profil mis à jour'); }, hasEdit: s.edit,
+      changePhoto: () => this.photoEl && this.photoEl.click(), photoRef: this._pr || (this._pr = el => { this.photoEl = el; }),
+      onPhoto: ev => { const f = ev.target.files && ev.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { this.setState({ myPhoto: r.result }); this.flash('Photo mise à jour'); }; r.readAsDataURL(f); ev.target.value = ''; },
+      hasMyPhoto: !!s.myPhoto, myPhoto: s.myPhoto ? 'url("' + s.myPhoto + '")' : 'none',
+      runOpen: !!s.runOpen, openRun: () => this.setState({ runOpen: true }), closeRun: () => this.setState({ runOpen: false }),
+      runVma: (() => { const M = window.TCMVRUN; if (!M) return '—'; const v = M.vma(M.profile()); return v ? v.toFixed(1).replace('.', ',') + ' km/h' : 'À calibrer'; })(),
+      runAge: (() => { const b = s.info && s.info.birth; return b ? Math.floor((Date.now() - new Date(b).getTime()) / 3.15576e10) : 32; })(),
+      ...(() => { const o = this.props.only; return { fullMode: !o, onlyMode: !!o, onlyBack: () => this.props.onBack && this.props.onBack(), shProgs: o ? false : s.show.progs, shRecs: o ? o === 'recs' : s.show.recs, shWeight: o ? o === 'weight' : s.show.weight, shHist: o ? o === 'hist' : s.show.hist }; })(),
+      infoFields: [['first', 'Prénom', 'text', 'text'], ['last', 'Nom', 'text', 'text'], ['email', 'Email', 'email', 'email'], ['birth', 'Naissance', 'date', 'none'], ['height', 'Taille (cm)', 'text', 'numeric']].map(([k, label, type, mode], i) => ({ label, type, mode, value: s.prof[k], sep: i ? '1px solid rgba(255,255,255,0.08)' : 'none', onChange: ev => { const v = ev.target.value; this.setState(st => ({ prof: { ...st.prof, [k]: v } })); } })),
+      showToggles: [['progs', 'Mes programmes'], ['recs', 'Mes records'], ['weight', 'Poids'], ['hist', 'Historique des séances']].map(([k, label], i) => { const on = s.show[k]; return { label, on, bg: on ? '#34c759' : 'rgba(120,120,128,0.32)', x: on ? '22px' : '2px', sep: i ? '1px solid rgba(255,255,255,0.08)' : 'none', toggle: () => this.setState(st => ({ show: { ...st.show, [k]: !st.show[k] } })) }; }),
+      defTabs: [['gym', 'Force'], ['run', 'Running']].map(([id, label]) => ({ label, bg: s.defTab === id ? '#fff' : 'transparent', fg: s.defTab === id ? '#000' : '#fff', pick: () => this.setState({ defTab: id, rTab: id }) })),
+      seanceToggles: [['voice', 'Voix pendant les chronos', ''], ['bips', 'Bips pendant les chronos', '']].map(([k, label, sub], i) => { let on = true; try { on = localStorage.getItem('tcmv.chrono.' + k) !== '0'; } catch (e) {} return { label, sub, on, bg: on ? '#34c759' : 'rgba(120,120,128,0.32)', x: on ? '22px' : '2px', sep: i ? '1px solid rgba(255,255,255,0.08)' : 'none', toggle: () => { try { localStorage.setItem('tcmv.chrono.' + k, on ? '0' : '1'); } catch (e) {} this.forceUpdate(); } }; }),
+      notifToggles: [['seance', 'Rappel de séance', 'Le matin des jours d’entraînement'], ['records', 'Nouveaux records', 'Quand un record estimé progresse'], ['coach', 'Messages du coach', 'Réponses et ajustements'], ['news', 'Nouveautés TCMV', 'Nouveaux programmes et offres']].map(([k, label, sub], i) => { const on = s.notif[k]; return { label, sub, on, bg: on ? '#34c759' : 'rgba(120,120,128,0.32)', x: on ? '22px' : '2px', sep: i ? '1px solid rgba(255,255,255,0.08)' : 'none', toggle: () => this.setState(st => ({ notif: { ...st.notif, [k]: !st.notif[k] } })) }; }),
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

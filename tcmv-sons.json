@@ -1,0 +1,63 @@
+{
+  "_info": "Sons du chrono validés le 29 oct. (Test sons chrono) · fichier assets/sons/beep.mp3 · p = pitch (demi-tons) · oct = octave · d = durée (s) · lp = feutré (Hz) · v = volume · a = attaque (s) · r = part de fin · tv2 = tenue synthétique (bip long) · toct = octave de la tenue · gap = écart double bip (s) · master = volume général (×5,4 dans le moteur) · voix Samantha US : « Ten seconds » à 10 s, « Halfway there » à mi-temps, « Let's go » / « Round N » / « Time » sur le 0",
+  "file": "assets/sons/beep.mp3",
+  "court": {
+    "file": 1,
+    "p": 0,
+    "oct": 0,
+    "tv2": 0,
+    "toct": 0,
+    "w": "sawtooth",
+    "f": 987.8,
+    "d": 0.65,
+    "lp": 450,
+    "v": 0.1,
+    "mix": 1,
+    "a": 0.024,
+    "r": 0.1
+  },
+  "courtBackup": {
+    "file": 1,
+    "p": 0,
+    "oct": -1,
+    "w": "sawtooth",
+    "f": 987.8,
+    "d": 0.6,
+    "lp": 300,
+    "v": 0.5,
+    "mix": 1,
+    "a": 0.062,
+    "r": 0.1
+  },
+  "long": {
+    "file": 1,
+    "p": 5,
+    "oct": 0,
+    "tv2": 1,
+    "toct": 0,
+    "w": "sine",
+    "f": 1174.7,
+    "d": 0.65,
+    "lp": 1200,
+    "v": 0.03,
+    "mix": 1,
+    "a": 0.006,
+    "r": 0.2
+  },
+  "double": {
+    "file": 1,
+    "p": -1,
+    "oct": -1,
+    "w": "sawtooth",
+    "f": 1661.2,
+    "d": 0.25,
+    "lp": 600,
+    "v": 0.8,
+    "mix": 0,
+    "a": 0.014,
+    "r": 0.6,
+    "gap": 0.15
+  },
+  "master": 1.4,
+  "voix": "Samantha (en-US)"
+}

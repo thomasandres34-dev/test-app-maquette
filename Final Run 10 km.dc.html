@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./run10k-data.js"></script>
+<script src="./run10k.js"></script>
+<style>[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.65)"]{color:rgba(0,0,0,0.58)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.65)"]{color:rgba(255,255,255,0.58)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.6)"]{color:rgba(0,0,0,0.53)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.6)"]{color:rgba(255,255,255,0.53)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.55)"]{color:rgba(0,0,0,0.48)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.55)"]{color:rgba(255,255,255,0.48)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.5)"]{color:rgba(0,0,0,0.43)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.5)"]{color:rgba(255,255,255,0.43)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.45)"]{color:rgba(0,0,0,0.38)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.45)"]{color:rgba(255,255,255,0.38)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.42)"]{color:rgba(0,0,0,0.35)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.42)"]{color:rgba(255,255,255,0.35)!important}[data-tb="1"] [style*="color: rgba(0, 0, 0, 0.4)"]{color:rgba(0,0,0,0.33)!important}[data-tb="1"] [style*="color: rgba(255, 255, 255, 0.4)"]{color:rgba(255,255,255,0.33)!important}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}body{margin:0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#000}a:hover{color:#555}button{font-family:inherit}input{font-family:inherit}::-webkit-scrollbar{display:none}</style>
+</helmet>
+<div data-tb="1" data-screen-label="Run 10 km" style="font-weight:600;-webkit-font-smoothing:antialiased;position:relative;width:100%;height:100%;min-height:932px;background:#fff;color:#000;overflow:hidden;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">
+
+  <sc-if value="{{ isPack }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;overflow-y:auto;padding-bottom:48px">
+      <div style="position:relative;height:360px;background:#111;color:#fff">
+        <img src="{{ cover }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ coverPos }};transform:scale({{ coverZ }});transform-origin:{{ coverPos }}"></img>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.85) 100%)"></div>
+        <button onClick="{{ close }}" aria-label="Retour" style="position:absolute;left:16px;top:59px;width:44px;height:44px;border:none;border-radius:999px;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <div style="position:absolute;left:20px;right:20px;bottom:22px;display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Le pack · avec {{ by }}</span>
+          <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:40px;letter-spacing:-0.03em;line-height:0.92;text-transform:uppercase">{{ progTitle }}</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.75);font-weight:600">12 semaines · programme adapté à ton niveau + {{ bonusCount }} séances complémentaires</span>
+        </div>
+      </div>
+      <div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+        <button onClick="{{ packMain }}" style="display:flex;align-items:center;gap:14px;padding:16px;border:none;border-radius:22px;background:#000;color:#fff;cursor:pointer;text-align:left">
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55)">Programme</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;text-transform:uppercase">{{ progTitle }}</span><span style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:600">{{ packState }}</span></span>
+          <span style="height:38px;padding:0 16px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;font-size:13px;font-weight:700;flex:none">{{ packCta }}</span>
+        </button>
+        <span style="padding:14px 4px 2px;font-weight:600;font-size:20px;letter-spacing:-0.01em">Séances complémentaires</span>
+        <span style="padding:0 4px 4px;font-size:13px;color:rgba(0,0,0,0.55);font-weight:600">Incluses dans le pack. À faire quand tu veux, autant de fois que tu veux.</span>
+        <sc-for list="{{ bonus }}" as="b" hint-placeholder-count="5">
+          <button onClick="{{ b.open }}" style="display:flex;align-items:center;gap:12px;padding:10px;border:none;border-radius:18px;background:#f4f4f4;cursor:pointer;text-align:left;color:#000">
+            <span style="width:64px;height:64px;flex:none;border-radius:12px;overflow:hidden;background:#ddd"><img src="{{ b.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;object-position:{{ b.pos }};transform:scale({{ b.z }});transform-origin:{{ b.pos }}"></img></span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:15px;font-weight:700">{{ b.name }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.55);font-weight:600">{{ b.sub }} · {{ b.dur }} min</span><span style="font-size:11.5px;font-weight:600;color:rgba(0,0,0,0.45)">{{ b.count }}</span></span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;opacity:0.4"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;overflow-y:auto;padding-bottom:48px">
+      <div style="height:59px"></div>
+      <div style="padding:8px 16px 0;display:flex;align-items:center;gap:12px">
+        <button onClick="{{ close }}" aria-label="Retour" style="width:44px;height:44px;flex:none;border:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(0,0,0,0.5)">{{ hWeek }} · {{ hPhase }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em;line-height:1;text-transform:uppercase">{{ progTitle }}</span></span>
+        <button onClick="{{ goPack }}" style="height:36px;padding:0 14px;flex:none;border:1px solid rgba(0,0,0,0.15);border-radius:999px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#000">Le pack</button>
+      </div>
+      <div style="margin:16px 16px 0;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;color:rgba(0,0,0,0.55);font-weight:600"><span>{{ hLevel }}</span><span style="font-variant-numeric:tabular-nums">{{ hCount }} séances</span></div>
+        <div style="height:4px;border-radius:999px;background:rgba(0,0,0,0.1);overflow:hidden"><div style="height:100%;width:{{ hPct }}%;background:#000;border-radius:999px"></div></div>
+      </div>
+
+      <sc-if value="{{ hasEvent }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:16px 16px 0;padding:16px;border-radius:20px;background:#f4f4f4;display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.5)">Ton programme s’adapte</span>
+          <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;line-height:1.05">{{ evTitle }}</span>
+          <span style="font-size:14px;line-height:1.45;color:rgba(0,0,0,0.7);text-wrap:pretty;font-weight:500">{{ evMsg }}</span>
+          <sc-if value="{{ evHasDiff }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="padding:7px 10px;border-radius:10px;background:#fff;text-decoration:line-through;color:rgba(0,0,0,0.5)">{{ evFrom }}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg><span style="padding:7px 10px;border-radius:10px;background:#000;color:#fff;font-weight:600">{{ evTo }}</span></div></sc-if>
+          <div style="display:flex;gap:8px"><button onClick="{{ evOk }}" style="flex:1;height:42px;border:none;border-radius:999px;background:#000;color:#fff;font-size:14px;font-weight:700;cursor:pointer">OK</button><sc-if value="{{ evRefusable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ evRefuse }}" style="flex:1;height:42px;border:1px solid rgba(0,0,0,0.2);border-radius:999px;background:#fff;color:#000;font-size:14px;font-weight:600;cursor:pointer">Garder l’originale</button></sc-if></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ nOpen }}" style="position:relative;overflow:hidden;margin:16px 16px 0;padding:18px;border-radius:24px;background:#000;color:#fff;display:flex;flex-direction:column;gap:12px;cursor:pointer"><img src="{{ nImg }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ nPos }};transform:scale({{ nZ }});transform-origin:{{ nPos }};pointer-events:none"></img><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.88) 100%);pointer-events:none"></div><div style="position:relative;display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6)">{{ nKicker }}</span>
+          <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;line-height:0.95;text-transform:uppercase">{{ nTitle }}</span>
+          <span style="font-size:14px;line-height:1.4;color:rgba(255,255,255,0.75);font-weight:500">{{ nSum }} · {{ nDur }}</span>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ nPills }}" as="p" hint-placeholder-count="2"><span style="height:28px;padding:0 11px;border-radius:999px;background:{{ p.bg }};color:{{ p.fg }};border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">{{ p.t }}</span></sc-for></div>
+          <sc-if value="{{ nIsRepl }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;color:rgba(255,255,255,0.6);font-weight:600">Séance remplacée suite à ton dernier retour</span></sc-if>
+          <button onClick="{{ nOpen }}" style="align-self:flex-start;height:40px;padding:0 18px;border:none;border-radius:999px;background:#fff;color:#000;font-size:14px;font-weight:700;cursor:pointer">{{ nBtn }}</button>
+        </div></div>
+      </sc-if>
+
+      <div style="margin:22px 0 0;display:flex;flex-direction:column;gap:10px">
+        <div style="padding:0 20px;display:flex;align-items:baseline;justify-content:space-between"><span style="font-weight:600;font-size:20px;letter-spacing:-0.01em">Séances complémentaires</span><span style="font-size:12.5px;color:rgba(0,0,0,0.5);font-weight:600">en accès libre</span></div>
+        <div style="display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x mandatory;scroll-padding-left:16px">
+          <sc-for list="{{ hBonus }}" as="b" hint-placeholder-count="3">
+            <button onClick="{{ b.open }}" style="position:relative;flex:none;width:150px;height:180px;border:none;border-radius:18px;overflow:hidden;background:#111;color:#fff;cursor:pointer;padding:0;text-align:left;scroll-snap-align:start">
+              <img src="{{ b.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ b.pos }};transform:scale({{ b.z }});transform-origin:{{ b.pos }}"></img>
+              <span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.85) 100%)"></span>
+              <span style="position:absolute;left:12px;right:10px;bottom:12px;display:flex;flex-direction:column;gap:3px"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.01em;line-height:1;text-transform:uppercase">{{ b.name }}</span><span style="font-size:12px;color:rgba(255,255,255,0.75);font-weight:600">{{ b.dur }} min</span></span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <button onClick="{{ openPaces }}" style="margin:22px 16px 0;width:calc(100% - 32px);padding:16px;border:none;border-radius:20px;background:#f4f4f4;cursor:pointer;text-align:left;color:#000;display:flex;flex-direction:column;gap:12px">
+        <span style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:17px">Mes allures</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.4"><path d="m9 18 6-6-6-6"></path></svg></span>
+        <span style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px">
+          <span style="padding:10px 12px;border-radius:14px;background:#fff;display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">VMA</span><span style="font-size:17px;font-weight:700;font-variant-numeric:tabular-nums">{{ vma }}</span></span>
+          <span style="padding:10px 12px;border-radius:14px;background:#fff;display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">10 km estimé</span><span style="font-size:17px;font-weight:700;font-variant-numeric:tabular-nums">{{ est }}</span></span>
+          <span style="padding:10px 12px;border-radius:14px;background:#fff;display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">Objectif · {{ goalSub }}</span><span style="font-size:17px;font-weight:700;font-variant-numeric:tabular-nums">{{ goalTxt }}</span></span>
+        </span>
+      </button>
+
+      <div style="margin:26px 0 0;display:flex;flex-direction:column;gap:12px">
+        <span style="padding:0 20px;font-weight:600;font-size:20px;letter-spacing:-0.01em">Planning</span>
+        <div style="display:flex;gap:6px;overflow-x:auto;padding:0 16px">
+          <sc-for list="{{ hWeeks }}" as="w" hint-placeholder-count="12">
+            <button onClick="{{ w.pick }}" style="flex:none;width:52px;padding:8px 0 9px;border:1px solid {{ w.bd }};border-radius:12px;background:{{ w.bg }};color:{{ w.fg }};display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><span style="font-size:13px;font-weight:700">{{ w.l }}</span><span style="width:30px;height:3px;border-radius:999px;background:{{ w.barBg }};overflow:hidden"><span style="display:block;height:100%;width:{{ w.fill }}%;background:{{ w.barFg }}"></span></span></button>
+          </sc-for>
+        </div>
+        <span style="padding:0 20px;font-size:13px;color:rgba(0,0,0,0.55);font-weight:600">{{ hWeekTitle }}</span>
+        <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ hSess }}" as="x" hint-placeholder-count="4">
+            <button onClick="{{ x.open }}" style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid {{ x.bd }};border-radius:18px;background:#fff;cursor:pointer;text-align:left;color:#000;opacity:{{ x.op }}">
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;font-weight:600;letter-spacing:0.04em;color:rgba(0,0,0,0.5)">{{ x.day }}</span><span style="font-size:15px;font-weight:700">{{ x.t }}</span><span style="font-size:12.5px;line-height:1.35;color:rgba(0,0,0,0.55);font-weight:500">{{ x.sub }}</span></span>
+              <sc-if value="{{ x.hasTag }}" hint-placeholder-val="{{ false }}"><span style="height:24px;padding:0 9px;flex:none;border-radius:999px;background:{{ x.tagBg }};color:{{ x.tagFg }};display:flex;align-items:center;font-size:11.5px;font-weight:700">{{ x.tag }}</span></sc-if>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isPaces }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;overflow-y:auto;padding-bottom:48px">
+      <div style="height:59px"></div>
+      <div style="padding:8px 16px 0;display:flex;align-items:center;gap:12px">
+        <button onClick="{{ backHome }}" aria-label="Retour" style="width:44px;height:44px;flex:none;border:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em;text-transform:uppercase">Mes allures</span>
+      </div>
+      <div style="margin:18px 16px 0;padding:18px;border-radius:24px;background:#000;color:#fff;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+        <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">VMA</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em">{{ vma }}</span><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">km/h</span></span>
+        <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">10 km estimé</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em">{{ est }}</span><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">aujourd’hui</span></span>
+        <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">Objectif</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.02em">{{ goalTxt }}</span><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">{{ goalSub }}</span></span>
+      </div>
+      <sc-if value="{{ hasAdj }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:10px 20px 0;font-size:12.5px;color:rgba(0,0,0,0.55);font-weight:600">{{ adjTxt }}</span></sc-if>
+      <div style="margin:18px 16px 0;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ zones }}" as="z" hint-placeholder-count="6">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:#f4f4f4">
+            <span style="width:10px;align-self:stretch;flex:none;border-radius:999px;background:{{ z.color }}"></span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700">{{ z.name }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.55);font-weight:600">{{ z.talk }} · {{ z.rpeTxt }}</span></span>
+            <span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none"><span style="font-size:17px;font-weight:700;font-variant-numeric:tabular-nums">{{ z.pace }}</span><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">{{ z.pct }} VMA</span></span>
+          </div>
+        </sc-for>
+      </div>
+      <span style="display:block;margin:24px 20px 10px;font-weight:600;font-size:17px">Historique</span>
+      <div style="margin:0 16px;display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ refs }}" as="r" hint-placeholder-count="2">
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid rgba(0,0,0,0.1)"><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:600">{{ r.label }}</span><span style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:600">{{ r.sub }}</span></span><span style="font-size:14px;font-weight:700;font-variant-numeric:tabular-nums">{{ r.vma }}</span></div>
+        </sc-for>
+      </div>
+      <span style="display:block;margin:16px 20px 0;font-size:12px;line-height:1.45;color:rgba(0,0,0,0.5);font-weight:500">Tes allures sont recalculées à chaque test (semaines 1, 8 et 12) et ajustées selon tes retours après séance.</span>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isIntake }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="height:59px;flex:none"></div>
+      <div style="padding:8px 16px 0;display:flex;align-items:center;gap:12px;flex:none">
+        <button onClick="{{ qBack }}" aria-label="Retour" style="width:44px;height:44px;flex:none;border:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <div style="flex:1;height:4px;border-radius:999px;background:rgba(0,0,0,0.1);overflow:hidden"><div style="height:100%;width:{{ qPct }}%;background:#000;border-radius:999px;transition:width .3s ease"></div></div>
+        <span style="font-size:13px;font-weight:600;color:rgba(0,0,0,0.5);font-variant-numeric:tabular-nums">{{ qNum }}</span>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:32px 20px 20px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.02em;line-height:1.02;text-wrap:pretty">{{ qLabel }}</span>
+        <sc-if value="{{ hasQHelp }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;line-height:1.45;color:rgba(0,0,0,0.6);font-weight:500">{{ qHelp }}</span></sc-if>
+        <sc-if value="{{ qIsDays }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:18px;padding-top:8px">
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px"><sc-for list="{{ dayChips }}" as="d" hint-placeholder-count="7"><button onClick="{{ d.pick }}" style="height:52px;border:none;border-radius:14px;background:{{ d.bg }};color:{{ d.fg }};font-size:16px;font-weight:700;cursor:pointer">{{ d.l }}</button></sc-for></div>
+            <span style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:600">{{ daysNote }}</span>
+            <sc-if value="{{ hasSl }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:700">Jour de la sortie longue</span><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ slChips }}" as="d" hint-placeholder-count="3"><button onClick="{{ d.pick }}" style="height:38px;padding:0 14px;border:none;border-radius:999px;background:{{ d.bg }};color:{{ d.fg }};font-size:14px;font-weight:600;cursor:pointer">{{ d.l }}</button></sc-for></div></div></sc-if>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:700">Quand veux-tu commencer ?</span><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ startChips }}" as="d" hint-placeholder-count="2"><button onClick="{{ d.pick }}" style="height:38px;padding:0 14px;border:none;border-radius:999px;background:{{ d.bg }};color:{{ d.fg }};font-size:14px;font-weight:600;cursor:pointer">{{ d.l }}</button></sc-for></div></div>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:8px">
+          <sc-for list="{{ qOpts }}" as="o" hint-placeholder-count="4">
+            <button onClick="{{ o.pick }}" style="min-height:58px;padding:14px 16px;border:{{ o.bd }};border-radius:16px;background:#fff;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:#000;font-size:16px;font-weight:600"><span style="width:20px;height:20px;flex:none;border-radius:999px;border:1.5px solid {{ o.ring }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:999px;background:{{ o.dot }}"></span></span>{{ o.label }}</button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ chronoOpen }}" hint-placeholder-val="{{ false }}"><label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600;color:rgba(0,0,0,0.6)">Ton chrono (min:s)</span><input value="{{ chronoTxt }}" onChange="{{ setChrono }}" placeholder="{{ chronoPh }}" inputmode="numeric" style="height:56px;padding:0 16px;border:1px solid rgba(0,0,0,0.15);border-radius:14px;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;outline:none"></input></label></sc-if>
+        <sc-if value="{{ goalOpen }}" hint-placeholder-val="{{ false }}"><label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600;color:rgba(0,0,0,0.6)">Chrono visé sur 10 km (min:s)</span><input value="{{ goalTxt }}" onChange="{{ setGoal }}" placeholder="50:00" inputmode="numeric" style="height:56px;padding:0 16px;border:1px solid rgba(0,0,0,0.15);border-radius:14px;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;outline:none"></input></label></sc-if>
+      </div>
+      <div style="padding:12px 20px 40px;flex:none"><button onClick="{{ qNext }}" style="width:100%;height:56px;border:none;border-radius:999px;background:{{ qBtnBg }};color:#fff;font-size:16px;font-weight:700;cursor:pointer">{{ qBtn }}</button></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="flex:1;overflow-y:auto;padding-bottom:20px">
+        <div style="height:59px"></div>
+        <div style="padding:8px 16px 0"><button onClick="{{ rBack }}" aria-label="Retour" style="width:44px;height:44px;border:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button></div>
+        <div style="padding:20px 20px 0;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.5)">Ton point de départ</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:34px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">Niveau {{ rLevel }}</span><span style="font-size:14px;line-height:1.45;color:rgba(0,0,0,0.6);font-weight:500">{{ rWho }}</span></div>
+        <div style="margin:16px 16px 0;padding:16px;border-radius:20px;background:#f4f4f4;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ rLevels }}" as="l" hint-placeholder-count="4"><button onClick="{{ l.pick }}" style="height:34px;padding:0 12px;border:none;border-radius:999px;background:{{ l.bg }};color:{{ l.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ l.l }}</button></sc-for></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ rPer }}" as="l" hint-placeholder-count="2"><button onClick="{{ l.pick }}" style="height:34px;padding:0 12px;border:none;border-radius:999px;background:{{ l.bg }};color:{{ l.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ l.l }}</button></sc-for></div>
+          <sc-if value="{{ hasRNote }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:rgba(0,0,0,0.6);font-weight:600">{{ rNote }}</span></sc-if>
+        </div>
+        <div style="margin:10px 16px 0;padding:18px;border-radius:20px;background:#000;color:#fff;display:flex;flex-direction:column;gap:10px">
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+            <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">10 km estimé aujourd’hui</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em">{{ rEst }}</span></span>
+            <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:rgba(255,255,255,0.55);font-weight:600">VMA de départ</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em">{{ rVma }}</span></span>
+          </div>
+          <span style="font-size:12.5px;color:rgba(255,255,255,0.6);font-weight:600">{{ rEstSrc }}</span>
+        </div>
+        <sc-if value="{{ rHasGoal }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:10px 16px 0;padding:16px;border-radius:20px;border:1px solid rgba(0,0,0,0.1);display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:600">Ton objectif</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em">{{ rGoal }}</span></span><span style="height:28px;padding:0 12px;border-radius:999px;background:{{ rStatusBg }};color:{{ rStatusFg }};display:flex;align-items:center;font-size:12.5px;font-weight:700;text-align:center">{{ rStatus }}</span></div>
+            <span style="font-size:13.5px;line-height:1.45;color:rgba(0,0,0,0.65);font-weight:500">{{ rStatusTxt }}</span>
+            <sc-if value="{{ rHasChoices }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ rChoices }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="padding:12px 14px;border:{{ o.bd }};border-radius:14px;background:#fff;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:#000"><span style="width:20px;height:20px;flex:none;border-radius:999px;border:1.5px solid {{ o.ring }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:999px;background:{{ o.dot }}"></span></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14.5px;font-weight:700">{{ o.l }}</span><span style="font-size:12px;color:rgba(0,0,0,0.5);font-weight:600">{{ o.sub }}</span></span></button></sc-for></div></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ rFinish }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:14px 20px 0;font-size:13.5px;line-height:1.45;color:rgba(0,0,0,0.6);font-weight:500">Objectif : finir ton 10 km. Tes allures suivront ton niveau et progresseront après chaque test.</span></sc-if>
+        <span style="display:block;margin:16px 20px 0;font-size:13px;line-height:1.45;color:rgba(0,0,0,0.55);font-weight:500">{{ rStart }}. Ta première séance est un test : il fixe tes allures pour tout le programme.</span>
+      </div>
+      <div style="padding:12px 20px 40px;flex:none"><button onClick="{{ rLaunch }}" style="width:100%;height:56px;border:none;border-radius:999px;background:#000;color:#fff;font-size:16px;font-weight:700;cursor:pointer">Lancer le programme</button></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isSession }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="flex:1;overflow-y:auto;padding-bottom:20px">
+        <div style="position:relative;height:220px;background:#111"><img src="{{ sImg }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ sPos }};transform:scale({{ sZ }});transform-origin:{{ sPos }}"></img><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0) 50%,rgba(255,255,255,0) 80%,#fff 100%)"></div></div>
+        <div style="position:absolute;left:16px;top:59px"><button onClick="{{ sBack }}" aria-label="Retour" style="width:44px;height:44px;border:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button></div>
+        <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:rgba(0,0,0,0.5)">{{ sKicker }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">{{ sTitle }}</span></div>
+        <div style="margin:16px 16px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px"><sc-for list="{{ sStats }}" as="k" hint-placeholder-count="3"><div style="padding:10px 12px;border-radius:14px;background:#f4f4f4;display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:rgba(0,0,0,0.5);font-weight:600">{{ k.k }}</span><span style="font-size:16px;font-weight:700">{{ k.v }}</span></div></sc-for></div>
+        <sc-if value="{{ sRepl }}" hint-placeholder-val="{{ false }}"><div style="margin:10px 16px 0;padding:12px 14px;border-radius:14px;background:#f0dca8;font-size:13px;line-height:1.4;font-weight:500">{{ sReplTxt }}</div></sc-if>
+        <sc-if value="{{ sIsTest }}" hint-placeholder-val="{{ false }}"><div style="margin:10px 16px 0;padding:14px;border-radius:16px;background:#000;color:#fff;font-size:13.5px;line-height:1.45;font-weight:500">{{ sTestHelp }} Tes allures seront recalculées à partir de ton résultat.</div></sc-if>
+        <sc-if value="{{ sDone }}" hint-placeholder-val="{{ false }}"><div style="margin:10px 16px 0;padding:12px 14px;border-radius:14px;background:#d4e4cf;font-size:13px;font-weight:600">{{ sDoneTxt }}</div></sc-if>
+        <div style="margin:16px 16px 0;padding:4px 16px;border-radius:20px;border:1px solid rgba(0,0,0,0.1)">
+          <sc-for list="{{ sSteps }}" as="x" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px;padding:14px 0;border-bottom:{{ x.sep }}">
+              <span style="width:24px;height:24px;flex:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ x.n }}</span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+                <span style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><span style="font-size:15px;font-weight:700">{{ x.label }}</span><span style="font-size:14px;font-weight:700;white-space:nowrap">{{ x.main }}</span></span>
+                <span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="height:24px;padding:0 9px;border-radius:999px;background:{{ x.color }};color:{{ x.ink }};display:flex;align-items:center;font-size:11.5px;font-weight:700">{{ x.zoneName }}</span><span style="font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums">{{ x.paceTxt }}</span><sc-if value="{{ x.hasRec }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;color:rgba(0,0,0,0.5);font-weight:600">· {{ x.rec }}</span></sc-if></span>
+                <span style="font-size:12.5px;color:rgba(0,0,0,0.55);font-weight:600">{{ x.talk }} · effort {{ x.rpe }}/10</span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ hasSNote }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:12px 20px 0;font-size:13px;color:rgba(0,0,0,0.55);font-weight:600">{{ sNote }}</span></sc-if>
+        <span style="display:block;margin:12px 20px 0;font-size:12px;line-height:1.45;color:rgba(0,0,0,0.45);font-weight:500">Sans montre, fie-toi à l’effort et au test de parole : ils comptent plus que l’allure exacte.</span>
+      </div>
+      <div style="padding:12px 20px 40px;flex:none"><button onClick="{{ sStart }}" style="width:100%;height:56px;border:none;border-radius:999px;background:#000;color:#fff;font-size:16px;font-weight:700;cursor:pointer">{{ sCta }}</button></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#000;color:#fff">
+      <div style="height:59px;flex:none"></div>
+      <div style="padding:8px 16px 0;display:flex;align-items:center;gap:12px;flex:none">
+        <button onClick="{{ lQuit }}" aria-label="Quitter" style="width:44px;height:44px;flex:none;border:none;border-radius:999px;background:rgba(255,255,255,0.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+        <span style="flex:1;min-width:0;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ lTitleS }}</span>
+        <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.6)">{{ lNum }}</span>
+      </div>
+      <div style="margin:14px 16px 0;height:4px;border-radius:999px;background:rgba(255,255,255,0.15);overflow:hidden;flex:none"><div style="height:100%;width:{{ lPct }}%;background:#fff;transition:width .3s ease"></div></div>
+      <div style="flex:1;padding:36px 24px 0;display:flex;flex-direction:column;gap:14px">
+        <span style="align-self:flex-start;height:30px;padding:0 12px;border-radius:999px;background:{{ lBg }};color:{{ lFg }};border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;font-size:13px;font-weight:700">{{ lZone }}</span>
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:34px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">{{ lTitle }}</span>
+        <span style="font-size:22px;font-weight:600">{{ lMain }}</span>
+        <div style="margin-top:18px;display:flex;align-items:baseline;gap:10px"><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:84px;letter-spacing:-0.04em;line-height:0.9;font-variant-numeric:tabular-nums">{{ lPace }}</span><span style="font-size:15px;color:rgba(255,255,255,0.6);font-weight:600">{{ lUnit }}</span></div>
+        <span style="font-size:15px;line-height:1.45;color:rgba(255,255,255,0.75);font-weight:500">{{ lTalk }} · {{ lRpe }}</span>
+        <sc-if value="{{ lHasRec }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:rgba(255,255,255,0.6);font-weight:600">Entre les répétitions : {{ lRec }}</span></sc-if>
+      </div>
+      <div style="padding:12px 20px 40px;display:flex;gap:8px;flex:none">
+        <button onClick="{{ lPrev }}" aria-label="Étape précédente" style="width:56px;height:56px;flex:none;border:none;border-radius:999px;background:rgba(255,255,255,0.12);color:#fff;opacity:{{ lPrevOp }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <button onClick="{{ lNext }}" style="flex:1;height:56px;border:none;border-radius:999px;background:#fff;color:#000;font-size:16px;font-weight:700;cursor:pointer">{{ lNextTxt }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTest }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="flex:1;overflow-y:auto;padding:79px 20px 20px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.5)">{{ tName }} · résultat</span>
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">Note ton résultat</span>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600;color:rgba(0,0,0,0.6)">{{ tLabel }}</span><input value="{{ tv }}" onChange="{{ setTv }}" placeholder="{{ tPh }}" inputmode="decimal" style="height:64px;padding:0 16px;border:1px solid rgba(0,0,0,0.15);border-radius:16px;font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;outline:none"></input></label>
+        <sc-if value="{{ tHasRes }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:18px;border-radius:22px;background:#000;color:#fff;display:flex;flex-direction:column;gap:14px">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Tes allures sont à jour</span>
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:18px;color:rgba(255,255,255,0.5);text-decoration:line-through;font-weight:600">{{ tBefore }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:40px;letter-spacing:-0.03em">{{ tAfter }}</span><span style="font-size:13px;color:rgba(255,255,255,0.6);font-weight:600">km/h VMA</span></div>
+            <span style="font-size:14px;color:rgba(255,255,255,0.75);font-weight:600">10 km estimé aujourd’hui : {{ tEst }}</span>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px"><sc-for list="{{ tZones }}" as="z" hint-placeholder-count="4"><span style="padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:600">{{ z.name }}</span><span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums">{{ z.pace }}</span></span></sc-for></div>
+            <sc-if value="{{ tHasGoal }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:600">{{ tGoalTxt }}</span></sc-if>
+          </div>
+        </sc-if>
+      </div>
+      <div style="padding:12px 20px 40px;flex:none"><button onClick="{{ tGo }}" style="width:100%;height:56px;border:none;border-radius:999px;background:{{ tBtnBg }};color:#fff;font-size:16px;font-weight:700;cursor:pointer">{{ tBtn }}</button></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isFeedback }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="flex:1;overflow-y:auto;padding:79px 20px 20px;display:flex;flex-direction:column;gap:22px">
+        <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">Comment c’était ?</span>
+        <div style="display:flex;flex-direction:column;gap:10px"><span style="display:flex;justify-content:space-between"><span style="font-size:15px;font-weight:700">Effort ressenti</span><span style="font-size:12.5px;color:rgba(0,0,0,0.5);font-weight:600">{{ fTarget }}</span></span><div style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px"><sc-for list="{{ fRpe }}" as="x" hint-placeholder-count="10"><button onClick="{{ x.pick }}" style="height:44px;border:none;border-radius:10px;background:{{ x.bg }};color:{{ x.fg }};font-size:14px;font-weight:700;cursor:pointer;padding:0">{{ x.l }}</button></sc-for></div></div>
+        <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:15px;font-weight:700">Plaisir</span><div style="display:flex;gap:6px"><sc-for list="{{ fFun }}" as="x" hint-placeholder-count="5"><button onClick="{{ x.pick }}" aria-label="Plaisir" style="width:44px;height:44px;border:none;border-radius:999px;background:transparent;cursor:pointer;padding:0;opacity:{{ x.op }};display:flex;align-items:center;justify-content:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="#000"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.5 1.1 4.3 2.4h2c.8-1.3 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"></path></svg></button></sc-for></div></div>
+        <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:15px;font-weight:700">Les allures ?</span><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px"><sc-for list="{{ fFeel }}" as="x" hint-placeholder-count="4"><button onClick="{{ x.pick }}" style="height:46px;border:none;border-radius:14px;background:{{ x.bg }};color:{{ x.fg }};font-size:14px;font-weight:600;cursor:pointer">{{ x.l }}</button></sc-for></div></div>
+        <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:15px;font-weight:700">Après la séance</span><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px"><sc-for list="{{ fAfter }}" as="x" hint-placeholder-count="4"><button onClick="{{ x.pick }}" style="height:46px;border:none;border-radius:14px;background:{{ x.bg }};color:{{ x.fg }};font-size:14px;font-weight:600;cursor:pointer">{{ x.l }}</button></sc-for></div>
+          <sc-if value="{{ fHasZone }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ fZones }}" as="x" hint-placeholder-count="5"><button onClick="{{ x.pick }}" style="height:34px;padding:0 12px;border:none;border-radius:999px;background:{{ x.bg }};color:{{ x.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ x.l }}</button></sc-for></div></sc-if>
+        </div>
+      </div>
+      <div style="padding:12px 20px 40px;flex:none"><button onClick="{{ fSave }}" style="width:100%;height:56px;border:none;border-radius:999px;background:{{ fBtnBg }};color:#fff;font-size:16px;font-weight:700;cursor:pointer">Enregistrer</button></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAdapt }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="flex:1;overflow-y:auto;padding:79px 16px 20px;display:flex;flex-direction:column;gap:12px">
+        <span style="padding:0 4px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.5)">Séance enregistrée</span>
+        <span style="padding:0 4px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">Ton programme s’adapte</span>
+        <sc-for list="{{ aEvs }}" as="e" hint-placeholder-count="1">
+          <div style="padding:16px;border-radius:20px;background:#f4f4f4;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em">{{ e.title }}</span>
+            <span style="font-size:14px;line-height:1.45;color:rgba(0,0,0,0.7);font-weight:500">{{ e.msg }}</span>
+            <sc-if value="{{ e.hasDiff }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:600"><span style="padding:7px 10px;border-radius:10px;background:#fff;text-decoration:line-through;color:rgba(0,0,0,0.5)">{{ e.from }}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg><span style="padding:7px 10px;border-radius:10px;background:#000;color:#fff;font-weight:600">{{ e.to }}</span></div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding:12px 20px 40px;display:flex;flex-direction:column;gap:8px;flex:none">
+        <button onClick="{{ aDone }}" style="width:100%;height:56px;border:none;border-radius:999px;background:#000;color:#fff;font-size:16px;font-weight:700;cursor:pointer">OK, c’est noté</button>
+        <sc-if value="{{ aRefusable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ aRefuse }}" style="width:100%;height:48px;border:none;border-radius:999px;background:transparent;color:#000;font-size:14px;font-weight:600;cursor:pointer">Garder la séance d’origine</button></sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isBonus }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+      <div style="flex:1;overflow-y:auto;padding-bottom:20px">
+        <div style="position:relative;height:300px;background:#111;color:#fff">
+          <img src="{{ bImg }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ bPos }};transform:scale({{ bZ }});transform-origin:{{ bPos }}"></img>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.85) 100%)"></div>
+          <button onClick="{{ bBack }}" aria-label="Retour" style="position:absolute;left:16px;top:59px;width:44px;height:44px;border:none;border-radius:999px;background:rgba(0,0,0,0.45);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+          <div style="position:absolute;left:20px;right:20px;bottom:20px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Séance complémentaire · {{ bDur }}</span><span style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.03em;line-height:0.95;text-transform:uppercase">{{ bName }}</span><span style="font-size:14px;color:rgba(255,255,255,0.75);font-weight:600">{{ bSub }}</span></div>
+        </div>
+        <div style="margin:16px 16px 0;padding:4px 16px;border-radius:20px;border:1px solid rgba(0,0,0,0.1)">
+          <sc-for list="{{ bEx }}" as="x" hint-placeholder-count="5"><div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06)"><span style="width:24px;height:24px;flex:none;border-radius:999px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ x.n }}</span><span style="flex:1;font-size:15px;font-weight:600">{{ x.ex }}</span><span style="font-size:13.5px;color:rgba(0,0,0,0.6);white-space:nowrap;font-weight:600">{{ x.dose }}</span></div></sc-for>
+        </div>
+        <span style="display:block;margin:12px 20px 0;font-size:12.5px;color:rgba(0,0,0,0.5);font-weight:600">Incluse dans le pack. Elle ne compte pas dans ton planning, elle s’ajoute à ton historique.</span>
+      </div>
+      <div style="padding:12px 20px 40px;flex:none"><button onClick="{{ bStart }}" style="width:100%;height:56px;border:none;border-radius:999px;background:#000;color:#fff;font-size:16px;font-weight:700;cursor:pointer">Démarrer la séance</button></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}"><div style="z-index:40;position:absolute;left:50%;bottom:40px;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:#000;color:#fff;font-size:13px;font-weight:600;white-space:nowrap">{{ toast }}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:932},&quot;pid&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;demo&quot;,&quot;nouveau&quot;],&quot;default&quot;:&quot;demo&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;step&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pack&quot;,&quot;home&quot;,&quot;intake&quot;],&quot;default&quot;:&quot;pack&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onClose&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onEnroll&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(start: string) =&gt; void&quot;},&quot;onDone&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(sid: string) =&gt; void&quot;},&quot;sid&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;bid&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;}}">
+const PID_DEF = 'demo';
+const TALK_FEEL = [['easy', 'Trop facile'], ['ok', 'Juste'], ['hard', 'Trop dur'], ['fail', 'Pas tenues']];
+const AFTER = [['good', 'En forme'], ['tired', 'Fatigué'], ['gene', 'Gêne'], ['pain', 'Douleur']];
+const PAIN_Z = ['Pied / cheville', 'Mollet', 'Genou', 'Hanche', 'Dos'];
+const chip = (on) => ({ bg: on ? '#000' : '#f2f2f2', fg: on ? '#fff' : '#000' });
+class Component extends DCLogic {
+  state = { step: null, q: 0, ans: {}, sel: {}, sid: null, bid: null, gi: 0, fb: {}, tv: '', week: null, toast: '', res: null, back: 'home' };
+  componentDidMount() {
+    const p = this.props; this.setState({ step: p.step || 'pack', sid: p.sid || null, bid: p.bid || null, back: p.step === 'bonus' ? 'exit' : 'pack' });
+    const hook = () => { if (window.RUN10K && window.RUN10K_DEFAULT) { this.off = window.RUN10K.on(() => this.forceUpdate()); this.forceUpdate(); } else this.w = setTimeout(hook, 40); };
+    hook();
+  }
+  componentWillUnmount() { clearTimeout(this.w); clearTimeout(this.t); this.off && this.off(); }
+  flash(m) { this.setState({ toast: m }); clearTimeout(this.t); this.t = setTimeout(() => this.setState({ toast: '' }), 2200); }
+  go(step, extra) { this.setState({ step, ...(extra || {}) }); }
+  renderVals() {
+    const R = window.RUN10K, s = this.state;
+    if (!R || !window.RUN10K_DEFAULT) return { isPack: true, bonus: [], progTitle: 'Objectif 10 km', by: 'Léa' };
+    const c = R.cfg(), pid = this.props.pid || PID_DEF, a = R.ath(pid), step = s.step || 'pack';
+    const save = (na) => R.saveAth(pid, na);
+    const close = () => this.props.onClose ? this.props.onClose() : this.go('pack');
+    const sched = a ? R.schedule(c, a) : [], cnt = a ? R.counts(c, a) : { done: 0, total: 0 }, cw = a ? R.curWeek(a) : 0;
+    const L = a ? R.level(c, a.level) : null, v = a ? R.vma(a) : 0;
+    const openSess = (id) => this.go('session', { sid: id, gi: 0, fb: {}, tv: '', res: null });
+    const openBonus = (id, back) => this.go('bonus', { bid: id, back: back || step });
+    const bonusList = c.bonus.map(b => { const n = a ? (a.bonus || []).filter(x => x.id === b.id).length : 0, im = R.img(b.img); return { ...b, img: im.src, pos: im.pos, z: im.z, count: n ? 'Faite ' + n + ' fois' : 'Pas encore faite', open: () => openBonus(b.id) }; });
+    const CV = R.img(c.program.cover), SI = (it) => R.img(it && it.def.img, c.program.sessImg);
+    const out = { close, cover: CV.src, coverPos: CV.pos, coverZ: CV.z, progTitle: c.program.title, by: c.program.by, bonus: bonusList, bonusCount: c.bonus.length, hasToast: !!s.toast, toast: s.toast,
+      isPack: step === 'pack', isIntake: step === 'intake', isResult: step === 'result', isHome: step === 'home', isSession: step === 'session', isLive: step === 'live', isTest: step === 'test', isFeedback: step === 'feedback', isAdapt: step === 'adapt', isPaces: step === 'paces', isBonus: step === 'bonus' };
+
+    // Pack
+    out.packState = a ? (cw > 12 ? 'Programme terminé' : 'Semaine ' + Math.max(1, cw) + ' sur 12 · ' + cnt.done + '/' + cnt.total + ' séances') : 'Questionnaire 1 min · test en semaine 1';
+    out.packCta = a ? 'Ouvrir' : 'Commencer';
+    out.packMain = () => a ? this.go('home') : this.go('intake', { q: 0, ans: {}, sel: {} });
+
+    // Questionnaire
+    const Qs = c.intake, qi = Math.min(s.q, Qs.length - 1), Q = Qs[qi], ans = s.ans, setA = (patch) => this.setState({ ans: { ...ans, ...patch } });
+    const vPrev = ans.chronoDist && ans.chronoTime ? R.vmaFromTest(c, ans.chronoDist === 10000 ? 't10k' : 't5k', ans.chronoTime) : 0;
+    const lvlLive = R.suggestLevel(c, ans, vPrev), LL = R.level(c, lvlLive);
+    const sel = s.sel, days = ans.days || [];
+    const qOk = Q.type === 'choice' ? ans[Q.id] != null : Q.type === 'chrono' ? ans.chronoKind === 2 || (ans.chronoKind != null && R.parseTime(ans.chronoTxt) > 0) : Q.type === 'goal' ? ans.goalKind === 0 || (ans.goalKind === 1 && R.parseTime(ans.goalTxt) > 0) : Q.type === 'days' ? days.length >= LL.sessions[0] && ans.slDay != null && ans.start : true;
+    Object.assign(out, {
+      qNum: (qi + 1) + ' / ' + Qs.length, qPct: Math.round((qi + 1) / Qs.length * 100), qLabel: Q.label, qHelp: Q.help || '', hasQHelp: !!Q.help,
+      qIsChoice: Q.type === 'choice', qIsChrono: Q.type === 'chrono', qIsGoal: Q.type === 'goal', qIsDays: Q.type === 'days',
+      qOpts: (Q.options || []).map((o, i) => { const key = Q.type === 'chrono' ? 'chronoKind' : Q.type === 'goal' ? 'goalKind' : Q.id, on = ans[key] === i; return { label: o, bd: on ? '2px solid #000' : '1px solid rgba(0,0,0,0.12)', dot: on ? '#000' : 'transparent', ring: on ? '#000' : 'rgba(0,0,0,0.25)',
+        pick: () => { const p = { [key]: i }; if (Q.type === 'chrono') { p.chronoDist = i === 0 ? 5000 : i === 1 ? 10000 : 0; if (i === 2) p.chronoTime = 0; } setA(p); } }; }),
+      chronoOpen: Q.type === 'chrono' && (ans.chronoKind === 0 || ans.chronoKind === 1), chronoTxt: ans.chronoTxt || '', chronoPh: ans.chronoKind === 1 ? '55:00' : '25:00',
+      setChrono: (ev) => { const t = ev.target.value, sec = R.parseTime(t); setA({ chronoTxt: t, chronoTime: sec }); },
+      goalOpen: Q.type === 'goal' && ans.goalKind === 1, goalTxt: ans.goalTxt || '', setGoal: (ev) => setA({ goalTxt: ev.target.value, goalTime: R.parseTime(ev.target.value) }),
+      dayChips: R.WD.map((l, wd) => { const on = days.includes(wd); return { l: l.slice(0, 1).toUpperCase(), ...chip(on), pick: () => { const nd = on ? days.filter(x => x !== wd) : days.concat(wd).sort(); setA({ days: nd, slDay: nd.includes(ans.slDay) ? ans.slDay : (nd.includes(6) ? 6 : nd.includes(5) ? 5 : nd[nd.length - 1]) }); } }; }),
+      daysNote: days.length < LL.sessions[0] ? 'Choisis au moins ' + LL.sessions[0] + ' jours' : Math.min(days.length, LL.sessions[LL.sessions.length - 1]) + ' séances par semaine · niveau estimé ' + LL.name,
+      slChips: days.map(wd => { const on = ans.slDay === wd; return { l: R.WF[wd], ...chip(on), pick: () => setA({ slDay: wd }) }; }), hasSl: days.length > 0,
+      startChips: [['2026-10-08', 'Aujourd’hui · jeu. 8 oct.'], ['2026-10-12', 'Lundi 12 oct.']].map(([d, l]) => { const on = ans.start === d; return { l, ...chip(on), pick: () => setA({ start: d }) }; }),
+      qBtnBg: qOk ? '#000' : 'rgba(0,0,0,0.25)', qBtn: qi === Qs.length - 1 ? 'Voir mon niveau' : 'Continuer',
+      qNext: () => { if (!qOk) return; if (qi < Qs.length - 1) return this.setState({ q: qi + 1 });
+        const per = Math.min(days.length, LL.sessions[LL.sessions.length - 1]);
+        this.go('result', { sel: { level: lvlLive, perWeek: Math.max(LL.sessions[0], per), goalUse: 'goal' } }); },
+      qBack: () => qi > 0 ? this.setState({ q: qi - 1 }) : this.go('pack')
+    });
+
+    // Résultat : niveau + objectif
+    if (step === 'result') {
+      const SL = R.level(c, sel.level), v0 = vPrev || SL.vma0, gT = ans.goalKind === 1 ? ans.goalTime : 0, f = R.feas(c, sel.level, v0, gT);
+      const allowed = SL.sessions.filter(n => n <= days.length);
+      const use = sel.goalUse || 'goal';
+      Object.assign(out, {
+        rLevel: SL.name, rWho: SL.who, rNote: SL.note, hasRNote: !!SL.note,
+        rLevels: c.levels.map(l => ({ l: l.name, ...chip(l.id === sel.level), pick: () => { const n = Math.min(Math.max(...l.sessions.filter(x => x <= days.length).concat(l.sessions[0])), l.sessions[l.sessions.length - 1]); this.setState({ sel: { ...sel, level: l.id, perWeek: n } }); } })),
+        rPer: (allowed.length ? allowed : [SL.sessions[0]]).map(n => ({ l: n + ' séances', ...chip(n === sel.perWeek), pick: () => this.setState({ sel: { ...sel, perWeek: n } }) })),
+        rEst: R.fmtTime(f.est), rVma: String(v0).replace('.', ','), rEstSrc: vPrev ? 'd’après ton chrono déclaré' : 'estimation de départ, affinée par le test de la semaine 1',
+        rHasGoal: !!gT, rGoal: gT ? R.fmtTime(gT) : '', rFinish: !gT,
+        rStatus: { deja: 'Déjà à ta portée', realiste: 'Réaliste', ambitieux: 'Ambitieux', infaisable: 'Hors de portée en 12 semaines', finish: '' }[f.status] || '',
+        rStatusBg: f.status === 'infaisable' ? '#000' : f.status === 'ambitieux' ? '#f0dca8' : '#d4e4cf', rStatusFg: f.status === 'infaisable' ? '#fff' : '#000',
+        rStatusTxt: f.status === 'deja' ? 'Ton estimation est déjà sous ton objectif. Le programme t’aidera à le confirmer.' : f.status === 'realiste' ? 'Gain visé dans la limite de ton niveau (' + f.max + ' % max en 12 semaines).' : f.status === 'ambitieux' ? 'Possible, mais au-delà du gain habituel. L’allure 10 km sera validée au test de la semaine 8.' : f.status === 'infaisable' ? 'Cet objectif demande plus de 12 semaines. Les séances suivront toujours ton niveau actuel.' : '',
+        rChoices: f.status === 'ambitieux' || f.status === 'infaisable' ? [['proposed', 'Prendre l’objectif proposé · ' + R.fmtTime(f.proposed), 'Recommandé'], ['finish', 'Juste finir mon 10 km', 'Allures selon ton niveau'], ['goal', f.status === 'infaisable' ? 'Garder ' + R.fmtTime(gT) + ' comme cap' : 'Garder ' + R.fmtTime(gT), f.status === 'infaisable' ? 'Les séances visent l’objectif proposé' : 'Allure 10 km revue en semaine 8']].map(([k, l, sub]) => { const on = use === k; return { l, sub, bd: on ? '2px solid #000' : '1px solid rgba(0,0,0,0.12)', dot: on ? '#000' : 'transparent', ring: on ? '#000' : 'rgba(0,0,0,0.25)', pick: () => this.setState({ sel: { ...sel, goalUse: k } }) }; }) : [],
+        rHasChoices: f.status === 'ambitieux' || f.status === 'infaisable',
+        rStart: 'Début ' + R.fmtDate(ans.start || '2026-10-12', true) + ' · ' + sel.perWeek + ' séances / semaine · sortie longue le ' + R.WF[ans.slDay ?? 6],
+        rBack: () => this.go('intake', { q: Qs.length - 1 }),
+        rLaunch: () => { const goal = !gT || use === 'finish' ? { type: 'finish' } : { type: 'time', time: gT, status: f.status, proposed: f.proposed, use: use === 'proposed' || (f.status === 'infaisable' && use === 'goal') ? 'proposed' : 'goal', cap: f.status === 'infaisable' && use === 'goal' ? gT : 0 };
+          const na = R.newAth({ ...ans, pain: ans.pain || 0 }, { level: sel.level, perWeek: sel.perWeek, days, slDay: ans.slDay, start: ans.start || '2026-10-12', goal });
+          if (vPrev) na.refs[0].vma = vPrev;
+          save(na); this.props.onEnroll && this.props.onEnroll(na.start); this.go('home', { week: null }); this.flash(na.start === R.TODAY ? 'C’est parti · test 5 km aujourd’hui' : 'Rendez-vous lundi'); }
+      });
+    }
+
+    // Accueil programme
+    if (a && (step === 'home' || step === 'paces')) {
+      const vw = s.week || Math.min(12, Math.max(1, cw)), nx = R.next(c, a), ev = (a.events || []).filter(e => !e.seen);
+      const W = c.weeks[vw - 1] || c.weeks[0];
+      const ni = nx ? R.info(c, a, nx) : null, nst = nx ? R.status(a, nx) : '';
+      Object.assign(out, {
+        hWeek: cw > 12 ? 'Programme terminé' : cw < 1 ? 'Démarre ' + R.fmtDate(a.start, true) : 'Semaine ' + cw + ' sur 12', hPhase: (c.weeks[Math.min(11, Math.max(0, cw - 1))] || {}).phase || '',
+        hCount: cnt.done + ' / ' + cnt.total, hPct: cnt.total ? Math.round(cnt.done / cnt.total * 100) : 0, hLevel: L.name + ' · ' + a.perWeek + ' séances / sem.',
+        hasEvent: ev.length > 0, evTitle: ev[0] ? ev[0].title : '', evMsg: ev[0] ? ev[0].msg : '', evFrom: ev[0] ? ev[0].from || '' : '', evTo: ev[0] ? ev[0].to || '' : '', evHasDiff: !!(ev[0] && ev[0].from), evRefusable: !!(ev[0] && ev[0].refusable),
+        evOk: () => { const na = JSON.parse(JSON.stringify(a)); na.events = na.events.map(e => e.id === ev[0].id ? { ...e, seen: true } : e); save(na); },
+        evRefuse: () => { const na = JSON.parse(JSON.stringify(a)); if (ev[0].sid) delete na.replaced[ev[0].sid]; na.events = na.events.map(e => e.id === ev[0].id ? { ...e, seen: true, refused: true } : e); save(na); this.flash('Séance d’origine conservée'); },
+        ...(() => { const im = SI(nx); return { nImg: im.src, nPos: im.pos, nZ: im.z }; })(), hasNext: !!nx, nKicker: nx ? (nst === 'today' ? 'Aujourd’hui' : 'Prochaine · ' + R.fmtDate(nx.date)) + ' · S' + nx.week : '', nTitle: nx ? nx.def.title : '', nSum: ni ? ni.summary : '', nDur: ni ? '~ ' + ni.durMin + ' min' : '',
+        nPills: ni ? ni.steps.filter(x => !x.warm && x.hasPace).slice(0, 2).map(x => ({ t: x.zoneName + ' · ' + x.pace, bg: x.color, fg: x.ink })) : [], nBtn: nst === 'today' ? 'Démarrer' : 'Voir', nOpen: () => nx && openSess(nx.id),
+        nIsToday: nst === 'today', nIsRepl: !!(nx && nx.replaced),
+        vma: String(v).replace('.', ','), est: R.fmtTime(R.est10k(v)), goalTxt: a.goal.type === 'time' ? R.fmtTime(a.goal.use === 'proposed' && a.goal.proposed ? a.goal.proposed : a.goal.time) : 'Finir', goalSub: a.goal.type === 'time' ? ({ deja: 'à ta portée', realiste: 'réaliste', ambitieux: 'ambitieux', infaisable: 'proposé' }[a.goal.status] || '') : 'sans chrono',
+        openPaces: () => this.go('paces'), backHome: () => this.go('home'),
+        hBonus: bonusList.map(b => ({ ...b, open: () => openBonus(b.id, 'home') })),
+        hWeeks: c.weeks.map((w, i) => { const n = i + 1, on = n === vw, its = sched.filter(x => x.week === n), dn = its.filter(x => a.done[x.id]).length; return { l: 'S' + n, bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.12)', fill: its.length ? Math.round(dn / its.length * 100) : 0, barBg: on ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)', barFg: on ? '#fff' : '#000', pick: () => this.setState({ week: n }) }; }),
+        hWeekTitle: 'Semaine ' + vw + ' · ' + W.phase + (W.tag ? ' · ' + W.tag : ''),
+        hSess: sched.filter(x => x.week === vw).map(x => { const st = R.status(a, x), inf = R.info(c, a, x);
+          return { day: R.fmtDate(x.date).toUpperCase(), t: x.def.title, sub: inf.summary + ' · ~' + inf.durMin + ' min', tag: st === 'done' ? 'Faite' : st === 'today' ? 'Aujourd’hui' : st === 'missed' ? 'Manquée' : x.def.kind === 'test' ? 'Test' : '', hasTag: st !== 'next' || x.def.kind === 'test', tagBg: st === 'today' ? '#000' : '#f2f2f2', tagFg: st === 'today' ? '#fff' : '#000', op: st === 'done' ? 0.55 : 1, bd: st === 'today' ? '#000' : 'rgba(0,0,0,0.1)', open: () => openSess(x.id) }; }),
+        goPack: () => this.go('pack'),
+        zones: R.zonesTable(c, a).map(z => ({ ...z, ink: z.color === '#000' ? '#fff' : '#000', rpeTxt: 'Effort ' + z.rpe + '/10' })),
+        refs: (a.refs || []).slice().reverse().map((r, i) => ({ label: r.label, sub: ({ test: 'Test', questionnaire: 'Questionnaire', niveau: 'Niveau', coach: 'Coach' }[r.src] || r.src) + ' · ' + R.fmtDate(r.date), vma: String(r.vma).replace('.', ',') + ' km/h', cur: i === 0 })),
+        adjTxt: a.adj ? 'Ajustement après tes retours : ' + (a.adj > 0 ? '+' : '') + a.adj + ' %' : '', hasAdj: !!a.adj
+      });
+    }
+
+    // Séance
+    const it = a && s.sid ? sched.find(x => x.id === s.sid) : null;
+    if (it) {
+      const inf = R.info(c, a, it), st = R.status(a, it), T = it.def.test ? R.test(c, it.def.test) : null, rec = a.done[it.id];
+      const gi = Math.min(s.gi, inf.steps.length - 1), cur = inf.steps[gi];
+      const sim = SI(it);
+      Object.assign(out, { sImg: sim.src, sPos: sim.pos, sZ: sim.z,
+        sKicker: ('S' + it.week + ' · ' + (st === 'today' ? 'aujourd’hui' : R.fmtDate(it.date, true)) + (it.def.kind === 'test' ? ' · test' : '')).toUpperCase(), sTitle: it.def.title,
+        sStats: [{ k: 'Durée', v: '~ ' + inf.durMin + ' min' }, { k: 'Effort cible', v: inf.rpe + ' / 10' }, { k: 'Étapes', v: String(inf.steps.length) }],
+        sSteps: inf.steps.map((x, i) => ({ ...x, n: String(i + 1), sep: i < inf.steps.length - 1 ? '1px solid rgba(0,0,0,0.08)' : 'none', paceTxt: x.hasPace ? x.pace + ' /km' : x.pace })),
+        sIsTest: !!T, sTestHelp: T ? T.help : '', sNote: L.note, hasSNote: !!L.note, sRepl: it.replaced, sReplTxt: it.replaced ? 'Séance remplacée suite à ton retour. Prévue à l’origine : ' + it.orig.title + '.' : '',
+        sDone: st === 'done', sDoneTxt: rec ? 'Faite le ' + R.fmtDate(rec.date) + (rec.result ? ' · ' + (T && T.kind === 'time' ? (rec.result / 1000).toString().replace('.', ',') + ' km' : R.fmtTime(rec.result)) : '') + (rec.fb ? ' · effort ' + rec.fb.rpe + '/10' : '') : '',
+        sCta: st === 'done' ? 'Refaire cette séance' : T ? 'Démarrer le test' : st === 'today' ? 'Démarrer la séance' : 'Démarrer cette séance',
+        sStart: () => this.go('live', { gi: 0 }), sBack: () => this.go(this.props.step === 'session' && !s.week && this.props.onClose ? 'exit' : 'home'),
+        lNum: 'Étape ' + (gi + 1) + ' / ' + inf.steps.length, lTitle: cur.label, lMain: cur.main, lZone: cur.zoneName, lBg: cur.color, lFg: cur.ink, lPace: cur.hasPace ? cur.pace : cur.pace, lUnit: cur.hasPace ? 'min / km' : '', lTalk: cur.talk, lRpe: 'Effort ' + cur.rpe + ' / 10', lRec: cur.rec, lHasRec: cur.hasRec, lTitleS: it.def.title,
+        lPct: Math.round((gi + 1) / inf.steps.length * 100), lPrevOp: gi > 0 ? 1 : 0.35, lLast: gi === inf.steps.length - 1, lNextTxt: gi === inf.steps.length - 1 ? 'Terminer' : 'Étape suivante',
+        lPrev: () => gi > 0 && this.setState({ gi: gi - 1 }), lNext: () => gi < inf.steps.length - 1 ? this.setState({ gi: gi + 1 }) : this.go(T ? 'test' : 'feedback', { fb: { rpe: inf.rpe } }), lQuit: () => this.go('session'),
+        tName: T ? T.name : '', tIsTime: !!T && T.kind === 'time', tLabel: T && T.kind === 'time' ? 'Distance parcourue (km)' : 'Ton chrono', tPh: T && T.kind === 'time' ? '2,8' : T && T.dist === 10000 ? '52:30' : '25:00', tv: s.tv, setTv: (ev) => this.setState({ tv: ev.target.value }),
+        tVal: T ? (T.kind === 'time' ? Math.round(parseFloat(String(s.tv).replace(',', '.')) * 1000) || 0 : R.parseTime(s.tv)) : 0,
+        tHasRes: !!s.res, tBefore: s.res ? String(s.res.before).replace('.', ',') : '', tAfter: s.res ? String(s.res.after).replace('.', ',') : '', tEst: s.res ? R.fmtTime(R.est10k(s.res.after)) : '',
+        tZones: s.res ? R.zonesTable(c, a).filter(z => ['EF', 'SEUIL', 'AS10', 'VMA'].includes(z.code)).map(z => ({ name: z.name, pace: z.pace, bg: z.color, fg: z.color === '#000' ? '#fff' : '#000' })) : [],
+        tGoalTxt: s.res && a.goal.type === 'time' ? 'Objectif ' + R.fmtTime(a.goal.time) + ' · ' + ({ deja: 'déjà à ta portée', realiste: 'réaliste', ambitieux: 'ambitieux', infaisable: 'hors de portée, objectif proposé ' + R.fmtTime(a.goal.proposed || 0) }[a.goal.status] || '') : '', tHasGoal: !!s.res && a.goal.type === 'time',
+        tBtnBg: s.res || (T && (T.kind === 'time' ? parseFloat(String(s.tv).replace(',', '.')) > 0 : R.parseTime(s.tv) > 0)) ? '#000' : 'rgba(0,0,0,0.25)', tBtn: s.res ? 'Continuer' : 'Calculer mes allures',
+        tGo: () => { if (s.res) return this.go('feedback', { fb: { rpe: 9 } }); const val = T.kind === 'time' ? Math.round(parseFloat(String(s.tv).replace(',', '.')) * 1000) : R.parseTime(s.tv); if (!val) return;
+          const r = R.applyTest(c, a, it, val); save(r.a); this.setState({ res: { before: r.before, after: r.after } }); },
+        fRpe: Array.from({ length: 10 }, (_, i) => ({ l: String(i + 1), ...chip(s.fb.rpe === i + 1), pick: () => this.setState({ fb: { ...s.fb, rpe: i + 1 } }) })), fTarget: 'Cible : ' + inf.rpe + ' / 10',
+        fFun: [1, 2, 3, 4, 5].map(n => ({ op: (s.fb.fun || 0) >= n ? 1 : 0.18, pick: () => this.setState({ fb: { ...s.fb, fun: n } }) })),
+        fFeel: TALK_FEEL.map(([k, l]) => ({ l, ...chip(s.fb.feel === k), pick: () => this.setState({ fb: { ...s.fb, feel: k } }) })),
+        fAfter: AFTER.map(([k, l]) => ({ l, ...chip(s.fb.after === k), pick: () => this.setState({ fb: { ...s.fb, after: k, zone: k === 'gene' || k === 'pain' ? s.fb.zone : null } }) })),
+        fHasZone: s.fb.after === 'gene' || s.fb.after === 'pain', fZones: PAIN_Z.map(z => ({ l: z, ...chip(s.fb.zone === z), pick: () => this.setState({ fb: { ...s.fb, zone: z } }) })),
+        fOk: !!(s.fb.rpe && s.fb.feel && s.fb.after), fBtnBg: s.fb.rpe && s.fb.feel && s.fb.after ? '#000' : 'rgba(0,0,0,0.25)',
+        fSave: () => { const fb = s.fb; if (!(fb.rpe && fb.feel && fb.after)) return; const r = R.feedback(c, R.ath(pid), it, fb); save(r.a); this.props.onDone && this.props.onDone(it.id);
+          if (r.evs.length) this.go('adapt', { evs: r.evs }); else { this.go('home', { week: null }); this.flash('Séance enregistrée'); } }
+      });
+    }
+    out.aEvs = (s.evs || []).map(e => ({ title: e.title, msg: e.msg, from: e.from || '', to: e.to || '', hasDiff: !!e.from }));
+    out.aDone = () => { const na = JSON.parse(JSON.stringify(R.ath(pid))); na.events = na.events.map(e => ({ ...e, seen: true })); save(na); this.go('home', { evs: null, week: null }); };
+    out.aRefusable = (s.evs || []).some(e => e.refusable);
+    out.aRefuse = () => { const na = JSON.parse(JSON.stringify(R.ath(pid))); (s.evs || []).forEach(e => { if (e.sid) delete na.replaced[e.sid]; }); na.events = na.events.map(e => ({ ...e, seen: true })); save(na); this.go('home', { evs: null }); this.flash('Séance d’origine conservée'); };
+
+    // Bonus
+    const B = c.bonus.find(b => b.id === s.bid);
+    const BI = B ? R.img(B.img) : null;
+    if (B) Object.assign(out, { bName: B.name, bSub: B.sub, bDur: B.dur + ' min', bImg: BI.src, bPos: BI.pos, bZ: BI.z, bEx: B.ex.map(([ex, dose], i) => ({ ex, dose, n: String(i + 1) })), bCount: a ? (a.bonus || []).filter(x => x.id === B.id).length : 0,
+      bBack: () => s.back === 'exit' && this.props.onClose ? this.props.onClose() : this.go(s.back === 'home' && a ? 'home' : 'pack'),
+      bStart: () => { if (!a) return this.flash('Lance le programme pour enregistrer tes séances'); const na = JSON.parse(JSON.stringify(a)); na.bonus = (na.bonus || []).concat({ id: B.id, date: R.TODAY }); save(na); this.flash('Séance complémentaire enregistrée dans ton historique'); } });
+    if (step === 'exit') { setTimeout(close, 0); }
+    return out;
+  }
+}
+</script>
+</body>
+</html>
