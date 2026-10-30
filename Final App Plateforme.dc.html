@@ -472,7 +472,7 @@
 
   <sc-if value="{{ hasViewImg }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeImg }}" style="position:absolute;inset:0;z-index:60;background:rgba(0,0,0,{{ viBgA }});display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease-out backwards">
-      <div role="img" aria-label="Photo" onPointerDown="{{ viDown }}" onPointerMove="{{ viMove }}" onPointerUp="{{ viUp }}" onPointerCancel="{{ viUp }}" style="width:100%;height:80%;background-image:{{ viewImgBg }};background-size:contain;background-repeat:no-repeat;background-position:center;transform:translateY({{ viY }}px);transition:{{ viTr }};touch-action:none;animation:fadeIn .25s ease-out backwards"></div>
+      <div onPointerDown="{{ viDown }}" onPointerMove="{{ viMove }}" onPointerUp="{{ viUp }}" onPointerCancel="{{ viUp }}" style="width:100%;height:80%;display:flex;align-items:center;justify-content:center;transform:translateY({{ viY }}px);transition:{{ viTr }};animation:fadeIn .25s ease-out backwards">{{ viewImgEl }}</div>
       <button style-active="transform:scale(.96)" onClick="{{ closeImg }}" aria-label="Fermer" style="position:absolute;top:60px;right:20px;width:40px;height:40px;border-radius:999px;border:none;background:rgba(255,255,255,0.15);color:#fff;font-size:20px;cursor:pointer;font-weight:600;transition:transform .15s ease">×</button>
     </div>
   </sc-if>
@@ -958,7 +958,7 @@ class Component extends DCLogic {
       o.coachChat = out; o.isTyping = !!this.state.typing;
       const n = out.length; if (this._chatN !== n || this._chatOpen !== !!o.hasCoachChat) { this._chatN = n; this._chatOpen = !!o.hasCoachChat; requestAnimationFrame(() => { const el = this._chatSc; if (el) el.scrollTo({ top: el.scrollHeight, behavior: this._chatSeen ? 'smooth' : 'auto' }); this._chatSeen = !!o.hasCoachChat; }); } }
     o.chatScRef = this._csr || (this._csr = el => { this._chatSc = el; if (el) el.scrollTop = el.scrollHeight; });
-    { const vi = this.state.viewImg, vy = this.state.viY || 0; o.hasViewImg = !!vi; o.viewImg = vi || ''; o.viewImgBg = vi ? 'url("' + vi + '")' : 'none'; o.viY = vy; o.viTr = this._viDrag ? 'none' : 'transform .25s cubic-bezier(.25,.8,.25,1)'; o.viBgA = String(Math.max(0.3, 0.92 - vy / 400));
+    { const vi = this.state.viewImg, vy = this.state.viY || 0; o.hasViewImg = !!vi; o.viewImg = vi || ''; o.viewImgBg = vi ? 'url("' + vi + '")' : 'none'; o.viewImgEl = vi ? React.createElement('img', { src: vi, alt: 'Photo', onClick: ev => ev.stopPropagation(), style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', WebkitTouchCallout: 'default', WebkitUserSelect: 'auto', userSelect: 'auto' } }) : null; o.viY = vy; o.viTr = this._viDrag ? 'none' : 'transform .25s cubic-bezier(.25,.8,.25,1)'; o.viBgA = String(Math.max(0.3, 0.92 - vy / 400));
       o.closeImg = () => this.setState({ viewImg: null, viY: 0 });
       o.viDown = e => { e.stopPropagation(); this._viDrag = { y0: e.clientY }; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} };
       o.viMove = e => { if (!this._viDrag) return; this.setState({ viY: Math.max(0, e.clientY - this._viDrag.y0) }); };
