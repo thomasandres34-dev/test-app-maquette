@@ -108,7 +108,7 @@ class Component extends DCLogic {
     let chart = null;
     if (n) {
       const W = 374, H = 210, pt = 16, pb = 46, px = 26;
-      const vs = L.map(x => x.kg), mn = Math.min(...vs, D.goal || 999) - 0.6, mx = Math.max(...vs) + 0.6;
+      const vs = L.map(x => x.kg), mn = Math.min(...vs, D.goal || 999) - 0.6, mx = Math.max(...vs, D.goal || 0) + 0.6;
       const X = i => n === 1 ? W / 2 : px + 18 + (W - 2 * px - 36) * i / (n - 1), Y = v => pt + (H - pt - pb) * (1 - (v - mn) / (mx - mn || 1));
       const P = L.map((x, i) => [X(i), Y(x.kg)]); let d = 'M' + P[0][0] + ' ' + P[0][1];
       for (let i = 1; i < n; i++) { const a = P[i - 1], b = P[i], m = (a[0] + b[0]) / 2; d += ` C${m} ${a[1]} ${m} ${b[1]} ${b[0]} ${b[1]}`; }
