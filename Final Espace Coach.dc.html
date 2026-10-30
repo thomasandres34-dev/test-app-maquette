@@ -2317,7 +2317,7 @@ class Component extends DCLogic {
       chatKey: ev => { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); const t = (this.state.chatDraft || '').trim(); if (t) send({ kind: 'text', t }); } },
       chatSend: () => { const t = (s.chatDraft || '').trim(); if (t) send({ kind: 'text', t }); },
       hasChatReply: !!s.chatReply, chatReplyTxt: s.chatReply ? 'Réponse à ' + (s.chatReply.who === 'Moi' ? first : 'toi') + ' · ' + (s.chatReply.t || (s.chatReply.kind === 'img' ? 'Photo' : 'Vocal')) : '', cancelChatReply: () => this.setState({ chatReply: null }),
-      chatPhoto: () => { const i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*'; i.onchange = () => { const f = i.files && i.files[0]; if (f) send({ kind: 'img', src: URL.createObjectURL(f) }); }; i.click(); },
+      chatPhoto: () => { const i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*'; i.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0'; document.body.appendChild(i); i.addEventListener('change', () => { const f = i.files && i.files[0]; if (f) send({ kind: 'img', src: URL.createObjectURL(f) }); setTimeout(() => i.remove(), 1000); }); i.click(); },
       chatRecTxt: rec ? 'Stop · ' + Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0') : '', chatRecBg: rec ? '#ef4444' : '#fff', chatRecFg: rec ? '#fff' : '#000', chatRecBd: rec ? '#ef4444' : 'rgba(0,0,0,0.16)',
       chatRec: async () => {
         if (this.state.chatRec) { const n = Math.max(1, Math.round((Date.now() - this.state.chatRec) / 1000)), dur = Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0'), mr = this._mr2; clearInterval(this._recI); this.setState({ chatRec: null });
