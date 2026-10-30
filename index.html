@@ -37,10 +37,7 @@ try { localStorage.setItem('tcmv.accounts.cur', 'demo'); } catch (e) {}
   <div class="phone"><iframe name="app" src="./Final%20App%20Plateforme.dc.html" allow="autoplay; clipboard-write; web-share"></iframe></div>
 </div>
 <script>
-(function(){ const ph=document.querySelector('.phone'); const fit=()=>{ if (innerWidth<=700) { ph.style.transform=''; ph.style.margin=''; const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches; const H = sa ? Math.max(screen.height, innerHeight) : innerHeight; ph.style.height = H + 'px'; document.documentElement.style.height = document.body.style.height = H + 'px'; return; } const k=Math.min(1,(innerHeight-24)/1012); ph.style.transform='scale('+k+')'; ph.style.margin=(-(1012*(1-k))/2)+'px '+(-(470*(1-k))/2)+'px'; }; addEventListener('resize',fit); fit();
-  // Clavier iPhone : l'app prend exactement la zone visible au-dessus du clavier (en-tête fixe, barre d'écriture collée au clavier)
-  const vv = window.visualViewport, ifr = document.querySelector('.phone iframe'); let kbo = false;
-  if (vv) { const onKb = () => { if (innerWidth > 700) return; const open = (innerHeight - vv.height) > 120; if (open) { ph.style.height = vv.height + 'px'; ph.style.top = vv.offsetTop + 'px'; } else { ph.style.top = '0px'; fit(); } if (open !== kbo) { kbo = open; try { ifr.contentWindow.postMessage({ tcmvKb: open }, '*'); } catch (e) {} } }; vv.addEventListener('resize', onKb); vv.addEventListener('scroll', onKb); } })();
+(function(){ const ph=document.querySelector('.phone'); const fit=()=>{ if (innerWidth<=700) { ph.style.transform=''; ph.style.margin=''; const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches; const H = sa ? Math.max(screen.height, innerHeight) : innerHeight; ph.style.height = H + 'px'; document.documentElement.style.height = document.body.style.height = H + 'px'; return; } const k=Math.min(1,(innerHeight-24)/1012); ph.style.transform='scale('+k+')'; ph.style.margin=(-(1012*(1-k))/2)+'px '+(-(470*(1-k))/2)+'px'; }; addEventListener('resize',fit); fit(); })();
 </script>
 <script>document.addEventListener("gesturestart",e=>e.preventDefault(),{passive:false});</script>
 </body>
