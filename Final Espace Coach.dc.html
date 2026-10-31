@@ -31,7 +31,7 @@ input,select,textarea{font-family:inherit}
 @keyframes pvSide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
 </style>
 </helmet>
-<div style="width:100%;min-width:1100px">
+<div style="width:100%;min-width:0">
   <div data-screen-label="D Espace coach" data-ec-root="1" style="position:relative;transform:translateZ(0);width:100%;height:{{ rootH }};min-height:720px;background:#f2f2f2;border-radius:{{ rootR }};overflow:hidden;color:#000;letter-spacing:-0.01em;display:flex">
 
     <aside style="width:{{ navW }};flex:none;background:#000;color:#fff;display:flex;flex-direction:column;padding:16px 12px 20px;transition:width .22s cubic-bezier(.2,.8,.2,1);overflow:hidden">
@@ -2288,7 +2288,7 @@ class Component extends DCLogic {
     const send = m => { if (!CH || !N) return; CH.send(N, { from: 'coach', reply: this.state.chatReply || null, ...m }); this.setState({ chatDraft: '', chatReply: null }); };
     const DEFC = [{ id: 1, kind: 'set', label: 'jeudi 15 oct. à 14:00', date: '2026-10-15', time: '14:00' }];
     const CALLS = N ? (() => { let C = []; try { C = JSON.parse(localStorage.getItem('tcmv.coachCalls') || '[]'); } catch (e) {} if (!C.length) C = DEFC; return C.filter(c => c.who ? c.who === N : N === 'Julien Risterucci'); })() : [];
-    const T0 = new Date(); T0.setHours(9, 12, 0, 0);
+    const T0 = new Date(); T0.setDate(T0.getDate() - 2); T0.setHours(9, 12, 0, 0); // appel démo sans date d’envoi : placé dans le passé, jamais après les vrais messages
     const ALL = [...L, ...CALLS.map((c, i) => ({ _sys: c, id: 'call' + c.id, ts: c.at ? new Date(c.at).getTime() : T0.getTime() + i * 60000 }))].sort((a, b) => a.ts - b.ts);
     ALL.forEach(x => { const d = dk(x.ts), dt = new Date(x.ts); if (d !== pd) { out.push({ isSep: true, isMsg: false, isSys: false, sepLbl: d === dk(now) ? 'Aujourd’hui' : d === dk(now - 864e5) ? 'Hier' : J[dt.getDay()] + ' ' + dt.getDate() + ' ' + M[dt.getMonth()] }); pd = d; }
       if (x._sys) { const c = x._sys, cancel = c.kind === 'cancel'; out.push({ isSep: false, isMsg: false, isSys: true, sysTitle: cancel ? 'Appel annulé' : 'Appel programmé', sysSub: (c.label || '') + ' · envoyé à ' + first + ' · ' + dt.getHours() + ':' + String(dt.getMinutes()).padStart(2, '0'), sysFg: cancel ? '#b91c1c' : '#000' }); return; }
