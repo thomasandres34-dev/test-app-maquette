@@ -1059,7 +1059,8 @@ const waiting = enrolls.find(e => e.mode === 'monday');
     const pv = s.preview, blocks = pv ? ((Array.isArray(pv.blocks) && pv.blocks.length) ? pv.blocks.map(b => [[b.code, b.sub].filter(Boolean).join(' · ') || 'Bloc', b.rounds ? b.rounds + ' tours' : '', (b.lines || []).filter(l => !l.sep && l.name).map(l => [l.name, [l.qty, l.unit].filter(Boolean).join(' ')])]) : (SESS[pv.t] || [['Séance', '', [[pv.t, pv.s]]]])) : [];
     const isAct = k => k === 'Coaching Thomas' || enrolls.some(x => x.key === k);
     const ownedS = owned.filter(isAct).concat(owned.filter(k => !isAct(k)));
-    const askStart = (key, restart) => { if (key === RUNK) { if (restart && window.RUN10K) window.RUN10K.resetAth(runPid); return openRun(restart || !RC ? 'intake' : 'pack'); } this.setState({ start: { key, choice: 'today', restart } }); };
+    const askStart = (key, restart) => { if (key === RUNK && (restart || !RC)) { if (restart && window.RUN10K) window.RUN10K.resetAth(runPid); return openRun('intake'); } // 10K déjà configuré : même feuille « Lancer le programme » que les autres → ajouté à Aujourd’hui
+    this.setState({ start: { key, choice: 'today', restart } }); };
     return {
       tab: s.tab, setTab: (i) => { this.setState({ tab: i, fiche: null, chat: null, preview: null, detail: null, edit: false }); this.props.onTabChange && this.props.onTabChange(i); },
       isProgs: s.tab === 0, isComm: s.tab === 1, isToday: s.tab === 2, frameBg: (s.tab === 2) ? '#fff' : '#000', isProfil: s.tab === 3,
