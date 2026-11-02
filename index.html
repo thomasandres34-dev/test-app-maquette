@@ -27,7 +27,7 @@ a.btn.alt{background:rgba(255,255,255,0.1);color:#fff}
 html.mob,html.mob body{background:#000;overflow:hidden}
 html.mob .side{display:none!important}
 html.mob .wrap{padding:0;display:block}
-html.mob .phone{position:fixed;top:0;left:0;width:100%;height:100vh;margin:0!important;transform-origin:center center}
+html.mob .phone{position:absolute;top:0;left:0;width:100%;height:100vh;margin:0!important;transform-origin:center center}
 html.mob .phone iframe{width:100%;height:100%}
 </style>
 </head>
@@ -52,11 +52,13 @@ html.mob .phone iframe{width:100%;height:100%}
         // Téléphone couché : on contre-pivote l'app pour qu'elle reste verticale
         const a = (screen.orientation && screen.orientation.angle != null) ? screen.orientation.angle : (window.orientation || 90);
         const rot = (a === 270 || a === -90) ? 90 : -90;
-        Object.assign(ph.style, { width: H + 'px', height: W + 'px', left: (W - H) / 2 + 'px', top: (H - W) / 2 + 'px', transform: 'rotate(' + rot + 'deg)' });
+        Object.assign(ph.style, { position: 'fixed', width: H + 'px', height: W + 'px', left: (W - H) / 2 + 'px', top: (H - W) / 2 + 'px', transform: 'rotate(' + rot + 'deg)' });
+        de.style.height = document.body.style.height = H + 'px';
       } else {
         const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
         const HH = sa ? Math.max(screen.height, H) : H;
-        Object.assign(ph.style, { width: '100%', height: HH + 'px', left: '0', top: '0', transform: '' });
+        Object.assign(ph.style, { position: '', width: '100%', height: HH + 'px', left: '0', top: '0', transform: '' });
+        de.style.height = document.body.style.height = HH + 'px';
       }
       return;
     }
@@ -67,7 +69,7 @@ html.mob .phone iframe{width:100%;height:100%}
   addEventListener('resize', fit);
   addEventListener('orientationchange', () => { fit(); setTimeout(fit, 150); setTimeout(fit, 500); });
   if (screen.orientation) screen.orientation.addEventListener('change', fit);
-  fit();
+  fit(); addEventListener('load', fit); setTimeout(fit, 300); setTimeout(fit, 1000);
   const lock = () => { try { screen.orientation && screen.orientation.lock && screen.orientation.lock('portrait').catch(() => {}); } catch (e) {} };
   lock(); addEventListener('touchend', lock, { once: true });
 })();
