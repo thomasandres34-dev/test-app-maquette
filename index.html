@@ -9,6 +9,11 @@
 <title>TCMV</title>
 <link rel="apple-touch-icon" href="assets/tcmv-app-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
+<script>
+// Téléphone = écran tactile dont le petit côté fait ≤ 540 px (quelle que soit l'orientation)
+(function(){ var m = Math.min(screen.width, screen.height) <= 540 && ('ontouchstart' in window || navigator.maxTouchPoints > 0); if (m) document.documentElement.classList.add('mob'); })();
+try { localStorage.setItem('tcmv.accounts.cur', 'demo'); } catch (e) {}
+</script>
 <style>
 html,body{touch-action:manipulation;margin:0;height:100%;background:#111;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased}
 .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;gap:48px;padding:32px;box-sizing:border-box;flex-wrap:wrap}
@@ -19,13 +24,12 @@ a.btn{display:flex;align-items:center;justify-content:center;height:50px;border-
 a.btn.alt{background:rgba(255,255,255,0.1);color:#fff}
 .phone{width:470px;height:1012px;flex:none;transform-origin:center center}
 .phone iframe{width:470px;height:1012px;border:0;display:block;background:transparent}
-@media (max-width:700px){html,body{background:#000;overflow:hidden}.side{display:none}.wrap{padding:0;display:block}.phone{position:absolute;top:0;left:0;width:100%;height:100vh;transform:none!important;margin:0!important}.phone iframe{width:100%;height:100%}}
-html.land,html.land body{background:#000;overflow:hidden}html.land .side{display:none}html.land .wrap{padding:0;display:block}html.land .phone{position:fixed;margin:0!important;transform-origin:center center}html.land .phone iframe{width:100%;height:100%}
+html.mob,html.mob body{background:#000;overflow:hidden}
+html.mob .side{display:none!important}
+html.mob .wrap{padding:0;display:block}
+html.mob .phone{position:fixed;top:0;left:0;width:100%;height:100vh;margin:0!important;transform-origin:center center}
+html.mob .phone iframe{width:100%;height:100%}
 </style>
-<script>
-// Compte Thomas (admin) : accès à tout (app client + Espace Coach)
-try { localStorage.setItem('tcmv.accounts.cur', 'demo'); } catch (e) {}
-</script>
 </head>
 <body>
 <div class="wrap">
@@ -39,13 +43,35 @@ try { localStorage.setItem('tcmv.accounts.cur', 'demo'); } catch (e) {}
   <div class="phone"><iframe name="app" src="./Final%20App%20Plateforme.dc.html" allow="autoplay; clipboard-write; web-share"></iframe></div>
 </div>
 <script>
-(function(){ const ph=document.querySelector('.phone'); const de=document.documentElement; const isTouch = matchMedia('(pointer:coarse)').matches;
- const fit=()=>{ const W=innerWidth, Hh=innerHeight; const land = isTouch && W>Hh && Hh<=540; de.classList.toggle('land', land);
- if (land) { const a = (screen.orientation && screen.orientation.angle!=null) ? screen.orientation.angle : (window.orientation||90); const rot = (a===270||a===-90) ? 90 : -90; Object.assign(ph.style,{width:Hh+'px',height:W+'px',left:(W-Hh)/2+'px',top:(Hh-W)/2+'px',transform:'rotate('+rot+'deg)'}); de.style.height=document.body.style.height=Hh+'px'; return; }
- Object.assign(ph.style,{width:'',left:'',top:''});
- if (innerWidth<=700) { ph.style.transform=''; ph.style.margin=''; const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches; const H = sa ? Math.max(screen.height, innerHeight) : innerHeight; ph.style.height = H + 'px'; document.documentElement.style.height = document.body.style.height = H + 'px'; return; } const k=Math.min(1,(innerHeight-24)/1012); ph.style.transform='scale('+k+')'; ph.style.margin=(-(1012*(1-k))/2)+'px '+(-(470*(1-k))/2)+'px'; }; addEventListener('resize',fit); addEventListener('orientationchange',()=>setTimeout(fit,120)); if (screen.orientation) screen.orientation.addEventListener('change',fit); fit();
- const lock=()=>{ try { screen.orientation && screen.orientation.lock && screen.orientation.lock('portrait').catch(()=>{}); } catch(e){} }; lock(); addEventListener('touchend',lock,{once:true}); })();
+(function(){
+  const ph = document.querySelector('.phone'), de = document.documentElement, mob = de.classList.contains('mob');
+  const fit = () => {
+    const W = innerWidth, H = innerHeight;
+    if (mob) {
+      if (W > H) {
+        // Téléphone couché : on contre-pivote l'app pour qu'elle reste verticale
+        const a = (screen.orientation && screen.orientation.angle != null) ? screen.orientation.angle : (window.orientation || 90);
+        const rot = (a === 270 || a === -90) ? 90 : -90;
+        Object.assign(ph.style, { width: H + 'px', height: W + 'px', left: (W - H) / 2 + 'px', top: (H - W) / 2 + 'px', transform: 'rotate(' + rot + 'deg)' });
+      } else {
+        const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+        const HH = sa ? Math.max(screen.height, H) : H;
+        Object.assign(ph.style, { width: '100%', height: HH + 'px', left: '0', top: '0', transform: '' });
+      }
+      return;
+    }
+    const k = Math.min(1, (H - 24) / 1012);
+    ph.style.transform = 'scale(' + k + ')';
+    ph.style.margin = (-(1012 * (1 - k)) / 2) + 'px ' + (-(470 * (1 - k)) / 2) + 'px';
+  };
+  addEventListener('resize', fit);
+  addEventListener('orientationchange', () => { fit(); setTimeout(fit, 150); setTimeout(fit, 500); });
+  if (screen.orientation) screen.orientation.addEventListener('change', fit);
+  fit();
+  const lock = () => { try { screen.orientation && screen.orientation.lock && screen.orientation.lock('portrait').catch(() => {}); } catch (e) {} };
+  lock(); addEventListener('touchend', lock, { once: true });
+})();
+document.addEventListener("gesturestart", e => e.preventDefault(), { passive: false });
 </script>
-<script>document.addEventListener("gesturestart",e=>e.preventDefault(),{passive:false});</script>
 </body>
 </html>
