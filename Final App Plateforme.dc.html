@@ -992,7 +992,7 @@ class Component extends DCLogic {
   coachLive() { if (this.props.coachWeek || this.props.coachWaiting != null) return null; const T = window.TCMVC, A = window.TCMVA, ACC = !this.props.forceProfil && A ? A.current() : null, own = !!(ACC && ACC.profil === 'Coaching privé'), who = own ? A.name(ACC) : 'Julien Risterucci';
     // Cycle publié du compte connecté (Lovable : client_cycles où client_id = compte, published_at non nul). Aucun cycle → « Ton coach prépare ton premier cycle ».
     const d = T && (T.coaching ? T.coaching(who) : ((T.get().coaching || {})[who] || null)); if (!d) return own ? { len: 4, wk: 1, waiting: true, note: '', sub: this.coachN() + ' · premier cycle en préparation', week: null } : null;
-    const CODE = { Renfo: 'UP', Metcon: 'MET', Running: 'EF', Mobilité: 'MOB' }, st = new Date(d.start + 'T00:00:00'), now = new Date(); now.setHours(0, 0, 0, 0);
+    const CODE = { Renfo: 'UP', Metcon: 'MET', Running: 'EF', Mobilité: 'MOB' }, st = new Date(d.start + 'T00:00:00'), now = new Date(2026, 9, 8); // démo : même « aujourd'hui » que le reste de l'app (jeudi 8 oct.) · Lovable : date du jour
     const wi = Math.max(0, Math.min((d.weeks || []).length - 1, Math.floor((now - st) / 864e5 / 7)));
     return { len: (d.weeks || []).length || 4, wk: wi + 1, waiting: !!d.waiting, note: d.note, sub: this.coachN() + ' · cycle ' + d.cycle + ' · semaine ' + (wi + 1), week: d.waiting ? null : ((d.weeks || [])[wi] || []).map(day => day.map(x => [x[0], x[1] + (x[2] ? ' · ' + String(x[2]).replace('Run:', '') : ''), CODE[x[1]] || 'UP', '', null, null, Array.isArray(x[4]) ? x[4] : null, x[1]])) }; }
   _rv() {
