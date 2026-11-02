@@ -1,0 +1,10 @@
+{
+  "name": "TCMV",
+  "short_name": "TCMV",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#ffffff",
+  "icons": [{ "src": "assets/tcmv-app-icon.png", "sizes": "512x512", "type": "image/png" }]
+}
