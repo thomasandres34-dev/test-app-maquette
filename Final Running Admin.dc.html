@@ -90,7 +90,7 @@ class Component extends DCLogic {
     const snap = () => { (this._undo = this._undo || []).push(JSON.parse(JSON.stringify(M.ints()))); if (this._undo.length > 30) this._undo.shift(); };
     const ints = M.ints().map(x => ({ color: x.color, del: () => { snap(); M.delInt(x.id); },
       cells: [['name', 0], ['vlo', 1], ['vhi', 1], ['z', 1], ['flo', 1], ['fhi', 1], ['rpe', 0], ['talk', 0]].map(([k, isN]) => ({ value: String(x[k] ?? ''), onFocus: () => snap(), onChange: ev => M.setInt(x.id, { [k]: isN ? num(ev.target.value) : ev.target.value }) })) }));
-    const CL = [['demo', 'Thomas · test fait'], ['lea', 'Léa · aucun profil'], ['hugo', 'Hugo · FC seule']];
+    const CL = [['demo', 'Thomas · test fait'], ['julien', 'Julien · coaching privé']];
     const p = M.profile(s.cid), lv = M.level(p), v = M.vma(p);
     const clients = CL.map(([id, name]) => { const on = s.cid === id; return { name, bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', bd: on ? '#000' : 'rgba(0,0,0,0.14)', go: () => this.setState({ cid: id }) }; });
     const MODES = [['auto', 'Auto'], ['fc', 'FC + ressenti'], ['feel', 'Ressenti seul']];

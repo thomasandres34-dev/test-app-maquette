@@ -21,6 +21,8 @@
     byId: id => read().find(a => a.id === id) || null,
     byName: n => read().find(a => (a.first + ' ' + a.last).trim() === n) || null,
     name: a => a ? (a.first + ' ' + (a.last || '')).trim() : '',
+    // Clé stable d'un client (accounts.id) à partir d'un id, d'un nom ou d'un e-mail · toutes les données coach ↔ client sont rangées par id
+    key: x => { if (!x) return ''; if (A.byId(x)) return x; const a = A.byName(x) || A.byEmail(x); return a ? a.id : String(x); },
     // Connecté = session ouverte (Lovable : auth.session) · sans session, l’app ouvre la connexion
     signedIn: () => { try { return !!localStorage.getItem(KC); } catch (e) { return false; } },
     current: () => { let id = null; try { id = localStorage.getItem(KC); } catch (e) {} if (id === '') return null; return A.byId(id || 'julien'); },
@@ -32,16 +34,19 @@
     invite: d => { const ex = A.byEmail(d.email); if (ex) { A.update(ex.id, { coach: d.coach || 'Thomas', profil: 'Coaching privé' }); return A.byId(ex.id); } const L = read(), a = { id: slug(d), email: d.email.trim(), first: d.first.trim(), last: (d.last || '').trim(), birth: d.birth || '', height: '', profil: 'Coaching privé', coach: d.coach || 'Thomas', status: 'invité', created: new Date().toISOString().slice(0, 10) }; L.push(a); write(L); return a; },
     // Rôle + espace d’arrivée : coach/admin sur ordinateur → Espace Coach · tout le reste → app client
     role: a => (a && a.role) || 'client',
-    isCoach: a => ['coach', 'admin'].includes(A.role(a)),
+    // Comptes admin (propriétaire) · Lovable : user_roles
+    isCoach: a => ['coach', 'admin'].includes(A.role(a)) || ['thomas@tcmv.fr', 'thomasandres34@gmail.com'].includes(norm(a && a.email)),
     isDesktop: () => { try { return matchMedia('(pointer: fine)').matches && window.innerWidth >= 1024; } catch (e) { return false; } },
     home: a => A.isCoach(a) && A.isDesktop() ? 'coach' : 'app',
     update: (id, p) => write(read().map(a => a.id === id ? { ...a, ...p } : a)),
     get: (id, k) => { try { const v = localStorage.getItem('tcmv.acct.' + id + '.' + k); return v == null ? undefined : JSON.parse(v); } catch (e) { return undefined; } },
     put: (id, k, v) => { try { localStorage.setItem('tcmv.acct.' + id + '.' + k, JSON.stringify(v)); } catch (e) {} if (k === 'photo') subs.forEach(f => f()); },
     // Historique des séances faites · table `sessions_done` (account_id, date, title, prog, kind, min) + `sets_done` (session_id, ex, kg, reps, target)
-    hist: id => { const v = A.get(id, 'hist'); if (v) return v; if (!A.isSeed(id)) return []; const P = id === 'justine' ? [['Pilates Fondamentaux', 'Pilates', 'Core & posture', 35], ['Stretching Mobilité', 'Mobilité', 'Hanches & dos', 25]] : id === 'julien' ? [['Coaching Thomas', 'Renfo', 'Lowerbody', 55], ['Coaching Thomas', 'Running', 'Fractionné 10×400', 41], ['Coaching Thomas', 'Renfo', 'Upperbody', 48], ['Coaching Thomas', 'Metcon', 'EMOM 20', 30]] : [['Hybrid Fondation', 'Renfo', 'Upper 1', 50], ['Hybrid Fondation', 'Running', 'Run EF', 40], ['Hybrid Fondation', 'Metcon', 'Metcon', 35], ['Objectif 10 km', 'Running', 'Seuil', 45]];
-      const per = id === 'justine' ? 2 : 4, out = [], t = new Date(); for (let w = 0; w < 10; w++) for (let k = 0; k < per; k++) { if ((w * 7 + k * 3) % 11 === 5) continue; const d = new Date(t.getTime() - (w * 7 + k * 2 + 1) * 864e5); const p = P[(w + k) % P.length], EX = { Lowerbody: [['Back squat', 70, 5], ['Soulevé de terre roumain', 60, 8], ['Hip thrust', 80, 10]], Upperbody: [['Bench Press', 60, 6], ['Weighted pull ups', 10, 6], ['Dumbbell strict press', 16, 10]], 'Upper 1': [['Bench Press', 62.5, 6], ['Rowing barre', 55, 8], ['Dumbbell strict press', 18, 10]], 'EMOM 20': [['Power clean', 50, 5], ['Wall balls', 9, 15]], Metcon: [['Thruster', 40, 10], ['Power clean', 55, 5]] }[p[2]] || [], r25 = v => Math.round(v / 2.5) * 2.5; out.push({ date: d.toISOString().slice(0, 10), prog: p[0], kind: p[1], title: p[2], min: p[3], sets: EX.flatMap(([ex, kg, r], ei) => [0, 1, 2].map(n => ({ ex, kg: r25(kg + (9 - w) * 1.25 + (n === 2 ? 2.5 : 0)), target: r, reps: n === 2 && (w + k + ei) % 3 === 0 ? Math.max(1, r - 2) : r }))) }); } return out.sort((a, b) => a.date.localeCompare(b.date)); },
-    addHist: (id, s) => { const L = A.hist(id).slice(); L.push({ date: new Date().toISOString().slice(0, 10), ...s }); A.put(id, 'hist', L); subs.forEach(f => f()); },
+    // Séances réellement validées (stockées) · migration : retire les entrées de l'ancien générateur de démo
+    real: id => { const v = A.get(id, 'hist'); if (!Array.isArray(v)) return []; const OLD = /^(Lowerbody|Upperbody|EMOM 20|Fractionné 10×400)$/, L = v.filter(x => !(x.gen || (x.prog === 'Coaching Thomas' && OLD.test(x.title || '')))); if (L.length !== v.length) A.put(id, 'hist', L); return L; },
+    // Aucune simulation : uniquement les séances réellement validées par le client
+    hist: id => A.real(id),
+    addHist: (id, s) => { const L = A.real(id).slice(); L.push({ date: new Date().toISOString().slice(0, 10), ...s }); A.put(id, 'hist', L); subs.forEach(f => f()); },
     // Séances prévues cette semaine : calculées depuis le programme suivi / planning coach (App › Aujourd’hui) · 0 si aucun programme
     perWeek: id => { const v = A.get(id, 'perWeek'); return v != null ? v : 0; },
     isSeed: id => SEED.some(a => a.id === id),

@@ -17,10 +17,7 @@
     { id: 'vmac', name: 'VMA courte', vlo: 98, vhi: 105, z: 5, flo: 95, fhi: 100, rpe: '9–10', talk: 'impossible de parler', color: 'oklch(0.5 0.16 255)' }
   ];
   const COEF0 = [{ id: 'c3', name: 'Test 3 km', m: 3000, f: 0.98 }, { id: 'c5', name: 'Test 5 km', m: 5000, f: 0.95 }, { id: 'c10', name: '10 km', m: 10000, f: 0.89 }, { id: 'c21', name: 'Semi', m: 21097, f: 0.82 }, { id: 'c6', name: 'Test 6 min', min: 6, f: 1 }];
-  const P0 = { mode: 'auto', fcmax: 0, fcSrc: '', age: 32, refs: [
-    { date: '2026-09-27', src: 'decl', label: '10 km déclaré', res: '55:00', vma: 12.3 },
-    { date: '2026-09-29', src: 'test', label: 'Test 5 km', res: '25:00', vma: 12.6 },
-    { date: '2026-10-14', src: 'test', label: 'Test 5 km', res: '24:10', vma: 12.9 }] };
+  const P0 = { mode: 'auto', fcmax: 0, fcSrc: '', age: 32, refs: [] };
   const KT = 'tcmv.run.txt.v1';
   const TXT0 = {
     'vma.what': 'Ta vitesse maximale aérobie : la vitesse que tu peux tenir environ 6 minutes à fond.',
@@ -59,7 +56,7 @@
     setCoef(id, f) { write(KC, M.coefs().map(c => c.id === id ? { ...c, f } : c)); emit(); },
     vmaFrom(coefId, sec) { const c = M.coefs().find(x => x.id === coefId); if (!c || !sec) return 0; const km = c.min ? null : c.m / 1000; const kmh = c.min ? 0 : km / (sec / 3600); return c.min ? r1((sec / 1000) / (c.min / 60) / c.f) : r1(kmh / c.f); },
     // ——— Profil client (pace_profiles + pace_refs)
-    profile(cid) { const all = read(KP) || {}; const D = { demo: P0, marc: P0, julien: { mode: 'auto', fcmax: 0, age: 28, refs: [] }, hugo: { mode: 'auto', fcmax: 186, fcSrc: 'montre', refs: [] } }; const p = all[cid || 'demo'] || D[cid || 'demo'] || { mode: 'auto', fcmax: 0, refs: [] }; const t = new Date().toISOString().slice(0, 10); if ((p.refs || []).some(r => r.date > t)) return { ...p, refs: p.refs.map(r => r.date > t ? { ...r, date: t } : r) }; return p; },
+    profile(cid) { const all = read(KP) || {}; const D = {}; const p = all[cid || 'demo'] || D[cid || 'demo'] || { mode: 'auto', fcmax: 0, refs: [] }; const t = new Date().toISOString().slice(0, 10); if ((p.refs || []).some(r => r.date > t)) return { ...p, refs: p.refs.map(r => r.date > t ? { ...r, date: t } : r) }; return p; },
     saveProfile(cid, p) { const all = read(KP) || {}; all[cid || 'demo'] = p; write(KP, all); emit(); },
     patchProfile(cid, patch) { M.saveProfile(cid, { ...M.profile(cid), ...patch }); },
     addRef(cid, ref) { const p = M.profile(cid), t = new Date().toISOString().slice(0, 10); ref = { ...ref, date: ref.date > t ? t : ref.date }; M.saveProfile(cid, { ...p, refs: [...p.refs, ref].sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0) }); },

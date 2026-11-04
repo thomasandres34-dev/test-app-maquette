@@ -543,37 +543,41 @@ class Component extends DCLogic {
   state = {
     // gym : tested = records testés saisis par l'athlète {reps: [kg, date]} · est1 = 1RM estimé calculé depuis les séances (exercices étoilés en Bibliothèque)
     gym: [
-      { name: 'Squat', tested: { 1: [115, '3 juil.'], 3: [102.5, '28 août'], 5: [100, '12 sept.'] }, est1: 117, estFrom: '100 kg × 5 · 3 oct.' },
-      { name: 'Bench', tested: { 1: [100, '19 sept.'] }, est1: 98, estFrom: '85 kg × 5 · 2 oct.' },
-      { name: 'Deadlift traditionnel', tested: { 1: [170, '2 sept.'] }, est1: 165, estFrom: '140 kg × 5 · 29 sept.' },
-      { name: 'Strict press', tested: {}, est1: 62, estFrom: '52,5 kg × 5 · 2 oct.' },
-      { name: 'Pull up lesté', tested: { 5: [20, '25 août'] }, est1: 0, estFrom: '' },
+      { name: 'Squat', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Bench', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Deadlift traditionnel', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Strict press', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Pull up lesté', tested: {}, est1: 0, estFrom: '' },
       // perso = exercice ajouté par l'athlète : records testés + popup, mais pas d'estimation ni de reward en séance
-      { name: 'Presse à cuisses', perso: true, tested: { 8: [220, '18 sept.'] }, est1: 0, estFrom: '' },
-      { name: 'Deadlift sumo', tested: { 3: [160, '20 août'] }, est1: 168, estFrom: '145 kg × 5 · 22 sept.' },
-      { name: 'Front squat', tested: { 1: [95, '10 juil.'] }, est1: 97, estFrom: '82,5 kg × 5 · 1 oct.' },
-      { name: 'Clean', tested: { 1: [85, '2 juin'] }, est1: 0, estFrom: '' },
-      { name: 'Snatch', tested: { 1: [65, '2 juin'] }, est1: 0, estFrom: '' },
-      { name: 'Push press', tested: { 1: [80, '15 août'] }, est1: 82, estFrom: '70 kg × 5 · 2 oct.' },
-      { name: 'Hip thrust', tested: { 10: [120, '14 juin'] }, est1: 165, estFrom: '130 kg × 8 · 3 oct.' },
-      { name: 'Dips lestés', tested: { 5: [30, '1 sept.'] }, est1: 0, estFrom: '' },
-      { name: 'Rowing barre', tested: {}, est1: 92, estFrom: '75 kg × 8 · 2 oct.' },
-      { name: 'Développé incliné', tested: { 5: [75, '19 sept.'] }, est1: 86, estFrom: '75 kg × 5 · 2 oct.' },
+      { name: 'Presse à cuisses', perso: true, tested: {}, est1: 0, estFrom: '' },
+      { name: 'Deadlift sumo', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Front squat', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Clean', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Snatch', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Push press', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Hip thrust', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Dips lestés', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Rowing barre', tested: {}, est1: 0, estFrom: '' },
+      { name: 'Développé incliné', tested: {}, est1: 0, estFrom: '' },
       { name: 'Fentes bulgares', tested: {}, est1: 0, estFrom: '' },
-      { name: 'Curl biceps', perso: true, tested: { 8: [18, '5 oct.'] }, est1: 0, estFrom: '' }
+      { name: 'Curl biceps', perso: true, tested: {}, est1: 0, estFrom: '' }
     ],
     // run : t = chrono testé [temps, date] · est = chrono estimé depuis les séances running du programme
     run: [
-      ['1 km', null], ['5 km', ['21:48', '12 sept.']], ['10 km', ['46:10', '3 août']], ['Semi-marathon', ['1:44:32', '14 avr.']], ['Marathon', null]
+      ['1 km', null], ['5 km', null], ['10 km', null], ['Semi-marathon', null], ['Marathon', null]
     ].map(([name, t]) => { const [est, estFrom] = runEst(name); return { name, t, est, estFrom, events: RUN_EVENTS[name] || (t ? [{ n: '', t: t[0], d: t[1] }] : []) }; }), _r: [
     ], detail: null, reward: null, share: null,
-    body: [['1 oct. 2026', '78,4 kg', '82 cm'], ['1 sept. 2026', '79,6 kg', '84 cm'], ['1 août 2026', '81,0 kg', '86 cm'], ['1 juil. 2026', '81,8 kg', '87 cm'], ['1 juin 2026', '82,5 kg', '88 cm'], ['1 mai 2026', '83,1 kg', '89 cm']], pTab: 'cur', rTab: 'gym', histAll: false,
+    body: [], pTab: 'cur', rTab: 'gym', histAll: false,
     edit: false, prof: { first: 'Thomas', last: 'Andres', email: 'thomas@tcmv.fr', birth: '1994-05-12', height: '178' },
     show: { progs: true, recs: true, weight: true, hist: true }, defTab: 'gym', prefs: { timerSound: true }, notif: { seance: true, records: true, coach: true, news: false },
     sheet: null, f: {}, del: false, delText: '', toast: ''
   };
   flash(m) { this.setState({ toast: m }); clearTimeout(this.t); this.t = setTimeout(() => this.setState({ toast: '' }), 1800); }
-    acctSync() { const A = window.TCMVA; if (!A) return; const a = A.current(), id = a ? a.id : null; if (id === this._acc) return; this._acc = id; if (!id) return; const g = A.get(id, 'recGym'), r = A.get(id, 'recRun'); if (g || r) { this._skipSave = true; this.setState({ ...(g ? { gym: g } : {}), ...(r ? { run: r } : {}) }); } else if (!A.isSeed(id)) { this._skipSave = true; this.setState(s => ({ gym: [], run: (s.run || []).map(x => ({ ...x, tested: null, t: null, est: null, estFrom: '' })) })); } }
+  // 1RM estimé = meilleure série des séances validées (Epley) · Lovable : calculé depuis sets_done
+  estSync() { const A = window.TCMVA, a = A && A.current(); if (!a || !A.hist) return; const AL = { 'Squat': ['back squat', 'squat'], 'Bench': ['bench press', 'développé couché'], 'Deadlift traditionnel': ['soulevé de terre', 'deadlift'], 'Strict press': ['strict press', 'développé militaire'], 'Front squat': ['front squat'], 'Hip thrust': ['hip thrust'], 'Rowing barre': ['rowing barre'], 'Push press': ['push press'], 'Développé incliné': ['développé incliné', 'développé incliné haltères'], 'Deadlift sumo': ['deadlift sumo'], 'Pull up lesté': ['weighted pull ups', 'tractions lestées'], 'Dips lestés': ['dips lestés', 'weighted dips'] };
+    const best = {}; A.hist(a.id).forEach(h => (h.sets || []).forEach(x => { const kg = +x.kg || 0, r = +x.reps || 0; if (!kg || r < 1 || r > 12) return; const e = kg * (1 + r / 30), k = String(x.ex || '').toLowerCase(); if (!best[k] || e > best[k].e) best[k] = { e, from: String(kg).replace('.', ',') + ' kg × ' + r + ' · ' + (h.date || '').slice(5).split('-').reverse().join('/') }; }));
+    let ch = false; const G = (this.state.gym || []).map(g => { if (g.perso) return g; const ks = AL[g.name] || [g.name.toLowerCase()], b = ks.map(k => best[k]).filter(Boolean).sort((x, y) => y.e - x.e)[0]; if (!b) return g; const v = Math.round(b.e * 2) / 2; if (v === g.est1 && b.from === g.estFrom) return g; ch = true; return { ...g, est1: v, estFrom: b.from }; }); if (ch) this.setState({ gym: G }); }
+  acctSync() { const A = window.TCMVA; if (!A) return; const a = A.current(), id = a ? a.id : null; if (id === this._acc) { this.estSync(); return; } this._acc = id; if (!id) return; const g = A.get(id, 'recGym'), r = A.get(id, 'recRun'); if (g || r) { this._skipSave = true; this.setState({ ...(g ? { gym: g } : {}), ...(r ? { run: r } : {}) }); } else if (!A.isSeed(id)) { this._skipSave = true; this.setState(s => ({ gym: [], run: (s.run || []).map(x => ({ ...x, tested: null, t: null, est: null, estFrom: '' })) })); } }
   componentDidUpdate(pp, ps) { this.acctSync(); if (this._skipSave) { this._skipSave = false; this._lg = this.state.gym; this._lr = this.state.run; return; } const A = window.TCMVA; if (!A || !this._acc) return; if (this._lg === undefined) { this._lg = this.state.gym; this._lr = this.state.run; return; } if (this.state.gym !== this._lg) { this._lg = this.state.gym; A.put(this._acc, 'recGym', this.state.gym); } if (this.state.run !== this._lr) { this._lr = this.state.run; A.put(this._acc, 'recRun', this.state.run); } }
   componentDidMount() { if (this.props.demo) setTimeout(() => { const D = this._D = { ...{ ...{ detail: { detail: { kind: 'gym', name: 'Développé couché' } }, fix: { detail: { kind: 'gym', name: 'Développé couché' }, sheet: 'gym', f: { kind: 'Développé couché', value: '110', rm: '1RM', edit: true, date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, reward: { reward: { kind: 'gym', name: 'Développé couché', n: 1, v: 100, date: '27 oct.', prev: null, better: true, est: 0 } }, faq: { faq: true } }, ...{ hist: { histSel: 0 }, runOpen: { runOpen: true }, share: { share: { v: '100 kg', label: 'Développé couché · 1RM', date: '27 oct.' }, shIdx: 0 }, edit: { edit: true } } }, ...{ addGym: { sheet: 'gym', f: { kind: 'Développé couché', value: '', rm: '1RM', date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, addRun: { sheet: 'run', f: { kind: '5 km', hh: 0, mm: 24, ss: 30, value: '', rm: '1RM', date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, addBody: { sheet: 'body', f: { kind: '', value: '', rm: '1RM', date: new Date().toISOString().slice(0, 10), taille: '', custom: '' } }, del: { del: true, delText: '' }, recAll: { recAll: true, recQ: '' }, progAll: { progAll: true }, bilan: { bilan: { title: 'Hybrid Fondation', end: '12 oct.', done: '30 séances sur 30', kpis: [], slot: 'prog-fondation' } } } }; const st = D[this.props.demo]; if (st) this.setState(st); }, 400); const ga = () => { if (window.TCMVA) { this.offAcc = window.TCMVA.subscribe(() => this.acctSync()); this.acctSync(); } else setTimeout(ga, 50); }; ga(); this.offPace = window.RUN10K && window.RUN10K.on(() => this.forceUpdate()); const h = () => { if (window.TCMVC) { this.offC = window.TCMVC.on(() => this.forceUpdate()); this.forceUpdate(); } else this.rwc = setTimeout(h, 50); }; h(); }
   componentWillUnmount() { this.offAcc && this.offAcc(); this.offPace && this.offPace(); clearTimeout(this.t); clearTimeout(this.rwc); this.offC && this.offC(); }
@@ -635,32 +639,32 @@ class Component extends DCLogic {
       name: this.props.userName || (s.prof.first + ' ' + s.prof.last).trim(), avatarSlot: this.props.avatarSlot || '', hasAvatarSlot: !!this.props.avatarSlot, noAvatarSlot: !this.props.avatarSlot,
       ...(() => {
         const TH = (t) => { const R = window.RUN10K; if (/10 km/.test(t || '')) { const im = R && window.RUN10K_DEFAULT ? R.img(R.cfg().program.cover) : { src: 'assets/running-cover.jpg', pos: '50% 50%' }; return { hasBg: true, bg: 'url("' + im.src + '")', bgPos: im.pos }; } const T = window.TCMVC, pi = T && T.progImg(t, 'card'); if (pi && pi.src) return { hasBg: true, bg: 'url("' + pi.src + '")', bgPos: pi.pos }; const d = /Pilates/.test(t) ? 'Pilates' : /Stretch|Mobilit/.test(t) ? 'Stretching' : /Hybrid/.test(t) ? 'Hybride' : /Hyrox/.test(t) ? 'Hyrox' : /Coaching/.test(t) ? 'Coaching privé' : 'Force'; return { hasBg: true, bg: 'url("' + ((T && T.discImg(d)) || 'assets/seance-cover.jpg') + '")', bgPos: '50% 50%' }; };
-        const raw = (this.props.myProgs || [
+        const raw = (this.props.myProgs || (this.props.embedded ? [] : null) || [
           { title: 'Hybrid Fondation', by: 'Thomas', slot: 'prog-fondation', state: 'Actif · semaine 4 sur 6', onView: () => this.flash('Ouverture du programme') },
           { title: 'Pilates Fondamentaux', by: 'Aurore', slot: 'prog-pilates', state: 'Acheté · pas encore lancé', onView: () => this.flash('Ouverture du programme') }
         ]).filter(p => !/^Termin/.test(p.state || ''));
         const progs = raw.map(p => { const m = (p.state || '').match(/semaine (\d+) sur (\d+)/); const n = m ? +m[1] : 0, L = m ? +m[2] : 0; return { ...p, ...(p.hasBg ? {} : TH(p.title)), logo: !!p.logo, hasBar: !!m, segs: Array.from({ length: L }, (_, i) => ({ bg: i < n - 1 ? 'rgba(255,255,255,0.55)' : i === n - 1 ? '#fff' : 'rgba(255,255,255,0.12)' })) }; });
         const active = progs.filter(p => /^Actif/.test(p.state || '')), others = progs.filter(p => !/^Actif/.test(p.state || ''));
-        const done = [
+        // Programmes terminés = accounts › progsDone (Lovable : enrollments status 'done') ou état « Terminé » reçu de l'app · liste de démo réservée au compte Thomas
+        const DONE_DEMO = [
           { title: 'Force 5×5', slot: 'prog-force', end: '14 sept.', done: '23/24 séances', kpis: [['Squat', '+15 kg'], ['Soulevé', '+20 kg'], ['Militaire', '+7,5 kg']] },
           { title: 'Objectif 10 km', slot: 'prog-10k', end: '2 juil.', done: '28/30 séances', kpis: [['10 km', '−3:12'], ['5 km', '−1:40']] }
-        ].map(d => ({ ...d, ...TH(d.title), kpis: d.kpis.map(([n, dd]) => ({ n, d: dd })), bilan: () => this.setState({ bilan: { title: d.title, end: d.end, done: d.done, kpis: d.kpis, slot: d.slot, ...TH(d.title) } }), restart: () => this.props.onOpenProg ? this.props.onOpenProg(d.title, 'restart') : this.flash('Quand veux-tu commencer ?') }));
+        ];
+        const done = (() => { const A = window.TCMVA, a = A && A.current(), sv = a && A.get ? A.get(a.id, 'progsDone') : null, fp = (this.props.myProgs || []).filter(p => /^Termin/.test(p.state || '')).map(p => ({ title: p.title, slot: p.slot, end: '', done: '', kpis: [] })); return Array.isArray(sv) ? sv : fp.length ? fp : ([]); })().map(d => ({ ...d, ...TH(d.title), kpis: d.kpis.map(([n, dd]) => ({ n, d: dd })), bilan: () => this.setState({ bilan: { title: d.title, end: d.end, done: d.done, kpis: d.kpis, slot: d.slot, ...TH(d.title) } }), restart: () => this.props.onOpenProg ? this.props.onOpenProg(d.title, 'restart') : this.flash('Quand veux-tu commencer ?') }));
         const segBtn = (cur, set) => ([id, label, n]) => ({ label, n: n == null ? '' : String(n), bg: cur === id ? '#fff' : 'transparent', fg: cur === id ? '#000' : '#fff', pick: () => this.setState({ [set]: id }) });
         const recs = s[s.rTab];
         const wv = s.body.slice(0, 6).reverse(), nums = wv.map(b => parseFloat(b[1].replace(',', '.'))), mn = Math.min(...nums) - 1, mx = Math.max(...nums);
-        // Historique = rows session_logs (calculé depuis les séances validées). stats = 3 chiffres du récap selon le type de séance.
-        const H = [
-          ['4 oct.', 'Run · EF', '50 min · Zone 2', [['Durée', '50 min'], ['Distance', '9,2 km'], ['Allure', '5:26 /km']], 4],
-          ['3 oct.', 'Lowerbody', 'Force · 58 min', [['Durée', '58 min'], ['Séries', '18'], ['Volume', '7 120 kg']], 4, [{ ex: 'Back squat', v: '117 kg', from: '100 kg × 5' }]],
-          ['2 oct.', 'Upperbody 2', 'Supersets · 52 min', [['Durée', '52 min'], ['Séries', '16'], ['Volume', '4 860 kg']], 4],
-          ['30 sept.', 'Run · Sortie longue', '1 h 15 · Zone 2', [['Durée', '1 h 15'], ['Distance', '13,8 km'], ['Allure', '5:26 /km']], 3],
-          ['29 sept.', 'Metcon', 'EMOM 20', [['Durée', '20 min'], ['Tours', '20'], ['Format', 'EMOM']], 3],
-          ['28 sept.', 'Upperbody 1', 'Force · 55 min', [['Durée', '55 min'], ['Séries', '17'], ['Volume', '5 240 kg']], 3],
-          ['26 sept.', 'Run · Fractionné', '6 × 800 m', [['Durée', '48 min'], ['Distance', '8,1 km'], ['Allure', '5:55 /km']], 3]
-        ];
+        // Historique = séances validées du compte (TCMVA.hist → Lovable : sessions_done + sets_done). Item : [date, titre, sous-titre, stats, semaine, records, programme]
+        const MO = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'], fdt = d => { const x = new Date(String(d).slice(0, 10) + 'T12:00:00'); return isNaN(x) ? '' : x.getDate() + ' ' + MO[x.getMonth()]; };
+        const ACC = window.TCMVA && window.TCMVA.current(), HL = ACC && window.TCMVA.hist ? window.TCMVA.hist(ACC.id) : [];
+        const H = HL.slice().reverse().map(h => { const S = h.sets || [], run = h.kind === 'Running', vol = S.reduce((t, x) => t + (+x.kg || 0) * (+x.reps || 0), 0), dur = (h.min || 0) + ' min';
+          const stats = Array.isArray(h.stats) && h.stats.length ? h.stats : run ? [['Durée', dur], ['Type', h.title || 'Course']] : [['Durée', dur], ['Séries', String(S.length)], ['Volume', Math.round(vol).toLocaleString('fr-FR').replace(/[\u202f\u00a0]/g, ' ') + ' kg']];
+          return [fdt(h.date), h.title || 'Séance', [h.kind, dur].filter(Boolean).join(' · '), stats, h.wk || '', h.prs || [], h.prog || '']; });
+        const streak = (() => { const wk = d => { const x = new Date(String(d).slice(0, 10) + 'T12:00:00'); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.toISOString().slice(0, 10); }, W = new Set(HL.map(h => wk(h.date))); let n = 0; const c = new Date(); c.setHours(12, 0, 0, 0); c.setDate(c.getDate() - ((c.getDay() + 6) % 7)); if (!W.has(c.toISOString().slice(0, 10))) c.setDate(c.getDate() - 7); while (W.has(c.toISOString().slice(0, 10))) { n++; c.setDate(c.getDate() - 7); } return n; })();
+        const sinceD = (ACC && ACC.created) || (HL[0] && HL[0].date) || '', sinceTxt = sinceD ? (() => { const x = new Date(sinceD.slice(0, 10) + 'T12:00:00'); return 'Membre depuis ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][x.getMonth()] + ' ' + x.getFullYear(); })() : 'Nouveau membre';
         return {
-          since: 'Membre depuis mai 2026 · Hybride',
-          topStats: [['112', 'séances'], ['2', 'programmes terminés'], ['5 sem.', 'de régularité']].map(([v, k], i) => ({ v, k, pl: i ? '14px' : '0', bl: i ? '1px solid rgba(255,255,255,0.1)' : 'none' })),
+          since: sinceTxt,
+          topStats: [[String(HL.length), HL.length > 1 ? 'séances' : 'séance'], [String(done.length), done.length > 1 ? 'programmes terminés' : 'programme terminé'], [streak + ' sem.', 'de régularité']].map(([v, k], i) => ({ v, k, pl: i ? '14px' : '0', bl: i ? '1px solid rgba(255,255,255,0.1)' : 'none' })),
           progTabs: [['cur', 'En cours', active.length], ['done', 'Terminés', done.length]].map(segBtn(s.pTab, 'pTab')),
           isCur: s.pTab === 'cur', isDone: s.pTab === 'done',
           progAllLbl: 'Voir tous mes programmes (' + (progs.length + done.length) + ')', openProgAll: () => this.setState({ progAll: true }), closeProgAll: () => this.setState({ progAll: false }), hasProgAll: !!s.progAll,
@@ -701,7 +705,7 @@ class Component extends DCLogic {
           wBars: wv.map((b, i) => ({ v: b[1].replace(' kg', ''), m: b[0].split(' ')[1].replace('.', ''), h: Math.round(16 + (nums[i] - mn) / (mx - mn || 1) * 48), bg: i === wv.length - 1 ? '#fff' : 'rgba(255,255,255,0.22)' })),
           history: (s.histAll ? H : H.slice(0, 4)).map(([date, tt, sub], i) => ({ date, t: tt, s: sub, open: () => this.setState({ histSel: i }) })),
           hasHist: s.histSel != null, closeHist: () => this.setState({ histSel: null }),
-          hs: (() => { const x = H[s.histSel ?? 0]; return { date: x[0], sub: x[1] + ' · Hybrid Fondation · S' + x[4], stats: x[3], prs: x[5] || [], week: x[4] }; })(), histCount: '112 séances', histBtn: s.histAll ? 'Réduire' : 'Voir plus', toggleHist: () => this.setState({ histAll: !s.histAll }),
+          hs: (() => { const x = H[s.histSel ?? 0] || ['', '', '', [], '', [], '']; return { date: x[0], sub: [x[1], x[6], x[4] ? 'S' + x[4] : ''].filter(Boolean).join(' · '), stats: x[3], prs: x[5] || [], week: x[4] }; })(), histCount: H.length + (H.length > 1 ? ' séances' : ' séance'), histBtn: s.histAll ? 'Réduire' : 'Voir plus', toggleHist: () => this.setState({ histAll: !s.histAll }),
           editProfile: () => this.setState({ edit: true })
         }; })(),
       addBody: () => this.open('body'),
@@ -776,7 +780,7 @@ class Component extends DCLogic {
       onPhoto: ev => { const f = ev.target.files && ev.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { this.setState({ myPhoto: r.result }); this.flash('Photo mise à jour'); }; r.readAsDataURL(f); ev.target.value = ''; },
       hasMyPhoto: !!s.myPhoto, myPhoto: s.myPhoto ? 'url("' + s.myPhoto + '")' : 'none', myPhotoEl: s.myPhoto ? React.createElement('img', { src: s.myPhoto, alt: '', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' } }) : null,
       runOpen: !!s.runOpen, openRun: () => this.setState({ runOpen: true }), closeRun: () => this.setState({ runOpen: false }),
-      runVma: (() => { const M = window.TCMVRUN; if (!M) return '—'; const v = M.vma(M.profile()); return v ? v.toFixed(1).replace('.', ',') + ' km/h' : 'À calibrer'; })(),
+      runVma: (() => { const M = window.TCMVRUN; if (!M) return '—'; const v = M.vma(M.profile(((window.TCMVA && window.TCMVA.current()) || {}).id)); return v ? v.toFixed(1).replace('.', ',') + ' km/h' : 'À calibrer'; })(),
       runAge: (() => { const b = s.info && s.info.birth; return b ? Math.floor((Date.now() - new Date(b).getTime()) / 3.15576e10) : 32; })(),
       ...(() => { const o = this.props.only; return { fullMode: !o, onlyMode: !!o, onlyBack: () => this.props.onBack && this.props.onBack(), shProgs: o ? false : s.show.progs, shRecs: o ? o === 'recs' : s.show.recs, shWeight: o ? o === 'weight' : s.show.weight, shHist: o ? o === 'hist' : s.show.hist }; })(),
       infoFields: [['first', 'Prénom', 'text', 'text'], ['last', 'Nom', 'text', 'text'], ['email', 'Email', 'email', 'email'], ['birth', 'Naissance', 'date', 'none'], ['height', 'Taille (cm)', 'text', 'numeric']].map(([k, label, type, mode], i) => ({ label, type, mode, value: s.prof[k], sep: i ? '1px solid rgba(255,255,255,0.08)' : 'none', onChange: ev => { const v = ev.target.value; this.setState(st => ({ prof: { ...st.prof, [k]: v } })); } })),

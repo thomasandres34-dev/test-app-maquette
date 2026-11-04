@@ -1,6 +1,6 @@
 # TCMV — aperçu HTML
 
-Maquette interactive (pas l'app finale Lovable). Connexion automatique : Thomas (admin).
+Maquette interactive (pas l'app finale Lovable). Connexion automatique : Thomas (admin). Mis à jour le 4 nov. 2026.
 
 ## Mettre en ligne sur GitHub Pages
 1. Crée un dépôt (ex. `tcmv-apercu`) et dépose **tout le contenu de ce dossier** à la racine.

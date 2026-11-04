@@ -209,7 +209,7 @@ class Component extends DCLogic {
     if (b) [...b.children].filter(el => el.offsetParent !== null).slice(0, 12).forEach((el, i) => el.animate([{ opacity: 0, transform: 'translate(' + dx + 'px,14px)' }, { opacity: 1, transform: 'none' }], { duration: 520, delay: 120 + i * 45, easing: ease, fill: 'backwards' })); }
   // Fin d'onboarding → table accounts (birth, sex, height, goal, sports, level) + weigh_ins (1re pesée) + records
   finish() { const A = window.TCMVA, W = window.TCMVW, d = this.state.d; if (!A) return; const a = A.signUp({ email: d.email.trim(), first: d.prenom.trim(), last: d.nom.trim(), birth: d.naissance, sex: d.sexe }); if (!a) return;
-    A.update(a.id, { onb: true, birth: d.naissance, sex: d.sexe, height: d.taille, goal: d.goal, sports: d.interests.map(i => INTERESTS[i]), level: d.level });
+    A.update(a.id, { onb: true, birth: d.naissance, sex: d.sexe, height: d.taille, goal: d.goal != null && GOALS[d.goal] ? GOALS[d.goal][0] : '', sports: d.interests.map(i => INTERESTS[i]), level: d.level });
     const kg = parseFloat(String(d.poids).replace(',', '.')); if (W && kg >= 30 && kg <= 250) { W.add(a.id, { date: new Date().toISOString().slice(0, 10), kg, moment: 'Matin' }); W.setHeight && W.setHeight(a.id, parseInt(d.taille) || 0); }
     A.update(a.id, { interests: d.interests.map(i => INTERESTS[i]), freq: d.freq != null ? FREQ[d.freq][0] : '', since: d.level != null ? LEVELS[d.level][1] : '' });
     const M = window.TCMVRUN, rk = this.state.runK, sec = (parseInt(d.rH) || 0) * 3600 + (parseInt(d.rM) || 0) * 60 + (parseInt(d.rS) || 0), vv = rk === 'vma' ? parseFloat(String(d.vma).replace(',', '.')) || 0 : M && sec ? M.vmaFrom(rk, sec) : 0;
