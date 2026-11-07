@@ -404,7 +404,7 @@ class Component extends DCLogic {
   memKey() { return this.props.demo ? 'demo:' + this.props.demo : 'acct:' + this.cid(); }
   memSave() { const s = this.state, snap = { detail: s.dOut ? null : s.detail, sheet: s.sheet, f: s.f, reward: s.reward, share: s.share, shIdx: s.shIdx }; const L = this._memLast;
     if (L && Object.keys(snap).every(k => L[k] === snap[k])) return; this._memLast = snap; if (!L) return; RC_MEM[this.memKey()] = { ...snap, t: Date.now() }; }
-  memRestore() { const m = RC_MEM[this.memKey()]; if (!m || Date.now() - m.t > 600000 || !(m.detail || m.sheet || m.reward || m.share)) return false;
+  memRestore() { const FX0 = this.props.focus; if (FX0 && FX0.ex && Date.now() - (FX0.at || 0) < 15000) return; const m = RC_MEM[this.memKey()]; if (!m || Date.now() - m.t > 600000 || !(m.detail || m.sheet || m.reward || m.share)) return false;
     this._st = { d: m.detail ? { v: m.detail, done: true } : undefined, s: m.sheet ? { v: m.sheet, done: true } : undefined, o: (m.reward || m.share) ? { v: m.reward || m.share, done: true } : undefined, p: m.sheet === 'gym' && m.f && m.f.pick ? { v: true, done: true } : undefined };
     Object.keys(this._st).forEach(k => { if (!this._st[k]) delete this._st[k]; });
     this._memLast = { detail: m.detail, sheet: m.sheet, f: m.f, reward: m.reward, share: m.share, shIdx: m.shIdx };
@@ -522,7 +522,7 @@ class Component extends DCLogic {
     const s = this.state, emb = !!this.props.embed, f = s.f || {};
     const fr = { minH: emb ? '100%' : '100vh', h0: emb ? '100%' : 'auto', pad: emb ? '0' : '24px', w: emb ? '100%' : '390px', h: emb ? '100%' : '844px', rad: emb ? '0' : '44px', bd: emb ? 'none' : '1px solid rgba(0,0,0,0.1)', sh: emb ? 'none' : '0 20px 60px rgba(0,0,0,0.12)' };
     // Ouverture directe d’un exercice (ex. depuis une séance)
-    const FX = this.props.focus; if (FX && FX.at !== this._fx && s.ready) { this._fx = FX.at; if (FX.ex) setTimeout(() => this.setState({ tab: 'gym', detail: { kind: 'gym', name: FX.ex } }), 30); }
+    const FX = this.props.focus; if (FX && FX.at !== this._fx && s.ready) { this._fx = FX.at; if (FX.ex) { const fk = rcN(rcCanon(FX.ex)), own = s.gym.find(x => rcN(rcCanon(x.name)) === fk), nm = own ? own.name : rcCanon(FX.ex); setTimeout(() => this.setState({ tab: 'gym', detail: { kind: 'gym', name: nm }, dOut: false, sheet: null, reward: null, share: null }), 0); } }
     const tab = 'gym', isGym = tab === 'gym', B = this.bestFromSessions();
     const G = s.gym.map(g => { const E = this.est1(g, B), T = g.tested || {}, ks = Object.keys(T).map(Number).sort((a, b) => a - b), t1 = T[1]; const bestN = t1 ? 1 : ks[0]; return { ...g, E, ks, t1, bestN }; });
     // Exercices suivis en séance sans record saisi : apparaissent avec leur estimé
@@ -549,14 +549,15 @@ class Component extends DCLogic {
     const dt = (() => { const d = s.detail; const off = { isErg: false, ergRows: [], paceUnit: '', showAdd: true, on: false, name: '', tK: '', tV: '', tU: '', tD: '', eK: '', eV: '', eD: '', isGym: false, isRun: false, table: [], events: [], hasEv: false, noEv: false, fix: () => {}, fixTxt: '', fixLbl: '', add: () => {}, addLbl: '', share: () => {}, shC: '#000', canDel: false, delAll: () => {}, delLbl: '', close: () => {} }; if (!d) return off;
       // Fermeture : on ne ferme que la fiche qui était ouverte au moment du clic (une fiche rouverte entre-temps reste ouverte)
       const close = () => { if (this.state.dOut) return; const d0 = this.state.detail; this._closing = d0; this.setState({ dOut: true }); clearTimeout(this._dT); this._dT = setTimeout(() => { this._closing = null; if (this.state.detail === d0) this.setState({ detail: null, dOut: false, askDel: false, openEv: null, askEv: null }); else this.setState({ dOut: false }); }, 260); };
-      if (d.kind === 'gym' && ergOf(d.name)) { const g = G.find(x => x.name === d.name) || { name: d.name, erg: {} }, eo = ergOf(d.name), EG = g.erg || {}, EK = [...new Set([...ERG_D, ...Object.keys(EG).map(Number)])].sort((a, b) => a - b), d0 = EG[2000] ? 2000 : Object.keys(EG).map(Number).sort((a, b) => a - b).pop(), t0 = d0 ? EG[d0] : null;
+      const gFind = n => G.find(x => x.name === n) || G.find(x => rcN(rcCanon(x.name)) === rcN(rcCanon(n)));
+      if (d.kind === 'gym' && ergOf(d.name)) { const g = gFind(d.name) || { name: d.name, erg: {} }, eo = ergOf(d.name), EG = g.erg || {}, EK = [...new Set([...ERG_D, ...Object.keys(EG).map(Number)])].sort((a, b) => a - b), d0 = EG[2000] ? 2000 : Object.keys(EG).map(Number).sort((a, b) => a - b).pop(), t0 = d0 ? EG[d0] : null;
         const shareErg = m => () => this.setState({ share: { v: fmtT(EG[m][0]), ex: g.name, k1: 'Distance', v1: dLbl(m), date: EG[m][1] }, shIdx: 0 });
         return { ...off, on: true, close, name: g.name, isErg: true, needTest: false, showE: false, showAdd: true, tK: t0 ? 'Record · ' + dLbl(d0) : 'Pas encore de temps', tV: t0 ? fmtT(t0[0]) : '—', tU: '', tD: t0 ? paceS(t0[0], d0, eo.unit) + ' · le ' + t0[1] : 'Ajoute ton premier temps sur 500 m, 2 km…',
           ergRows: EK.map((m, i) => { const t = EG[m]; return { d: dLbl(m), has: !!t, none: !t, t: t ? fmtT(t[0]) : '', date: t ? t[1] : '', pace: t ? fmtT(t[0] / m * eo.unit) : '—', sep: i ? 'rgba(0,0,0,0.07)' : 'transparent', canShare: !!t, share: t ? (e => { if (e && e.stopPropagation) e.stopPropagation(); shareErg(m)(); }) : () => {}, edit: () => this.open('gym', g.name, { dist: String(m), edit: !!t, date: t ? (t[2] || isoToday()) : isoToday() }) }; }), paceUnit: '/' + eo.unit + ' m',
           add: () => this.open('gym', g.name), addLbl: 'Ajouter un temps', shC: t0 ? '#000' : 'rgba(0,0,0,0.25)', share: t0 ? shareErg(d0) : () => this.flash('Ajoute un temps pour le partager'),
           canDel: !!s.gym.find(x => x.name === g.name), delLbl: s.askDel ? 'Confirmer : supprimer ' + g.name : 'Supprimer cet exercice', delAll: () => { if (!s.askDel) return this.setState({ askDel: true }); this.persist({ gym: s.gym.filter(x => x.name !== g.name), detail: null, askDel: false }); this.flash('Exercice supprimé'); }, runDel: false, fixLbl: '', fixTxt: '' };
       }
-      if (d.kind === 'gym') { const g = G.find(x => x.name === d.name) || { name: d.name, tested: {}, E: { v: 0, from: '' }, ks: [], t1: null }; const T = g.tested || {}, t1 = g.t1, E = g.E;
+      if (d.kind === 'gym') { const g = gFind(d.name) || { name: d.name, tested: {}, E: this.est1({ name: d.name }, B), ks: [], t1: null }; const T = g.tested || {}, t1 = g.t1, E = g.E;
         const shareGym = n => () => this.setState({ share: { v: kgS(T[n][0]) + ' kg', ex: g.name, k1: 'Répétitions', v1: n + 'RM', date: T[n][1] }, shIdx: 0 });
         const bestShare = t1 ? 1 : g.ks[0];
         const nT = Object.keys(T).length;
