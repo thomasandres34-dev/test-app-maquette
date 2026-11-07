@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Records force</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./tcmv-accounts.js?v=4"></script><script src="./exercices-coach.js"></script><script src="./tcmv-exercises.js?v=1"></script><script src="./run-model.js?v=1"></script><script src="./run10k-data.js"></script><script src="./run10k.js?v=4"></script><script src="./image-slot.js"></script><style>@keyframes headIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}@keyframes shUp{from{transform:translateY(100%)}to{transform:none}}@keyframes fadeB{from{opacity:0}to{opacity:1}}@keyframes pgOut{from{transform:none}to{transform:translateX(100%)}}@keyframes fadeOut{from{opacity:1}to{opacity:0}}@keyframes pgIn{from{transform:translateX(100%)}to{transform:none}}@keyframes prPop{0%{opacity:0;transform:translateY(-50%) scale(.82)}60%{opacity:1;transform:translateY(-50%) scale(1.03)}100%{opacity:1;transform:translateY(-50%) scale(1)}}@keyframes prMedal{0%{opacity:0;transform:translateY(-24px) scale(.4) rotate(-25deg)}55%{opacity:1;transform:translateY(4px) scale(1.15) rotate(8deg)}75%{transform:translateY(-2px) scale(.96) rotate(-4deg)}100%{opacity:1;transform:none}}@keyframes prUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes prShine{0%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}a{color:#000}a:hover{color:#555}button{font-family:inherit}input{font-family:inherit}select{font-family:inherit}[data-wheel]::-webkit-scrollbar{display:none}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}</style></helmet>
+<div style="min-height:{{ fr.minH }};height:{{ fr.h0 }};display:flex;justify-content:center;align-items:flex-start;padding:{{ fr.pad }};box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:600;color:#000">
+  <div data-screen-label="Records" style="width:{{ fr.w }};height:{{ fr.h }};border-radius:{{ fr.rad }};border:{{ fr.bd }};background:#f2f2f2;overflow:hidden;position:relative;flex:none;box-shadow:{{ fr.sh }}">
+
+    <div style="height:100%;overflow-y:auto;display:flex;flex-direction:column;padding-bottom:48px;box-sizing:border-box;scrollbar-width:none">
+      <div style="height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:15px;font-weight:700;letter-spacing:-0.02em"><span>9:41</span><span style="font-size:12px">●●● ▮</span></div>
+      <div style="display:grid;grid-template-columns:36px 1fr 36px;align-items:center;padding:6px 16px 0">
+        <button onClick="{{ back }}" aria-label="Retour" style-active="transform:scale(.94)" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <span style="font-size:16px;font-weight:700;text-align:center;letter-spacing:-0.02em">Records</span>
+        <button onClick="{{ openAdd }}" aria-label="Ajouter un record" style-active="transform:scale(.94)" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"></path></svg></button>
+      </div>
+
+
+      <div style="padding:28px 16px 0;display:flex;flex-direction:column;gap:10px;animation:headIn .5s cubic-bezier(.2,.8,.2,1) .05s both">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 4px 2px"><span style="font-size:20px;font-weight:700;letter-spacing:-0.02em">{{ listTitle }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.4)">{{ listSide }}</span></div>
+        <sc-if value="{{ listEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;letter-spacing:-0.02em;font-weight:700">{{ emptyT }}</span><span style="font-size:13.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.55)">{{ emptyD }}</span></div>
+        </sc-if>
+        <sc-if value="{{ listHas }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border-radius:16px;padding:0 16px">
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+              <div onClick="{{ r.open }}" style="display:flex;align-items:center;gap:12px;min-height:62px;border-top:1px solid {{ r.sep }};cursor:pointer">
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.02em;font-weight:700">{{ r.name }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.45)">{{ r.sub }}</span></span>
+                <span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ r.vc }};letter-spacing:-0.02em">{{ r.v }}</span><span style="font-size:12px;color:rgba(0,0,0,0.4);font-variant-numeric:tabular-nums">{{ r.est }}</span></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="2.6" stroke-linecap="round" style="flex:none"><path d="m9 6 6 6-6 6"></path></svg>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <span style="padding:0 6px;font-size:12.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.45)">{{ legend }}</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ dt.on }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:19;background:rgba(0,0,0,0.12);pointer-events:none;animation:{{ dShade }}"></div>
+      <div style="position:absolute;inset:0;z-index:20;background:#f2f2f2;overflow-y:auto;scrollbar-width:none;box-shadow:-8px 0 24px rgba(0,0,0,0.08);animation:{{ dAnim }}">
+        <div style="min-height:100%;display:flex;flex-direction:column;padding-bottom:48px;box-sizing:border-box">
+          <div style="height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:15px;font-weight:700;letter-spacing:-0.02em"><span>9:41</span><span style="font-size:12px">●●● ▮</span></div>
+          <div style="display:grid;grid-template-columns:36px 1fr 36px;align-items:center;padding:6px 16px 0">
+            <button onClick="{{ dt.close }}" aria-label="Retour" style-active="transform:scale(.94)" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+            <span style="font-size:16px;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px;letter-spacing:-0.02em">{{ dt.name }}</span>
+            <button onClick="{{ dt.share }}" aria-label="Partager mon record" style-active="transform:scale(.94)" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:{{ dt.shC }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m7 8 5-5 5 5"></path><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg></button>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:48px 20px 34px;text-align:center">
+            <span style="font-size:15px;color:rgba(0,0,0,0.5);letter-spacing:-0.02em;font-weight:700">{{ dt.tK }}</span>
+            <span style="font-size:64px;font-weight:700;letter-spacing:-0.05em;line-height:1;font-variant-numeric:tabular-nums">{{ dt.tV }}<span style="font-size:20px;font-weight:600;letter-spacing:-0.02em;color:rgba(0,0,0,0.45);margin-left:6px">{{ dt.tU }}</span></span>
+            <span style="font-size:14px;color:rgba(0,0,0,0.55)">{{ dt.tD }}</span>
+          </div>
+          <sc-if value="{{ dt.needTest }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 16px 4px;display:flex;flex-direction:column;align-items:center;gap:10px">
+              <button onClick="{{ dt.addTest }}" style-active="transform:scale(.98)" style="width:100%;height:54px;border:none;border-radius:999px;background:#000;color:#fff;font-size:16px;font-weight:700;letter-spacing:-0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s ease"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>{{ dt.testLbl }}</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ dt.showE }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:0 16px">
+            <div style="background:#fff;border-radius:18px;padding:15px 16px;display:flex;align-items:center;gap:14px">
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.02em">{{ dt.eK }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.45);line-height:1.35">{{ dt.eD }}</span></div>
+              <span style="font-size:20px;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;white-space:nowrap">{{ dt.eV }}</span>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ dt.isErg }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:30px 20px 10px;display:flex;align-items:baseline;justify-content:space-between;gap:10px"><span style="font-size:20px;font-weight:700;letter-spacing:-0.02em">Mes temps</span><span style="font-size:12.5px;color:rgba(0,0,0,0.4)">Touche une ligne pour saisir</span></div>
+            <div style="padding:0 16px">
+              <div style="background:#fff;border-radius:18px;padding:4px 16px 2px">
+                <div style="display:grid;grid-template-columns:62px minmax(0,1fr) 78px 30px;gap:8px;align-items:center;height:34px;font-size:12px;font-weight:600;color:rgba(0,0,0,0.4)"><span>Distance</span><span style="text-align:right">Temps</span><span style="text-align:right;white-space:nowrap">{{ dt.paceUnit }}</span><span></span></div>
+                <sc-for list="{{ dt.ergRows }}" as="t" hint-placeholder-count="6">
+                  <div onClick="{{ t.edit }}" style="display:grid;grid-template-columns:62px minmax(0,1fr) 78px 30px;gap:8px;align-items:center;min-height:48px;border-top:1px solid rgba(0,0,0,0.07);cursor:pointer">
+                    <span style="font-size:15px;letter-spacing:-0.02em;font-weight:700;white-space:nowrap">{{ t.d }}</span>
+                    <span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><sc-if value="{{ t.has }}" hint-placeholder-val="{{ true }}"><span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ t.t }}</span><span style="font-size:11px;color:rgba(0,0,0,0.4)">{{ t.date }}</span></sc-if><sc-if value="{{ t.none }}" hint-placeholder-val="{{ false }}"><span style="height:26px;padding:0 10px;border-radius:999px;background:#e9e9eb;color:#000;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:4px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Saisir</span></sc-if></span>
+                    <span style="text-align:right;font-size:14px;color:rgba(0,0,0,0.45);font-variant-numeric:tabular-nums">{{ t.pace }}</span>
+                    <span style="display:flex;justify-content:flex-end"><sc-if value="{{ t.canShare }}" hint-placeholder-val="{{ false }}"><button onClick="{{ t.share }}" aria-label="Partager" style="width:30px;height:30px;border:none;background:transparent;color:rgba(0,0,0,0.45);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:flex-end"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m7 8 5-5 5 5"></path><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg></button></sc-if></span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ dt.canDel }}" hint-placeholder-val="{{ false }}"><div style="padding:30px 16px 0"><div onClick="{{ dt.delAll }}" style="background:#fff;border-radius:18px;padding:0 16px;display:flex;align-items:center;min-height:50px;cursor:pointer;font-size:15px;font-weight:600;letter-spacing:-0.02em;color:#ff3b30">{{ dt.delLbl }}</div></div></sc-if>
+          </sc-if>
+
+          <sc-if value="{{ dt.isGym }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:30px 20px 10px;display:flex;align-items:baseline;justify-content:space-between;gap:10px"><span style="font-size:20px;font-weight:700;letter-spacing:-0.02em">Mes charges</span><span style="font-size:12.5px;color:rgba(0,0,0,0.4)">Touche une ligne pour saisir</span></div>
+            <div style="padding:0 16px">
+              <div style="background:#fff;border-radius:18px;padding:4px 16px 2px">
+                <div style="display:grid;grid-template-columns:44px minmax(0,1fr) 72px 30px;gap:8px;align-items:center;height:34px;font-size:12px;font-weight:600;color:rgba(0,0,0,0.4)"><span>Reps</span><span style="text-align:right">Testé</span><span style="text-align:right">Estimé</span><span></span></div>
+                <sc-for list="{{ dt.table }}" as="t" hint-placeholder-count="10">
+                  <div onClick="{{ t.edit }}" style="display:grid;grid-template-columns:44px minmax(0,1fr) 72px 30px;gap:8px;align-items:center;min-height:48px;border-top:1px solid rgba(0,0,0,0.07);cursor:pointer">
+                    <span style="font-size:15px;letter-spacing:-0.02em;font-weight:700">{{ t.rm }}</span>
+                    <span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><sc-if value="{{ t.has }}" hint-placeholder-val="{{ true }}"><span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:#000;letter-spacing:-0.02em">{{ t.tested }}</span><span style="font-size:11px;color:rgba(0,0,0,0.4)">{{ t.date }}</span></sc-if><sc-if value="{{ t.none }}" hint-placeholder-val="{{ false }}"><span style="height:26px;padding:0 10px;border-radius:999px;background:#e9e9eb;color:#000;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:4px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Saisir</span></sc-if></span>
+                    <span style="text-align:right;font-size:14px;color:rgba(0,0,0,0.4);font-variant-numeric:tabular-nums">{{ t.est }}</span>
+                    <span style="display:flex;justify-content:flex-end"><sc-if value="{{ t.canShare }}" hint-placeholder-val="{{ false }}"><button onClick="{{ t.share }}" aria-label="Partager" style="width:30px;height:30px;border:none;background:transparent;color:rgba(0,0,0,0.45);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:flex-end"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m7 8 5-5 5 5"></path><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg></button></sc-if></span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="padding:30px 16px 0">
+              <div style="background:#fff;border-radius:18px;padding:0 16px">
+                <div onClick="{{ dt.fix }}" style="display:flex;align-items:center;gap:10px;min-height:50px;cursor:pointer"><span style="flex:1;font-size:15px;font-weight:600;letter-spacing:-0.02em">{{ dt.fixLbl }}</span><svg width="8" height="13" viewBox="0 0 8 13" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m1.5 1.5 5 5-5 5"></path></svg></div>
+                <sc-if value="{{ dt.canDel }}" hint-placeholder-val="{{ false }}"><div onClick="{{ dt.delAll }}" style="display:flex;align-items:center;min-height:50px;border-top:1px solid rgba(0,0,0,0.07);cursor:pointer;font-size:15px;font-weight:600;letter-spacing:-0.02em;color:#ff3b30">{{ dt.delLbl }}</div></sc-if>
+              </div>
+              <span style="display:block;padding:8px 6px 0;font-size:12.5px;line-height:1.45;color:rgba(0,0,0,0.4)">{{ dt.fixTxt }}</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ dt.isRun }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:22px 16px 0;display:flex;flex-direction:column;gap:10px">
+              <div style="padding:0 6px;font-size:14px;color:rgba(0,0,0,0.5)">Mes courses et chronos</div>
+              <sc-if value="{{ dt.noEv }}" hint-placeholder-val="{{ false }}"><div style="background:#fff;border-radius:16px;padding:18px;font-size:13.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.55)">Aucun chrono sur cette distance. Ajoute ton premier temps pour en faire ton record.</div></sc-if>
+              <sc-if value="{{ dt.hasEv }}" hint-placeholder-val="{{ true }}">
+                <div style="background:#fff;border-radius:16px;padding:0 16px">
+                  <sc-for list="{{ dt.events }}" as="ev" hint-placeholder-count="3">
+                    <div style="display:flex;flex-direction:column;border-top:1px solid {{ ev.sep }}">
+                      <div onClick="{{ ev.toggle }}" style="display:flex;align-items:center;gap:10px;min-height:58px;cursor:pointer">
+                        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.02em;font-weight:700">{{ ev.n }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.45)">{{ ev.d }}</span></span>
+                        <sc-if value="{{ ev.best }}" hint-placeholder-val="{{ false }}"><span style="height:22px;padding:0 8px;border-radius:999px;background:#000;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.04em;display:flex;align-items:center">PR</span></sc-if>
+                        <span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ ev.t }}</span>
+                        <span style="width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;transform:rotate({{ ev.rot }});transition:transform .35s cubic-bezier(.3,1.4,.5,1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18"></path></svg></span>
+                      </div>
+                      <div style="display:grid;grid-template-rows:{{ ev.rows }};opacity:{{ ev.op }};transition:grid-template-rows .4s cubic-bezier(.25,.8,.25,1),opacity .3s ease">
+                        <div style="overflow:hidden;min-height:0"><div style="display:flex;gap:8px;padding:0 0 14px">
+                          <sc-if value="{{ ev.best }}" hint-placeholder-val="{{ false }}"><button onClick="{{ ev.share }}" style-active="transform:scale(.98)" style="flex:1;height:40px;border-radius:12px;border:none;background:#e9e9eb;color:#000;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s ease">Partager</button></sc-if>
+                          <button onClick="{{ ev.del }}" style-active="transform:scale(.98)" style="flex:1;height:40px;border-radius:12px;border:none;background:{{ ev.dBg }};color:{{ ev.dFg }};font-size:14px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease,transform .15s ease">{{ ev.dLbl }}</button>
+                        </div></div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <div style="padding:28px 16px 0;display:flex;flex-direction:column;gap:10px">
+            <sc-if value="{{ dt.showAdd }}" hint-placeholder-val="{{ true }}"><button onClick="{{ dt.add }}" style-active="transform:scale(.98)" style="height:54px;border:none;border-radius:999px;background:#000;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s ease;letter-spacing:-0.02em">{{ dt.addLbl }}</button></sc-if>
+            <sc-if value="{{ dt.runDel }}" hint-placeholder-val="{{ false }}"><button onClick="{{ dt.delAll }}" style="height:44px;border:none;background:transparent;color:#ff3b30;font-size:14px;font-weight:600;cursor:pointer">{{ dt.delLbl }}</button></sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ vmaOn }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:25;background:#f2f2f2;animation:pgIn .32s cubic-bezier(.2,.8,.2,1) both"><dc-import name="Final Profil Running" embed="{{ true }}" client-id="{{ cid }}" age="{{ age }}" on-back="{{ closeVma }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import></div>
+    </sc-if>
+
+    <sc-if value="{{ sh.on }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ sh.backdrop }}" style="position:absolute;inset:0;z-index:40;background:rgba(0,0,0,0.35);animation:fadeB .2s ease both"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:41;max-height:92%;overflow-y:auto;scrollbar-width:none;background:#f2f2f2;border-radius:28px 28px 0 0;padding:18px 16px 34px;display:flex;flex-direction:column;gap:14px;box-sizing:border-box;animation:{{ shAnim }}">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center"><button onClick="{{ sh.close }}" style="justify-self:start;border:none;background:transparent;padding:0;font-size:16px;font-weight:500;color:rgba(0,0,0,0.55);cursor:pointer">Annuler</button><span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">{{ sh.title }}</span><button onClick="{{ sh.save }}" style="justify-self:end;border:none;background:transparent;padding:0;font-size:16px;font-weight:700;color:{{ sh.okC }};cursor:pointer;letter-spacing:-0.02em">OK</button></div>
+
+        <sc-if value="{{ sh.isRun }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;background:#e9e9eb;border-radius:12px;padding:3px">
+            <sc-for list="{{ sh.evtTabs }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.pick }}" style="flex:1;height:34px;border:none;border-radius:10px;background:{{ o.bg }};box-shadow:{{ o.shd }};font-size:14px;font-weight:600;color:#000;cursor:pointer">{{ o.label }}</button></sc-for>
+          </div>
+        </sc-if>
+
+        <div style="background:#fff;border-radius:16px;padding:0 16px">
+          <sc-if value="{{ sh.isEvt }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid rgba(0,0,0,0.07)"><span style="font-size:15px;flex:none;letter-spacing:-0.02em;font-weight:700">Course</span><input value="{{ sh.evName }}" onChange="{{ sh.setEvName }}" placeholder="Ex. 10 km de Nice" style="flex:1;min-width:0;height:40px;border:none;outline:none;background:transparent;text-align:right;font-size:16px;font-weight:600;letter-spacing:-0.02em"></div>
+          </sc-if>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px">
+            <span style="font-size:15px;flex:none;letter-spacing:-0.02em;font-weight:700">{{ sh.kindLbl }}</span>
+            <sc-if value="{{ sh.lockEx }}" hint-placeholder-val="{{ false }}"><span style="font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.02em;min-width:0">{{ sh.kindTxt }}</span></sc-if><sc-if value="{{ sh.gymFree }}" hint-placeholder-val="{{ true }}"><button onClick="{{ pk.open }}" style="display:flex;align-items:center;gap:6px;min-width:0;border:none;background:transparent;padding:0;cursor:pointer;color:#000"><span style="font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.02em">{{ sh.kindTxt }}</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.4" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></button></sc-if>
+            <sc-if value="{{ sh.runFree }}" hint-placeholder-val="{{ false }}">
+            <label style="position:relative;display:flex;align-items:center;gap:6px;cursor:pointer;min-width:0"><span style="font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.02em">{{ sh.kindTxt }}</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" stroke-linecap="round" style="flex:none"><path d="m6 9 6 6 6-6"></path></svg>
+              <select value="{{ sh.kindKey }}" onChange="{{ sh.setKind }}" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:16px;letter-spacing:-0.02em;font-weight:700"><sc-for list="{{ sh.kindOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+            </label>
+            </sc-if>
+          </div>
+          <sc-if value="{{ sh.isNewRun }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:12px;min-height:52px;border-top:1px solid rgba(0,0,0,0.07)"><span style="font-size:15px;flex:none;letter-spacing:-0.02em;font-weight:700">Nom</span><input value="{{ sh.custom }}" onChange="{{ sh.setCustom }}" placeholder="{{ sh.customPh }}" style="flex:1;min-width:0;height:40px;border:none;outline:none;background:transparent;text-align:right;font-size:16px;font-weight:600;letter-spacing:-0.02em"></div>
+          </sc-if>
+          <sc-if value="{{ sh.isErg }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;border-top:1px solid rgba(0,0,0,0.07)">
+              <span style="font-size:15px;letter-spacing:-0.02em;font-weight:700">Distance</span>
+              <label style="position:relative;display:flex;align-items:center;gap:6px;cursor:pointer"><span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">{{ sh.distTxt }}</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+                <select value="{{ sh.dist }}" onChange="{{ sh.setDist }}" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:16px"><sc-for list="{{ sh.distOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+              </label>
+            </div>
+            <sc-if value="{{ sh.isDistX }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;border-top:1px solid rgba(0,0,0,0.07)"><span style="font-size:15px;letter-spacing:-0.02em;font-weight:700">Mètres</span><input value="{{ sh.distX }}" onChange="{{ sh.setDistX }}" inputMode="numeric" placeholder="Ex. 750" style="width:110px;height:36px;border:none;border-radius:10px;background:#e9e9eb;text-align:right;padding:0 12px;font-family:inherit;font-size:16px;font-weight:700;outline:none"></div></sc-if>
+          </sc-if>
+          <sc-if value="{{ sh.isLift }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;border-top:1px solid rgba(0,0,0,0.07)">
+              <span style="font-size:15px;letter-spacing:-0.02em;font-weight:700">Répétitions</span>
+              <label style="position:relative;display:flex;align-items:center;gap:6px;cursor:pointer"><span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">{{ sh.rmTxt }}</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+                <select value="{{ sh.rm }}" onChange="{{ sh.setRm }}" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:16px;letter-spacing:-0.02em;font-weight:700"><sc-for list="{{ sh.rmOpts }}" as="o" hint-placeholder-count="10"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+              </label>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ sh.isGym }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border-radius:16px;padding:12px 10px;display:flex;justify-content:center">
+            <div style="position:relative;width:100%;height:200px;display:flex;justify-content:center;align-items:center;gap:4px">
+              <div style="position:absolute;left:10px;right:10px;top:80px;height:40px;border-radius:10px;background:#e9e9eb;pointer-events:none"></div>
+              <sc-for list="{{ sh.wheels }}" as="w" hint-placeholder-count="2">
+                <div style="position:relative;display:flex;align-items:center;gap:2px">
+                  <div data-wheel="1" ref="{{ w.ref }}" onScroll="{{ w.onScroll }}" style="position:relative;width:{{ w.wd }};height:200px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 32%,#000 68%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 32%,#000 68%,transparent 100%)">
+                    <div style="height:80px"></div>
+                    <sc-for list="{{ w.items }}" as="it" hint-placeholder-count="5"><div onClick="{{ it.pick }}" style="height:40px;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:{{ it.c }};cursor:pointer;transition:color .15s ease">{{ it.l }}</div></sc-for>
+                    <div style="height:80px"></div>
+                  </div>
+                  <span style="position:relative;font-size:15px;font-weight:600;color:rgba(0,0,0,0.43)">{{ w.unit }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sh.isErg }}" hint-placeholder-val="{{ false }}"><span style="margin-top:-6px;text-align:center;font-size:14px;font-weight:700;letter-spacing:-0.02em;color:rgba(0,0,0,0.6);font-variant-numeric:tabular-nums">{{ sh.ergPace }}</span></sc-if>
+        <sc-if value="{{ sh.isRun }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:16px;padding:16px;display:flex;align-items:flex-start;justify-content:center;gap:4px">
+            <sc-for list="{{ sh.time }}" as="u" hint-placeholder-count="3">
+              <div style="display:flex;align-items:flex-start;gap:4px">
+                <span style="display:flex;flex-direction:column;align-items:center;gap:2px"><input value="{{ u.v }}" onChange="{{ u.set }}" onFocus="{{ u.sel }}" inputMode="numeric" placeholder="{{ u.ph }}" aria-label="{{ u.lbl }}" style="width:64px;height:58px;border:none;border-radius:12px;background:#e9e9eb;text-align:center;font-size:36px;font-weight:700;letter-spacing:-0.03em;outline:none;font-variant-numeric:tabular-nums;color:#000" style-focus="box-shadow:inset 0 0 0 1.5px #000"><span style="font-size:12px;color:rgba(0,0,0,0.45)">{{ u.lbl }}</span></span>
+                <span style="font-size:30px;font-weight:300;line-height:58px;color:rgba(0,0,0,0.3)">{{ u.colon }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div style="background:#fff;border-radius:16px;padding:0 16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;min-height:52px"><span style="font-size:15px;letter-spacing:-0.02em;font-weight:700">Date</span><input type="date" value="{{ sh.date }}" max="{{ sh.max }}" onChange="{{ sh.setDate }}" style="border:none;background:#e9e9eb;border-radius:10px;height:34px;padding:0 10px;font-size:14px;font-weight:600;outline:none"></div>
+        </div>
+        <sc-if value="{{ sh.runHint }}" hint-placeholder-val="{{ false }}"><span style="padding:0 6px;font-size:12.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.45)">Un nouveau record sur 3 km, 5 km, 10 km ou semi met aussi à jour ta VMA et tes allures.</span></sc-if>
+        <sc-if value="{{ sh.isEdit }}" hint-placeholder-val="{{ false }}"><button onClick="{{ sh.del }}" style-active="transform:scale(.98)" style="height:44px;border-radius:12px;border:none;background:{{ sh.dBg }};color:{{ sh.dFg }};font-size:14px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease">{{ sh.dLbl }}</button></sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ rw.on }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:60">
+        <div onClick="{{ rw.close }}" style="position:absolute;inset:0;background:rgba(0,0,0,0.45);animation:{{ ovAnim }}"></div>
+        <div style="position:absolute;left:20px;right:20px;top:50%;transform:translateY(-50%);border-radius:32px;background:#000;color:#fff;padding:30px 22px 22px;display:flex;flex-direction:column;gap:18px;overflow:hidden;animation:{{ rwAnim }}">
+          <span style="position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.12),rgba(255,255,255,0));pointer-events:none;animation:prShine 1.1s .55s ease-out both"></span>
+          <span style="align-self:center;color:{{ rw.medal }};display:flex;animation:prMedal .8s .2s cubic-bezier(.3,1.4,.5,1) both"><svg width="40" height="45" viewBox="0 0 24 27"><path d="M5 1h5l3 8H8z" fill="{{ rw.ribL }}"></path><path d="M19 1h-5l-3 8h5z" fill="{{ rw.ribR }}"></path><circle cx="12" cy="17.5" r="8.5" fill="currentColor"></circle><circle cx="12" cy="17.5" r="6" fill="none" stroke="#000" stroke-opacity="0.25" stroke-width="1"></circle><path d="m12 13.6 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff" fill-opacity="0.9"></path></svg></span>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:prUp .4s .35s ease-out both">
+            <span style="font-size:13px;color:rgba(255,255,255,0.55)">{{ rw.title }}</span>
+            <span style="font-size:52px;font-weight:700;letter-spacing:-0.045em;line-height:1;font-variant-numeric:tabular-nums">{{ rw.v }}</span>
+            <span style="font-size:15px;color:rgba(255,255,255,0.7);letter-spacing:-0.02em;font-weight:700">{{ rw.label }}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,0.08);animation:prUp .4s .48s ease-out both">
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:11.5px;color:rgba(255,255,255,0.5);font-weight:600">{{ rw.prevK }}</span><span style="font-size:17px;font-weight:700;color:rgba(255,255,255,0.55);font-variant-numeric:tabular-nums">{{ rw.prev }}</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span style="font-size:11.5px;color:rgba(255,255,255,0.5);font-weight:600">Aujourd’hui</span><span style="font-size:17px;font-weight:700;font-variant-numeric:tabular-nums">{{ rw.v }}</span></span>
+            <sc-if value="{{ rw.hasPill }}" hint-placeholder-val="{{ true }}"><span style="flex:none;height:26px;padding:0 9px;border-radius:999px;background:rgba(74,222,128,0.16);color:#4ade80;font-size:13px;font-weight:700;display:flex;align-items:center;font-variant-numeric:tabular-nums">{{ rw.pill }}</span></sc-if>
+          </div>
+          <sc-if value="{{ rw.hasMsg }}" hint-placeholder-val="{{ false }}"><span style="text-align:center;font-size:13.5px;color:rgba(255,255,255,0.6);animation:prUp .4s .6s ease-out both">{{ rw.delta }}</span></sc-if>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;animation:prUp .4s .7s ease-out both">
+            <button onClick="{{ rw.close }}" style="height:52px;border-radius:999px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#fff;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:-0.02em">Fermer</button>
+            <button onClick="{{ rw.share }}" style="height:52px;border-radius:999px;border:none;background:{{ rw.shBg }};color:{{ rw.shFg }};font-size:15px;font-weight:700;cursor:pointer;letter-spacing:-0.02em">Partager</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ sc.on }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;padding:62px 0 44px;gap:18px;color:#fff;animation:{{ ovAnim }}">
+        <div style="align-self:stretch;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font-size:14px;color:rgba(255,255,255,0.6)">{{ sc.title }}</span><button onClick="{{ sc.close }}" aria-label="Fermer" style="flex:none;width:40px;height:40px;border-radius:999px;border:none;background:rgba(255,255,255,0.16);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+        <div onScroll="{{ sc.onScroll }}" style="flex:1;min-height:0;align-self:stretch;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px;gap:40px;scroll-padding:0 20px;scrollbar-width:none">
+          <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:repeating-conic-gradient(#3a3a3a 0% 25%,#2b2b2b 0% 50%) 0 0/22px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:18px 14px;box-sizing:border-box">
+            <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:96px;height:auto;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.35))">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:24px;align-self:stretch">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px">{{ sc.k1 }}</span><span style="font-size:17px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ sc.v1 }}</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px">{{ sc.ek }}</span><span style="font-size:17px;font-weight:700;white-space:nowrap;letter-spacing:-0.02em">{{ sc.ex }}</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px">{{ sc.vk }}</span><span style="font-size:17px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ sc.v }}</span></div>
+            </div>
+            <svg width="26" height="29" viewBox="0 0 24 27" style="flex:none"><path d="M5 1h5l3 8H8z" fill="#fff"></path><path d="M19 1h-5l-3 8h5z" fill="#d4d4d4"></path><circle cx="12" cy="17.5" r="8.5" fill="#eab308"></circle><circle cx="12" cy="17.5" r="6" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="1"></circle><path d="m12 13.6 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff" fill-opacity="0.9"></path></svg>
+          </div></div>
+          <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#fff;color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:18px 14px;box-sizing:border-box">
+            <img src="assets/tcmv-monogramme-noir.png" alt="TCMV" style="width:44px;height:auto">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:24px;align-self:stretch">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;color:rgba(0,0,0,0.55)">{{ sc.k1 }}</span><span style="font-size:17px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ sc.v1 }}</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;color:rgba(0,0,0,0.55)">{{ sc.ek }}</span><span style="font-size:17px;font-weight:700;white-space:nowrap;letter-spacing:-0.02em">{{ sc.ex }}</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0"><span style="font-size:10.5px;color:rgba(0,0,0,0.55)">{{ sc.vk }}</span><span style="font-size:17px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ sc.v }}</span></div>
+            </div>
+            <span style="font-size:12px;color:rgba(0,0,0,0.45)">{{ sc.date }}</span>
+          </div></div>
+          <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="width:260px;height:100%;max-height:462px;border-radius:20px;overflow:hidden;background:repeating-conic-gradient(#3a3a3a 0% 25%,#2b2b2b 0% 50%) 0 0/22px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:22px;box-sizing:border-box">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:13px">{{ sc.ex }}</span><span style="font-size:30px;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums">{{ sc.v }}</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:13px">{{ sc.k1 }}</span><span style="font-size:30px;font-weight:700;letter-spacing:-0.03em">{{ sc.v1 }}</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:13px">Date</span><span style="font-size:30px;font-weight:700;letter-spacing:-0.03em">{{ sc.date }}</span></div>
+            <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="width:80px;height:auto">
+          </div></div>
+          <div style="flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:260px;height:100%;max-height:462px;border-radius:20px;overflow:hidden;background:#1f1f1f">
+            <image-slot id="pr-share-photo" shape="rect" src="assets/seance-cover.jpg" placeholder="Photo de l’athlète"></image-slot>
+            <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 45%,rgba(0,0,0,0.85) 80%,#000 100%)"></div>
+            <img src="assets/tcmv-logo-blanc.png" alt="TCMV" style="position:absolute;top:18px;left:18px;width:60px;height:auto;pointer-events:none">
+            <div style="position:absolute;left:18px;right:18px;bottom:20px;display:flex;flex-direction:column;gap:6px;pointer-events:none">
+              <span style="align-self:flex-start;height:24px;padding:0 10px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.05em">NOUVEAU PR</span>
+              <span style="font-size:40px;font-weight:700;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums">{{ sc.v }}</span>
+              <span style="font-size:15px;font-weight:700;letter-spacing:-0.02em">{{ sc.line }}</span>
+              <span style="font-size:15px;color:rgba(255,255,255,0.65);letter-spacing:-0.02em;font-weight:700">{{ sc.date }}</span>
+            </div>
+          </div></div>
+        </div>
+        <div style="display:flex;gap:6px"><sc-for list="{{ sc.dots }}" as="d" hint-placeholder-count="4"><span style="width:{{ d.w }};height:6px;border-radius:999px;background:{{ d.bg }};transition:all .2s"></span></sc-for></div>
+        <div style="display:flex;justify-content:center;gap:34px">
+          <sc-for list="{{ sc.acts }}" as="a" hint-placeholder-count="3"><button onClick="{{ a.go }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;color:#fff;cursor:pointer;padding:0"><span style="width:60px;height:60px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ a.ic }}"></path></svg></span><span style="font-size:13px;font-weight:600">{{ a.label }}</span></button></sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ pk.on }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:50;background:#f2f2f2;display:flex;flex-direction:column;animation:{{ pkAnim }}">
+        <div style="height:54px;flex:none"></div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px;padding:6px 16px 12px">
+          <label style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:12px;background:#e9e9eb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.45)" stroke-width="2.2" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input ref="{{ pk.ref }}" value="{{ pk.q }}" onChange="{{ pk.setQ }}" placeholder="Rechercher un exercice" style="flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;font-size:16px;font-weight:600;letter-spacing:-0.02em;color:#000"></label>
+          <button onClick="{{ pk.close }}" style="flex:none;border:none;background:none;padding:0;font-size:16px;font-weight:500;color:rgba(0,0,0,0.55);cursor:pointer">Annuler</button>
+        </div>
+        <div style="flex:1;min-height:0;overflow-y:auto;padding:0 16px 40px;display:flex;flex-direction:column;gap:18px;scrollbar-width:none">
+          <sc-if value="{{ pk.hasSugg }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ pk.sugg.go }}" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:none;border-radius:16px;background:#000;color:#fff;cursor:pointer;text-align:left"><span style="flex:1;font-size:15px;font-weight:600;letter-spacing:-0.02em">Tu voulais dire <strong style="font-weight:700">{{ pk.sugg.name }}</strong> ?</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg></button>
+          </sc-if>
+          <sc-for list="{{ pk.groups }}" as="g" hint-placeholder-count="2">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="padding:0 6px;font-size:14px;color:rgba(0,0,0,0.5)">{{ g.t }}</span>
+              <div style="background:#fff;border-radius:16px;padding:0 16px">
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="6">
+                  <button onClick="{{ r.go }}" style="width:100%;display:flex;align-items:center;gap:10px;min-height:56px;border:none;border-top:1px solid {{ r.sep }};background:transparent;padding:0;cursor:pointer;text-align:left;color:#000">
+                    <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span><span style="font-size:12.5px;color:rgba(0,0,0,0.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.sub }}</span></span>
+                    <sc-if value="{{ r.on }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg></sc-if>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ pk.none }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">Aucun exercice trouvé</span><span style="font-size:13.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.55)">Vérifie l’orthographe ou demande à ton coach de l’ajouter à la bibliothèque.</span></div>
+          </sc-if>
+          <sc-if value="{{ pk.canCreate }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ pk.create }}" style="height:44px;border:none;background:transparent;color:rgba(0,0,0,0.55);font-size:14px;font-weight:600;cursor:pointer">Créer un exercice perso « {{ pk.q }} »</button>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ toastOn }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:50%;bottom:44px;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:#000;color:#fff;font-size:13px;font-weight:600;z-index:90;white-space:nowrap;animation:fadeB .2s ease both">{{ toast }}</div></sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":440,"height":900},"embed":{"editor":null,"tsType":"boolean"},"clientId":{"editor":"enum","options":["julien","demo","justine"],"default":"julien","tsType":"string","section":"Démo"},"focus":{"editor":null,"tsType":"object"},"startTab":{"editor":"enum","options":["gym","run"],"default":"gym","tsType":"string"},"onBack":{"editor":null,"tsType":"() =&gt; void"}}'>
+// Records · table Lovable `athlete_records` (account_id, kind gym|run, name, perso, reps, value, date, event_name)
+// Démo : TCMVA.put(compte, 'recGym' | 'recRun') — mêmes clés qu’avant (compteur du Profil).
+// Force : testé = saisi par l’athlète · estimé = meilleure série des séances validées (Epley, sessions_done + sets_done).
+// Running : testé = chronos saisis · estimé = depuis la VMA du compte (pace_refs, coefficients coach run_test_coefs).
+const GYM_KINDS = ['Back squat', 'Développé couché', 'Soulevé de terre', 'Soulevé de terre sumo', 'Développé militaire', 'Push press', 'Front squat', 'Épaulé', 'Épaulé debout', 'Arraché', 'Clean & jerk', 'Split jerk', 'Push jerk', 'Hip thrust', 'Rowing barre', 'Développé incliné barre', 'Pull up lesté', 'Dips lestés', 'Squat bulgare'];
+// Anciens noms → nom de la bibliothèque coach (un seul nom par exercice)
+const RENAME = { 'squat': 'Back squat', 'bench': 'Développé couché', 'bench press': 'Développé couché', 'deadlift': 'Soulevé de terre', 'deadlift traditionnel': 'Soulevé de terre', 'deadlift sumo': 'Soulevé de terre sumo', 'strict press': 'Développé militaire', 'snatch': 'Arraché', 'clean': 'Épaulé', 'squat clean': 'Épaulé', 'power clean': 'Épaulé debout', 'squat clavicule': 'Front squat', 'clean & jerk': 'Clean & jerk', 'split jerk': 'Split jerk', 'push jerk': 'Push jerk', 'développé incliné': 'Développé incliné barre', 'fentes bulgares': 'Squat bulgare' };
+const EXID_RENAME = { 'bench-press': ['developpe-couche', 'Développé couché'], 'power-clean': ['epaule-debout', 'Épaulé debout'], 'squat-clavicule': ['front-squat', 'Front squat'] };
+const ALIAS = { 'Back squat': ['back squat', 'squat'], 'Développé couché': ['développé couché', 'bench press', 'bench'], 'Soulevé de terre': ['soulevé de terre', 'deadlift', 'deadlift traditionnel'], 'Soulevé de terre sumo': ['soulevé de terre sumo', 'sumo deadlift', 'deadlift sumo'], 'Développé militaire': ['développé militaire', 'strict press'], 'Front squat': ['front squat', 'squat clavicule'], 'Épaulé': ['épaulé', 'squat clean'], 'Épaulé debout': ['épaulé debout', 'power clean'], 'Hip thrust': ['hip thrust'], 'Rowing barre': ['rowing barre'], 'Push press': ['push press'], 'Développé incliné barre': ['développé incliné barre', 'incline bench press', 'développé incliné'], 'Pull up lesté': ['weighted pull ups', 'tractions lestées'], 'Dips lestés': ['dips lestés', 'weighted dips'] };
+const RUN_KM = { '1 km': 1, '3 km': 3, '5 km': 5, '10 km': 10, 'Semi-marathon': 21.0975, 'Marathon': 42.195 };
+const RUN_STD = ['5 km', '10 km', 'Semi-marathon', 'Marathon'];
+const PCT = [100, 95, 93, 90, 86, 83, 80, 78, 76, 74];
+const MO = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+const isoToday = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const lbl = iso => { if (!iso) return ''; const x = new Date(iso + 'T12:00:00'); return isNaN(x) ? iso : x.getDate() + ' ' + MO[x.getMonth()]; };
+const kgS = v => (Math.round(v * 10) / 10).toString().replace('.', ',');
+const r25 = v => Math.round(v / 2.5) * 2.5;
+const num = v => parseFloat(String(v).replace(',', '.').replace(/[^0-9.]/g, '')) || 0;
+const secs = t => { const p = String(t || '').split(':').map(x => parseInt(x, 10)); if (p.some(isNaN) || p.length < 2) return 0; return p.reduce((a, x) => a * 60 + x, 0); };
+const mmss = s => { s = Math.round(s); const hh = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60; return (hh ? hh + ':' + String(m).padStart(2, '0') : m) + ':' + String(ss).padStart(2, '0'); };
+const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const dIso = t => t && (t[2] || '');
+// Bibliothèque coach (exercises · exercise_id) : les records sont reliés par identifiant, jamais par le nom
+const exSlug = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const lev = (a, b) => { a = norm(a); b = norm(b); if (Math.abs(a.length - b.length) > 2) return 9; const d = Array.from({ length: a.length + 1 }, (_, i) => [i]); for (let j = 1; j <= b.length; j++) d[0][j] = j; for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); return d[a.length][b.length]; };
+const LIB = () => (window.TCMV_EX_COACH || []).map(r => ({ id: exSlug(r[0]), name: r[0], en: r[1] || '', mat: r[5] || '', type: r[6] || '' }));
+// Bibliothèque coach (Espace Coach › Bibliothèque = table exercises) : étoile ★ Records (exercises.pr) + noms FR / EN / alias
+// Chaîne : série validée → exercice de la bibliothèque → ★ ? → table des records (athlete_records) → popup si nouveau record
+// Résolution des exercices : module partagé tcmv-exercises.js (window.TCMVEX) · même règle que la séance et l'Espace Coach
+const rcN = v => window.TCMVEX ? window.TCMVEX.N(v) : norm(v);
+const rcLib = () => (window.TCMVEX && window.TCMVEX.lib()) || [];
+const rcCanon = name => window.TCMVEX ? window.TCMVEX.canon(name) : name;
+const rcStar = name => window.TCMVEX ? window.TCMVEX.star(name) : null;
+// Règle : le client peut suivre n'importe quel exercice ; seuls les exercices ★ (comptent comme record) déclenchent la popup record
+const rcIsStar = name => window.TCMVEX ? window.TCMVEX.isStar(name) : !!ALIAS[name];
+const rcKeys = name => window.TCMVEX ? window.TCMVEX.keys(name, [...(ALIAS[name] || []), ...(ALIAS[rcCanon(name)] || [])]) : (ALIAS[name] || [name]).map(norm);
+// Démo (Vue éclatée) : données figées en mémoire, rien n'est lu ni écrit dans le compte
+const DEMO_GYM = () => [
+  { name: 'Développé couché', exId: 'developpe-couche', tested: { 1: [100, '2 oct.', '2026-10-02'], 5: [85, '14 oct.', '2026-10-14'] }, est1: 0, estFrom: '' },
+  { name: 'Soulevé de terre', exId: 'souleve-de-terre', tested: { 1: [170, '18 sept.', '2026-09-18'] }, est1: 0, estFrom: '' },
+  { name: 'Hip thrust', exId: null, perso: false, tested: { 8: [140, '20 oct.', '2026-10-20'] }, est1: 0, estFrom: '' },
+  { name: 'Rameur', exId: 'rameur', tested: {}, erg: { 500: [94.2, '12 oct.', '2026-10-12'], 2000: [436.8, '28 oct.', '2026-10-28'] }, est1: 0, estFrom: '' }];
+const DEMO_SETS = [{ ex: 'Back squat', kg: 100, reps: 5, date: '2026-11-03' }, { ex: 'Développé couché', kg: 85, reps: 6, date: '2026-11-03' }, { ex: 'Soulevé de terre', kg: 150, reps: 3, date: '2026-10-28' }];
+// Cardio sur ergomètre (rameur, SkiErg, BikeErg…) : record = temps sur une distance, allure affichée comme sur les écrans Concept2
+// Rameur / SkiErg : allure au 500 m · vélos : allure au 1000 m · Lovable : athlete_records (exercise_id, distance_m, time_s, date)
+const ERG_D = [500, 1000, 2000, 5000, 6000, 10000];
+const ergOf = name => { const n = norm(name), r = window.TCMVEX ? (window.TCMV_EX_COACH || []).find(x => norm(x[0]) === norm(window.TCMVEX.canon(name))) : null, it = window.TCMVEX ? window.TCMVEX.item(name) : null;
+  const erg = /ergom/i.test((r && r[5]) || '') || /ergom/i.test(String((it && (it.equip || it.mat)) || '')) || /rameur|rowing|\brow\b|skierg|ski erg|bike ?erg|echo bike|assault bike/.test(n);
+  if (!erg) return null; return { unit: /bike|velo|vélo/.test(n) ? 1000 : 500 }; };
+const dLbl = m => m >= 1000 && m % 1000 === 0 ? (m / 1000) + ' km' : m >= 1000 ? (m / 1000).toString().replace('.', ',') + ' km' : m + ' m';
+const fmtT = sec => { sec = Math.round(sec * 10) / 10; const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), x = sec - h * 3600 - m * 60, xs = (x < 10 ? '0' : '') + x.toFixed(1).replace('.', ','); return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + xs; };
+const paceS = (sec, dist, unit) => fmtT(sec / dist * unit) + ' /' + unit + ' m';
+// Mémoire d'écran : si l'éditeur recharge l'écran (remontage), on retrouve la fiche / la feuille ouverte au lieu de tout fermer ou rejouer l'ouverture
+const RC_MEM = window.__rcMem || (window.__rcMem = {});
+class Component extends DCLogic {
+  memKey() { return this.props.demo ? 'demo:' + this.props.demo : 'acct:' + this.cid(); }
+  memSave() { const s = this.state, snap = { detail: s.dOut ? null : s.detail, sheet: s.sheet, f: s.f, reward: s.reward, share: s.share, shIdx: s.shIdx }; const L = this._memLast;
+    if (L && Object.keys(snap).every(k => L[k] === snap[k])) return; this._memLast = snap; if (!L) return; RC_MEM[this.memKey()] = { ...snap, t: Date.now() }; }
+  memRestore() { const m = RC_MEM[this.memKey()]; if (!m || Date.now() - m.t > 600000 || !(m.detail || m.sheet || m.reward || m.share)) return false;
+    this._st = { d: m.detail ? { v: m.detail, done: true } : undefined, s: m.sheet ? { v: m.sheet, done: true } : undefined, o: (m.reward || m.share) ? { v: m.reward || m.share, done: true } : undefined, p: m.sheet === 'gym' && m.f && m.f.pick ? { v: true, done: true } : undefined };
+    Object.keys(this._st).forEach(k => { if (!this._st[k]) delete this._st[k]; });
+    this._memLast = { detail: m.detail, sheet: m.sheet, f: m.f, reward: m.reward, share: m.share, shIdx: m.shIdx };
+    this.setState({ detail: m.detail, sheet: m.sheet, f: m.f || {}, reward: m.reward, share: m.share, shIdx: m.shIdx || 0, dOut: false }); return true; }
+  // Une animation d'ouverture n'est jouée qu'une fois : 450 ms après, l'écran passe à son état final fixe (rien ne reste à mi-chemin si l'animation est figée)
+  _settled(k, v) { this._st = this._st || {}; const o = this._st[k]; if (!v) { if (o) { clearTimeout(o.t); delete this._st[k]; } return false; } if (o && o.v === v) return o.done; if (o) clearTimeout(o.t); const e = { v, done: false }; e.t = setTimeout(() => { if (this._st[k] === e) { e.done = true; this.setState({ settleTick: (this.state.settleTick || 0) + 1 }); } }, 450); this._st[k] = e; return false; }
+  applyDemo() { const d = this.props.demo; delete RC_MEM['demo:' + d]; this._memLast = null; this._dg = DEMO_GYM(); this.setState({ gym: this._dg, run: [], ready: true, detail: null, dOut: false, sheet: null, reward: null, share: null, askDel: false });
+    setTimeout(() => { if (d === 'detail') this.setState({ detail: { kind: 'gym', name: 'Développé couché' } }); else if (d === 'detailEst') this.setState({ detail: { kind: 'gym', name: 'Back squat' } });
+      else if (d === 'search') this.open('gym'); else if (d === 'erg') this.setState({ detail: { kind: 'gym', name: 'Rameur' } }); else if (d === 'ergAdd') this.open('gym', 'Rameur', { dist: '2000' }); else if (d === 'add') this.open('gym', 'Développé couché');
+      else if (d === 'addEst') { this.setState({ detail: { kind: 'gym', name: 'Back squat' } }); setTimeout(() => this.open('gym', 'Back squat', { rm: '1' }), 30); }
+      else if (d === 'reward') this.setState({ reward: { kind: 'gym', name: 'Développé couché', n: 1, v: 105, date: '7 nov.', prev: [100, '2 oct.', '2026-10-02'], better: true, est: 99.5 } });
+      else if (d === 'share') this.setState({ share: { v: '100 kg', ex: 'Développé couché', k1: 'Répétitions', v1: '1RM', date: '2 oct.' }, shIdx: 0 }); }, 60); }
+  state = { dOut: false, tab: null, gym: [], run: [], ready: false, detail: null, sheet: null, f: {}, reward: null, share: null, shIdx: 0, toast: '', openEv: null, askEv: null, askDel: false, vma: false, v: 0 };
+  cid() { const A = window.TCMVA; return this.props.clientId || (A && A.current() && A.current().id) || 'julien'; }
+  componentDidMount() { if (this.props.demo) { this._rp = this.props.replay; const m = RC_MEM['demo:' + this.props.demo]; if (m && Date.now() - m.t < 600000 && (m.detail || m.sheet || m.reward || m.share)) { this._dg = DEMO_GYM(); this.setState({ gym: this._dg, run: [], ready: true }); this.memRestore(); } else this.applyDemo(); return; }
+    const go = () => { const A = window.TCMVA; if (!A) { this._w = setTimeout(go, 50); return; } const cid = this.cid();
+      // Démo (une seule fois) : Julien sans record testé + 3 séances de force → 3 records estimés. Ancien recGym gardé dans recGym.bak.
+      if (cid === 'julien' && !A.get(cid, 'demo.rec3')) { const gb = A.get(cid, 'recGym'); if (gb) A.put(cid, 'recGym.bak', gb); A.put(cid, 'recGym', []); const H = (A.hist(cid) || []).slice();
+        H.push({ date: '2026-10-28', title: 'Force · bas du corps', prog: 'Coaching privé', kind: 'force', min: 55, sets: [{ ex: 'Back squat', kg: 100, reps: 5 }, { ex: 'Back squat', kg: 95, reps: 5 }, { ex: 'Soulevé de terre', kg: 140, reps: 3 }] },
+          { date: '2026-11-03', title: 'Force · haut du corps', prog: 'Coaching privé', kind: 'force', min: 50, sets: [{ ex: 'Développé couché', kg: 80, reps: 6 }, { ex: 'Développé couché', kg: 77.5, reps: 6 }] });
+        A.put(cid, 'hist', H); A.put(cid, 'demo.rec3', 1); }
+      const g = A.get(cid, 'recGym'), r = A.get(cid, 'recRun');
+      // Migration : retire les lignes vides de l’ancienne page (exercices de démo sans valeur, chronos estimés figés)
+      const gym0 = (Array.isArray(g) ? g : []).filter(x => x && (Object.keys(x.tested || {}).length || Object.keys(x.erg || {}).length || x.perso || x.estManual)).map(x => ({ ...x, tested: { ...(x.tested || {}) }, erg: { ...(x.erg || {}) } }));
+      // Migration : anciens noms (Squat, Bench, Deadlift…) → nom bibliothèque + exercise_id, doublons fusionnés (meilleure charge par nb de reps)
+      const libIds = new Set(LIB().map(x => x.id)); let moved = false; const gym = [];
+      gym0.forEach(x => { if (x.exId && EXID_RENAME[x.exId]) { [x.exId, x.name] = EXID_RENAME[x.exId]; moved = true; } const nn = !x.exId && RENAME[norm(x.name)] ? RENAME[norm(x.name)] : x.name; if (nn !== x.name) { moved = true; x.name = nn; x.perso = false; } if (!x.exId && libIds.has(exSlug(x.name))) { x.exId = exSlug(x.name); moved = true; }
+        const d = gym.find(y => (x.exId && y.exId === x.exId) || norm(y.name) === norm(x.name)); if (!d) { gym.push(x); return; } moved = true;
+        Object.keys(x.tested).forEach(k => { const a = d.tested[k], b = x.tested[k]; if (!a || (b && b[0] > a[0])) d.tested[k] = b; }); d.erg = d.erg || {}; Object.keys(x.erg).forEach(k => { const a = d.erg[k], b = x.erg[k]; if (!a || (b && b[0] < a[0])) d.erg[k] = b; }); if (!d.estManual && x.estManual) { d.estManual = true; d.est1 = x.est1; d.estFrom = x.estFrom; } });
+      if (moved) A.put(cid, 'recGym', gym);
+      const run = (Array.isArray(r) ? r : []).map(x => ({ name: x.name, perso: !!x.perso, km: x.km || RUN_KM[x.name] || 0, t: x.t || null, events: (x.events || []).filter(e => e && e.t) })).filter(x => x.t || x.events.length || x.perso);
+      this.setState({ gym, run, ready: true }); if (!this._memTried) { this._memTried = true; this.memRestore(); }
+      this.un1 = A.subscribe(() => this.setState(s => ({ v: s.v + 1 })));
+      this.un2 = window.TCMVRUN && window.TCMVRUN.subscribe(() => this.setState(s => ({ v: s.v + 1 })));
+    }; go();
+  }
+  componentWillUnmount() { clearTimeout(this._w); clearTimeout(this._t); this.un1 && this.un1(); this.un2 && this.un2(); }
+  // Partage (comme Fin de séance) : l’image du format affiché est dessinée en PNG, puis copiée ou envoyée au menu de partage du téléphone (« Enregistrer l’image » → Photos).
+  componentDidUpdate() { try { this.memSave(); } catch (e) {} if (this.props.demo && this.props.replay !== this._rp) { this._rp = this.props.replay; this.applyDemo(); } const ps = this._pv || {}; this._pv = this.state; const s = this.state; if (s.share && (s.share !== ps.share || s.shIdx !== ps.shIdx)) { if (s.share !== ps.share) { this._img = {}; this._imgP = {}; } setTimeout(() => this.prep(), 50); } }
+  async makeImg() { const S = this.state.share; if (!S) return null; const i = this.state.shIdx || 0, gym = S.k1 === 'Répétitions', SZ = [[1220, 608], [1220, 608], [1080, 1920], [1080, 1350]][i], [W, H] = SZ, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const c = cv.getContext('2d');
+    const load = src => new Promise(r => { const im = new Image(); im.crossOrigin = 'anonymous'; im.onload = () => r(im); im.onerror = () => r(null); im.src = src; });
+    const FT = "-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif", u = W / 100, dark = i !== 1, ink = dark ? '#fff' : '#000', sub = dark ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.55)';
+    const txt = (t, x, y, size, w, col) => { c.font = w + ' ' + Math.round(size) + 'px ' + FT; c.fillStyle = col; c.fillText(String(t || ''), x, y); };
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    if (i === 1) { c.fillStyle = '#fff'; c.fillRect(0, 0, W, H); }
+    if (i === 3) { const sl = document.getElementById('pr-share-photo'), src = (sl && (sl.getAttribute('src') || (sl.shadowRoot && sl.shadowRoot.querySelector('img') && sl.shadowRoot.querySelector('img').src))) || 'assets/seance-cover.jpg', ph = await load(src); c.fillStyle = '#000'; c.fillRect(0, 0, W, H); if (ph) { const k = Math.max(W / ph.width, H / ph.height); c.drawImage(ph, (W - ph.width * k) / 2, (H - ph.height * k) / 2, ph.width * k, ph.height * k); } const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgba(0,0,0,0.5)'); g.addColorStop(0.25, 'rgba(0,0,0,0.2)'); g.addColorStop(0.45, 'rgba(0,0,0,0.2)'); g.addColorStop(0.8, 'rgba(0,0,0,0.8)'); g.addColorStop(1, '#000'); c.fillStyle = g; c.fillRect(0, 0, W, H); }
+    if (dark && i !== 3) { c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = u; }
+    const logo = await load(i === 1 ? 'assets/tcmv-monogramme-noir.png' : 'assets/tcmv-logo-blanc.png');
+    const erg = S.k1 === 'Distance', k2 = gym || erg ? 'Exercice' : 'Distance', k3 = gym ? 'Charge' : erg ? 'Temps' : 'Chrono';
+    if (i <= 1) { const cy = H / 2 + u * 4; if (logo) { const lw = i === 1 ? u * 7 : u * 18, lh = lw * logo.height / logo.width; c.drawImage(logo, (W - lw) / 2, cy - lh - u * 9, lw, lh); }
+      [[S.k1, S.v1], [k2, S.ex], [k3, S.v]].forEach(([a, b], k) => { const x = W * (0.18 + k * 0.32); txt(a, x, cy, u * 2.4, 600, sub); txt(b, x, cy + u * 5, u * 4, 700, ink); });
+      txt(S.date, W / 2, cy + u * 13, u * 2.2, 600, sub); }
+    else if (i === 2) { const L = [[S.ex, S.v], [S.k1, S.v1], ['Date', S.date]]; L.forEach(([a, b], k) => { const y = H * 0.3 + k * u * 26; txt(a, W / 2, y, u * 4, 600, sub); txt(b, W / 2, y + u * 10, u * 9, 700, ink); }); if (logo) { const lw = u * 30, lh = lw * logo.height / logo.width; c.drawImage(logo, (W - lw) / 2, H * 0.82, lw, lh); } }
+    else { if (logo) { const lw = u * 22, lh = lw * logo.height / logo.width; c.drawImage(logo, u * 7, u * 7, lw, lh); } c.textAlign = 'left'; const x = u * 7; c.fillStyle = '#fff'; const py = H - u * 44; const pw = u * 30, phh = u * 7.5; c.beginPath(); if (c.roundRect) c.roundRect(x, py, pw, phh, phh / 2); else c.rect(x, py, pw, phh); c.fill(); c.textAlign = 'center'; txt('NOUVEAU PR', x + pw / 2, py + phh * 0.68, u * 3.4, 700, '#000'); c.textAlign = 'left'; txt(S.v, x, H - u * 22, u * 15, 700, '#fff'); txt(S.ex + ' · ' + S.v1, x, H - u * 13, u * 5, 700, '#fff'); txt(S.date, x, H - u * 6, u * 4.6, 600, 'rgba(255,255,255,0.7)'); }
+    return new Promise(r => cv.toBlob(b => r(b), 'image/png')); }
+  prep() { const i = this.state.shIdx || 0; this._imgP = this._imgP || {}; if (!this._imgP[i]) this._imgP[i] = this.makeImg().then(b => { (this._img = this._img || {})[i] = b; return b; }).catch(() => { this._imgP[i] = null; return null; }); return this._imgP[i]; }
+  exportImg(mode) { try { const i = this.state.shIdx || 0, name = 'tcmv-record.png', ready = this._img && this._img[i], P = this.prep();
+      const dl = b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); };
+      if (mode === 'copy') { if (navigator.clipboard && window.ClipboardItem) { navigator.clipboard.write([new ClipboardItem({ 'image/png': ready ? Promise.resolve(ready) : P.then(b => b || Promise.reject(new Error('img'))) })]).then(() => this.flash('Image copiée'), () => this.flash('Copie impossible · utilise Partager')); return; } return P.then(b => { if (b) { dl(b); this.flash('Copie indisponible · image téléchargée'); } }); }
+      if (ready && navigator.canShare) { const file = new File([ready], name, { type: 'image/png' }); if (navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'Mon record TCMV' }).catch(e => { if (e && e.name !== 'AbortError') this.flash('Action impossible sur cet appareil'); }); return; } }
+      if (!ready) { const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); if (ios) { this.flash('Image en préparation · réessaie'); return; } }
+      return P.then(b => { if (!b) return this.flash('Image indisponible'); dl(b); this.flash('Partage indisponible ici · image téléchargée'); });
+    } catch (e) { this.flash('Action impossible sur cet appareil'); } }
+  // Roulette type iPhone (charge) : colonnes à défilement aimanté
+  wheel(key, values, cur, set, seed, width, unit, fmt) { this._wel = this._wel || {}; const H = 40, idx = Math.max(0, values.findIndex(x => x === cur));
+    return { wd: width, unit: unit || '', ref: el => { if (!el) return; this._wel[key] = el; const tag = seed + ':' + key; if (el._seed !== tag) { el._seed = tag; el.scrollTop = idx * H; } },
+      onScroll: ev => { const el = ev.currentTarget; this._wheelAt = Date.now(); clearTimeout(el._t); el._t = setTimeout(() => { const i = Math.max(0, Math.min(values.length - 1, Math.round(el.scrollTop / H))); if (values[i] !== cur) set(values[i]); }, 90); },
+      items: values.map((x, i) => ({ l: fmt ? fmt(x) : String(x), c: i === idx ? '#000' : 'rgba(0,0,0,0.2)', pick: () => { const el = this._wel[key]; if (el) { try { el.scrollTo({ top: i * H, behavior: 'smooth' }); } catch (e) { el.scrollTop = i * H; } } } })) }; }
+  flash(m) { this.setState({ toast: m }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 1900); }
+  persist(patch) { const A = window.TCMVA, cid = this.cid(); this.setState(patch); if (!A || this.props.demo) return; if (patch.gym) A.put(cid, 'recGym', patch.gym); if (patch.run) A.put(cid, 'recRun', patch.run); }
+  // 1RM estimé depuis les séances validées (meilleure série, Epley, 1 à 12 reps)
+  bestFromSessions() { const A = window.TCMVA; if (!this.props.demo && (!A || !A.hist)) return {}; const best = {}; const live = this.props.demo ? DEMO_SETS.map(x => ({ date: x.date, sets: [x] })) : (A.get(this.cid(), 'liveSets') || []).map(x => ({ date: x.date, sets: [x] })); (this.props.demo ? [] : A.hist(this.cid())).concat(live).forEach(h => (h.sets || []).forEach(x => { const kg = +x.kg || 0, r = +x.reps || 0; if (!kg || r < 1 || r > 12) return; const e = kg * (1 + (r > 1 ? r / 30 : 0)), k = rcN(x.ex); if (!best[k] || e > best[k].e) best[k] = { e, name: x.ex, from: kgS(kg) + ' kg × ' + r + ' en séance · ' + lbl((h.date || '').slice(0, 10)) }; })); return best; }
+  est1(g, B) { if (g.estManual) return { v: g.est1 || 0, from: g.estFrom || 'tes records testés' }; if (g.perso) return { v: 0, from: '' }; const ks = rcKeys(g.name), b = ks.map(k => B[k]).filter(Boolean).sort((x, y) => y.e - x.e)[0]; return b ? { v: Math.round(b.e * 2) / 2, from: b.from } : { v: 0, from: '' }; }
+  vmaInfo() { const M = window.TCMVRUN; if (!M) return { v: 0 }; try { const p = M.profile(this.cid()); const v = M.vma(p); const L = M.past(p), r = L[L.length - 1]; return { v, src: r ? (r.label || '') + (r.res ? ' · ' + r.res : '') : '' }; } catch (e) { return { v: 0 }; } }
+  coef(km) { const M = window.TCMVRUN, C = M ? M.coefs() : []; const c = C.find(x => x.m && Math.abs(x.m / 1000 - km) < 0.2); if (c) return c.f; return km <= 1 ? 1.05 : km >= 40 ? 0.76 : km <= 3 ? 0.98 : km <= 5 ? 0.95 : km <= 10 ? 0.89 : km <= 21.2 ? 0.82 : 0.78; }
+  runEst(name, km, run) { if (!km) return { v: '', from: '' }; const V = this.vmaInfo(); if (V.v) return { v: mmss(km / (V.v * this.coef(km)) * 3600), from: 'ta VMA ' + kgS(V.v) + ' km/h' }; const refs = run.filter(r => r.t && r.km && r.name !== name); if (!refs.length) return { v: '', from: '' }; const ref = refs.reduce((x, r) => Math.abs(Math.log(km / r.km)) < Math.abs(Math.log(km / x.km)) ? r : x); return { v: mmss(secs(ref.t[0]) * Math.pow(km / ref.km, 1.06)), from: 'ton record ' + ref.name + ' (' + ref.t[0] + ')' }; }
+  open(kind, preset, extra) { const s = this.state; const f = { kind: preset || (kind === 'run' ? '5 km' : ''), pick: kind === 'gym' && !preset, rm: '1', kg: '', h: '', m: '', s: '', date: isoToday(), evt: false, evName: '', newEx: false, custom: '', ...(extra || {}) }; if (kind === 'gym' && f.kind && ergOf(f.kind)) { const ex = s.gym.find(g => g.name === f.kind), dd = f.dist || '2000', t = ex && ex.erg && ex.erg[dd], sec = t ? t[0] : 0; f.erg = true; f.dist = dd; f.mi = Math.floor(sec / 60); f.se = Math.floor(sec % 60); f.te = Math.round((sec % 1) * 10); f.seed = (this._wseed = (this._wseed || 0) + 1); } else if (kind === 'gym') { const ex = s.gym.find(g => g.name === f.kind), t = ex && ex.tested && (ex.tested[parseInt(f.rm, 10) || 1] || ex.tested[1]), k0 = num(f.kg) || (t ? t[0] : 60); f.ki = Math.floor(k0); f.kf = [0, 0.25, 0.5, 0.75].reduce((b, x) => Math.abs(x - (k0 % 1)) < Math.abs(b - (k0 % 1)) ? x : b, 0); f.seed = (this._wseed = (this._wseed || 0) + 1); } this._shOpenAt = Date.now(); this.setState({ sheet: kind, f, askDel: false }); }
+  saveSheet() {
+    const { sheet, f } = this.state, date = f.date || isoToday();
+    if (sheet === 'gym' && f.erg) {
+      const dist = parseInt(f.dist === 'x' ? f.distX : f.dist, 10) || 0, sec = (f.mi || 0) * 60 + (f.se || 0) + (f.te || 0) / 10; if (!dist) return this.flash('Indique la distance en mètres'); if (!sec) return this.flash('Indique ton temps');
+      const name = f.kind; let gym = this.state.gym.map(e => ({ ...e, tested: { ...(e.tested || {}) }, erg: { ...(e.erg || {}) } })); let ex = gym.find(e => (f.exId && e.exId === f.exId) || norm(e.name) === norm(name));
+      if (!ex) { ex = { name, exId: f.exId || null, perso: false, tested: {}, erg: {}, est1: 0, estFrom: '' }; gym = [...gym, ex]; }
+      if (f.edit) { ex.erg[dist] = [sec, lbl(date), date]; this.persist({ gym, sheet: null }); return this.flash('Temps corrigé'); }
+      const prev = ex.erg[dist], better = !prev || sec < prev[0]; if (better) ex.erg[dist] = [sec, lbl(date), date];
+      if (!rcIsStar(ex.name)) { this.persist({ gym, sheet: null }); return this.flash(better ? 'Record ajouté · ' + ex.name + ' ' + dLbl(dist) : 'Record conservé · ' + fmtT(prev[0])); }
+      this.persist({ gym, sheet: null, reward: { kind: 'erg', name: ex.name, dist, sec, v: fmtT(sec), pace: paceS(sec, dist, (ergOf(ex.name) || { unit: 500 }).unit), date: lbl(date), prev: prev ? [fmtT(prev[0]), prev[1], prev[0]] : null, better } });
+      return;
+    }
+    if (sheet === 'gym') {
+      const w = (f.ki || 0) + (f.kf || 0), n = parseInt(f.rm, 10) || 1; if (!w) return this.flash('Indique une charge en kg');
+      const name = f.newEx ? (f.custom || '').trim() : f.kind; if (!name) return f.newEx ? this.flash('Donne un nom à ton exercice') : this.setState({ f: { ...f, pick: true, q: '' } });
+      let gym = this.state.gym.map(e => ({ ...e, tested: { ...e.tested } })); let ex = gym.find(e => (f.exId && e.exId === f.exId) || norm(e.name) === norm(name));
+      if (!ex) { ex = { name, exId: f.exId || null, perso: !f.exId && !GYM_KINDS.includes(name), tested: {}, est1: 0, estFrom: '' }; gym = [...gym, ex]; } else if (f.exId && !ex.exId) ex.exId = f.exId;
+      if (f.edit) { ex.tested[n] = [w, lbl(date), date]; this.persist({ gym, sheet: null }); return this.flash('Record corrigé'); }
+      const prev = ex.tested[n], better = !prev || w > prev[0]; if (better) ex.tested[n] = [w, lbl(date), date];
+      if (!rcIsStar(ex.name)) { this.persist({ gym, sheet: null }); return this.flash(better ? 'Record ajouté · ' + ex.name + ' ' + n + 'RM' : 'Record conservé · ' + kgS(prev[0]) + ' kg'); }
+      const E = this.est1(ex, this.bestFromSessions()).v, est = E ? (n === 1 ? E : r25(E * PCT[n - 1] / 100)) : 0;
+      this.persist({ gym, sheet: null, reward: { kind: 'gym', name: ex.name, n, v: w, date: lbl(date), prev, better, est } });
+      return;
+    }
+    const sc = (parseInt(f.h, 10) || 0) * 3600 + (parseInt(f.m, 10) || 0) * 60 + (parseInt(f.s, 10) || 0); if (!sc) return this.flash('Indique ton temps');
+    if (f.evt && !(f.evName || '').trim()) return this.flash('Indique le nom de la course');
+    const name = f.newEx ? (f.custom || '').trim() : f.kind; if (!name) return this.flash('Donne un nom à ta distance');
+    let run = this.state.run.map(r => ({ ...r, events: (r.events || []).slice() })); let r = run.find(x => norm(x.name) === norm(name));
+    if (!r) { r = { name, perso: !RUN_KM[name], km: RUN_KM[name] || num((name.match(/[\d.,]+/) || [''])[0]) || 0, t: null, events: [] }; run = [...run, r]; }
+    const est = this.runEst(r.name, r.km, run).v;
+    r.events = [{ id: 'e' + Date.now().toString(36), n: f.evt ? (f.evName || '').trim() : '', t: mmss(sc), d: lbl(date), iso: date }, ...r.events];
+    const prev = r.t, better = !prev || sc < secs(prev[0]); if (better) r.t = [mmss(sc), lbl(date), date];
+    // Nouveau record 3 / 5 / 10 km / semi → nouvelle référence VMA (pace_refs) + profil allures des séances hybrides
+    if (better && r.km) { const M = window.TCMVRUN, C = M ? M.coefs() : [], c = C.find(x => x.m && Math.abs(x.m / 1000 - r.km) < 0.2); if (M && c) { const vma = M.vmaFrom(c.id, sc); if (vma) M.addRef(this.cid(), { date, src: 'test', label: 'Record ' + r.name + (f.evt ? ' · ' + f.evName.trim() : ''), res: mmss(sc), vma }); } if (window.RUN10K && [3, 5, 10].includes(r.km)) window.RUN10K.setProfile(r.km * 1000, sc, 'Record ' + r.name); }
+    this.persist({ run, sheet: null, reward: { kind: 'run', name: r.name, v: mmss(sc), sc, date: lbl(date), prev, better, est } });
+  }
+  renderVals() {
+    const s = this.state, emb = !!this.props.embed, f = s.f || {};
+    const fr = { minH: emb ? '100%' : '100vh', h0: emb ? '100%' : 'auto', pad: emb ? '0' : '24px', w: emb ? '100%' : '390px', h: emb ? '100%' : '844px', rad: emb ? '0' : '44px', bd: emb ? 'none' : '1px solid rgba(0,0,0,0.1)', sh: emb ? 'none' : '0 20px 60px rgba(0,0,0,0.12)' };
+    // Ouverture directe d’un exercice (ex. depuis une séance)
+    const FX = this.props.focus; if (FX && FX.at !== this._fx && s.ready) { this._fx = FX.at; if (FX.ex) setTimeout(() => this.setState({ tab: 'gym', detail: { kind: 'gym', name: FX.ex } }), 30); }
+    const tab = 'gym', isGym = tab === 'gym', B = this.bestFromSessions();
+    const G = s.gym.map(g => { const E = this.est1(g, B), T = g.tested || {}, ks = Object.keys(T).map(Number).sort((a, b) => a - b), t1 = T[1]; const bestN = t1 ? 1 : ks[0]; return { ...g, E, ks, t1, bestN }; });
+    // Exercices suivis en séance sans record saisi : apparaissent avec leur estimé
+    // ★ Records : tout exercice de la bibliothèque marqué ★ et fait en séance apparaît avec son estimé (sans bibliothèque chargée : liste de base)
+    { const seen = new Set(G.map(g => rcN(rcCanon(g.name)))), hasLib = rcLib().length > 0;
+      const cands = [...Object.values(B).map(b => b.name), ...(hasLib ? [] : Object.keys(ALIAS))];
+      cands.forEach(n0 => { const n = rcCanon(n0), key = rcN(n); if (seen.has(key)) return; const st = rcStar(n0); if (hasLib ? st !== true : !ALIAS[n]) return; const E = this.est1({ name: n }, B); if (!E.v) return; seen.add(key); G.push({ name: n, tested: {}, E, ks: [], t1: null, bestN: null, auto: true }); }); }
+    const R = (() => { const L = s.run.slice(); RUN_STD.forEach(n => { if (!L.find(x => x.name === n)) L.push({ name: n, km: RUN_KM[n], t: null, events: [], std: true }); }); return L.map(r => ({ ...r, km: r.km || RUN_KM[r.name] || 0, E: this.runEst(r.name, r.km || RUN_KM[r.name] || 0, s.run) })).sort((a, b) => (a.km || 999) - (b.km || 999)); })();
+    // Dernier record (en-tête)
+    const lastG = (() => { let best = null; G.forEach(g => Object.keys(g.tested || {}).forEach(n => { const t = g.tested[n], d = dIso(t) || ''; if (!best || d > best.d) best = { d, g, n, t }; })); return best; })();
+    const lastR = (() => { let best = null; R.forEach(r => { if (r.t && (!best || (dIso(r.t) || '') > best.d)) best = { d: dIso(r.t) || '', r }; }); return best; })();
+    const head = isGym ? (lastG ? { label: 'Dernier record', v: kgS(lastG.t[0]), u: 'kg', d: lastG.g.name + ' · ' + lastG.n + 'RM · ' + lastG.t[1] } : { label: 'Pas encore de record', v: '—', u: '', d: 'Ajoute ton premier record avec le +' })
+      : (lastR ? { label: 'Dernier record', v: lastR.r.t[0], u: '', d: lastR.r.name + ' · ' + lastR.r.t[1] } : { label: 'Pas encore de chrono', v: '—', u: '', d: 'Ajoute ton premier chrono avec le +' });
+    // Carte noire
+    const oneRM = g => g ? (g.t1 ? g.t1[0] : g.E.v || 0) : 0;
+    const SBD = [['Squat', 'Back squat'], ['Couché', 'Développé couché'], ['Soulevé', null]].map(([k, n]) => { const g = n ? G.find(x => x.name === n) : (G.filter(x => /^Soulevé de terre( sumo)?$/.test(x.name)).sort((a, b) => oneRM(b) - oneRM(a))[0]); const v = oneRM(g); return { k, v: v ? kgS(v) : '—', c: v ? '#fff' : 'rgba(255,255,255,0.3)', s: !g || !v ? 'à ajouter' : g.t1 ? 'testé' : 'estimé', n: g ? g.name : n || 'Soulevé de terre', raw: v }; });
+    const tot = SBD.reduce((a, x) => a + x.raw, 0), V = this.vmaInfo();
+    const blk = isGym ? { isGym: true, isRun: false, title: 'Total force', side: 'Squat + Couché + Soulevé de terre', total: tot ? kgS(tot) : '—', lifts: SBD.map(x => ({ ...x, open: () => x.raw ? this.setState({ detail: { kind: 'gym', name: x.n } }) : this.open('gym', x.n) })) }
+      : { isGym: false, isRun: true, hasVma: !!V.v, title: 'Estimés depuis ta VMA', side: V.v ? kgS(V.v) + ' km/h' : '', ests: R.filter(r => ['5 km', '10 km', 'Semi-marathon'].includes(r.name)).map(r => ({ k: r.name === 'Semi-marathon' ? 'Semi' : r.name, v: r.E.v || '—' })), txt: V.v ? 'Ta VMA vient de ' + (V.src || 'ton dernier test') + '. Elle donne aussi tes allures de séance.' : 'Pas encore de VMA. Ajoute un chrono récent sur 3, 5 ou 10 km : il calcule ta VMA, tes allures et tes estimés.', cta: V.v ? 'Voir mes allures' : 'Ajouter un chrono' };
+    // Liste
+    const rows = isGym ? G.slice().sort((a, b) => (b.ks.length || Object.keys(b.erg || {}).length ? 1 : 0) - (a.ks.length || Object.keys(a.erg || {}).length ? 1 : 0) || oneRM(b) - oneRM(a)).map((g, i) => { const eo = ergOf(g.name), EK = Object.keys(g.erg || {}).map(Number).sort((a, b) => a - b); if (eo) { const d0 = EK.includes(2000) ? 2000 : EK[EK.length - 1], t0 = d0 ? g.erg[d0] : null; return { name: g.name, sub: t0 ? dLbl(d0) + ' · le ' + t0[1] : 'Cardio · temps sur distance', v: t0 ? fmtT(t0[0]) : '—', vc: t0 ? '#000' : 'rgba(0,0,0,0.25)', est: t0 ? paceS(t0[0], d0, eo.unit) : '', sep: i ? 'rgba(0,0,0,0.07)' : 'transparent', open: () => this.setState({ detail: { kind: 'gym', name: g.name } }) }; } const t = g.bestN ? g.tested[g.bestN] : null; return { name: g.name, sub: g.t1 ? '1RM testé le ' + g.t1[1] : t ? g.bestN + 'RM testé le ' + t[1] : g.perso ? 'Exercice perso' : 'Suivi en séance', v: t ? kgS(t[0]) + ' kg' + (g.bestN > 1 ? ' × ' + g.bestN : '') : '—', vc: t ? '#000' : 'rgba(0,0,0,0.25)', est: g.E.v ? 'est. 1RM ' + kgS(g.E.v) + ' kg' : '', sep: i ? 'rgba(0,0,0,0.07)' : 'transparent', open: () => this.setState({ detail: { kind: 'gym', name: g.name } }) }; })
+      : R.map((r, i) => ({ name: r.name, sub: r.t ? 'Record le ' + r.t[1] : r.events.length ? r.events.length + ' chrono' + (r.events.length > 1 ? 's' : '') : 'Pas encore couru', v: r.t ? r.t[0] : '—', vc: r.t ? '#000' : 'rgba(0,0,0,0.25)', est: r.E.v ? 'est. ' + r.E.v : '', sep: i ? 'rgba(0,0,0,0.2)' : 'transparent', open: () => this.setState({ detail: { kind: 'run', name: r.name }, openEv: null, askEv: null }) }));
+    // Fiche
+    const dt = (() => { const d = s.detail; const off = { isErg: false, ergRows: [], paceUnit: '', showAdd: true, on: false, name: '', tK: '', tV: '', tU: '', tD: '', eK: '', eV: '', eD: '', isGym: false, isRun: false, table: [], events: [], hasEv: false, noEv: false, fix: () => {}, fixTxt: '', fixLbl: '', add: () => {}, addLbl: '', share: () => {}, shC: '#000', canDel: false, delAll: () => {}, delLbl: '', close: () => {} }; if (!d) return off;
+      // Fermeture : on ne ferme que la fiche qui était ouverte au moment du clic (une fiche rouverte entre-temps reste ouverte)
+      const close = () => { if (this.state.dOut) return; const d0 = this.state.detail; this._closing = d0; this.setState({ dOut: true }); clearTimeout(this._dT); this._dT = setTimeout(() => { this._closing = null; if (this.state.detail === d0) this.setState({ detail: null, dOut: false, askDel: false, openEv: null, askEv: null }); else this.setState({ dOut: false }); }, 260); };
+      if (d.kind === 'gym' && ergOf(d.name)) { const g = G.find(x => x.name === d.name) || { name: d.name, erg: {} }, eo = ergOf(d.name), EG = g.erg || {}, EK = [...new Set([...ERG_D, ...Object.keys(EG).map(Number)])].sort((a, b) => a - b), d0 = EG[2000] ? 2000 : Object.keys(EG).map(Number).sort((a, b) => a - b).pop(), t0 = d0 ? EG[d0] : null;
+        const shareErg = m => () => this.setState({ share: { v: fmtT(EG[m][0]), ex: g.name, k1: 'Distance', v1: dLbl(m), date: EG[m][1] }, shIdx: 0 });
+        return { ...off, on: true, close, name: g.name, isErg: true, needTest: false, showE: false, showAdd: true, tK: t0 ? 'Record · ' + dLbl(d0) : 'Pas encore de temps', tV: t0 ? fmtT(t0[0]) : '—', tU: '', tD: t0 ? paceS(t0[0], d0, eo.unit) + ' · le ' + t0[1] : 'Ajoute ton premier temps sur 500 m, 2 km…',
+          ergRows: EK.map((m, i) => { const t = EG[m]; return { d: dLbl(m), has: !!t, none: !t, t: t ? fmtT(t[0]) : '', date: t ? t[1] : '', pace: t ? fmtT(t[0] / m * eo.unit) : '—', sep: i ? 'rgba(0,0,0,0.07)' : 'transparent', canShare: !!t, share: t ? (e => { if (e && e.stopPropagation) e.stopPropagation(); shareErg(m)(); }) : () => {}, edit: () => this.open('gym', g.name, { dist: String(m), edit: !!t, date: t ? (t[2] || isoToday()) : isoToday() }) }; }), paceUnit: '/' + eo.unit + ' m',
+          add: () => this.open('gym', g.name), addLbl: 'Ajouter un temps', shC: t0 ? '#000' : 'rgba(0,0,0,0.25)', share: t0 ? shareErg(d0) : () => this.flash('Ajoute un temps pour le partager'),
+          canDel: !!s.gym.find(x => x.name === g.name), delLbl: s.askDel ? 'Confirmer : supprimer ' + g.name : 'Supprimer cet exercice', delAll: () => { if (!s.askDel) return this.setState({ askDel: true }); this.persist({ gym: s.gym.filter(x => x.name !== g.name), detail: null, askDel: false }); this.flash('Exercice supprimé'); }, runDel: false, fixLbl: '', fixTxt: '' };
+      }
+      if (d.kind === 'gym') { const g = G.find(x => x.name === d.name) || { name: d.name, tested: {}, E: { v: 0, from: '' }, ks: [], t1: null }; const T = g.tested || {}, t1 = g.t1, E = g.E;
+        const shareGym = n => () => this.setState({ share: { v: kgS(T[n][0]) + ' kg', ex: g.name, k1: 'Répétitions', v1: n + 'RM', date: T[n][1] }, shIdx: 0 });
+        const bestShare = t1 ? 1 : g.ks[0];
+        const nT = Object.keys(T).length;
+        return { ...off, on: true, close, name: g.name, isGym: true, needTest: !t1, showE: !!t1, testLbl: nT ? 'Tester mon 1RM' : 'Ajouter un record testé', testTxt: nT ? 'Ta charge maximale sur 1 rep, réellement soulevée.' : 'Ta vraie charge, sur 1 à 10 reps. Elle remplace l’estimation.', addTest: () => this.open('gym', g.name, { rm: '1' }), tK: t1 ? '1RM testé' : E.v ? '1RM estimé' : 'Pas encore de record', tV: t1 ? kgS(t1[0]) : E.v ? kgS(E.v) : '—', tU: t1 || E.v ? 'kg' : '', tD: t1 ? 'le ' + t1[1] : E.v ? 'Calculé depuis ' + E.from : 'Ajoute ton premier record', eK: '1RM estimé', eV: E.v ? kgS(E.v) + ' kg' : '—', eD: E.v ? 'Calculé depuis ' + E.from : g.perso ? 'Exercice perso : pas suivi en séance' : 'Pas encore fait en séance',
+          table: PCT.map((p, i) => { const n = i + 1, t = T[n]; return { rm: n + 'RM', has: !!t, none: !t, tested: t ? kgS(t[0]) : '—', date: t ? t[1] : '', tc: t ? '#000' : 'rgba(0,0,0,0.2)', est: E.v ? kgS(n === 1 ? E.v : r25(E.v * p / 100)) : '—', sep: i ? 'rgba(0,0,0,0.2)' : 'transparent', canShare: !!t, share: t ? (e => { if (e && e.stopPropagation) e.stopPropagation(); shareGym(n)(); }) : () => {}, edit: () => this.open('gym', g.name, { rm: String(n), kg: t ? kgS(t[0]) : '', date: t ? (t[2] || isoToday()) : isoToday(), edit: !!t }) }; }),
+          fixTxt: g.estManual ? 'Ton estimé vient de tes records testés.' : 'Si une charge d’essai a faussé ton estimé, recalcule-le depuis tes records testés.', fixLbl: g.estManual ? 'Revenir à l’estimé des séances' : 'Recalculer depuis mes records',
+          fix: () => { const gym = s.gym.map(x => ({ ...x })); let x = gym.find(y => y.name === g.name); if (!x) { x = { name: g.name, tested: {}, est1: 0, estFrom: '' }; gym.push(x); } if (x.estManual) { x.estManual = false; x.est1 = 0; x.estFrom = ''; this.persist({ gym }); return this.flash('Estimé calculé depuis tes séances'); } const b = Math.max(0, ...Object.entries(x.tested || {}).map(([k, v]) => v[0] * (1 + (parseInt(k, 10) > 1 ? parseInt(k, 10) / 30 : 0)))); if (!b) return this.flash('Ajoute d’abord un record testé'); x.est1 = r25(b); x.estFrom = 'tes records testés'; x.estManual = true; this.persist({ gym }); this.flash('1RM estimé recalculé'); },
+          add: () => this.open('gym', g.name), addLbl: 'Ajouter un record', showAdd: !!t1, shC: bestShare ? '#000' : 'rgba(0,0,0,0.25)', share: bestShare ? shareGym(bestShare) : () => this.flash('Ajoute un record testé pour le partager'),
+          canDel: !!s.gym.find(x => x.name === g.name), delLbl: s.askDel ? 'Confirmer : supprimer ' + g.name : 'Supprimer cet exercice', delAll: () => { if (!s.askDel) return this.setState({ askDel: true }); this.persist({ gym: s.gym.filter(x => x.name !== g.name), detail: null, askDel: false }); this.flash('Exercice supprimé'); } };
+      }
+      const r = R.find(x => x.name === d.name) || { name: d.name, t: null, events: [], E: { v: '', from: '' } };
+      const evs = (r.events || []).map((e, i) => ({ ...e, i })).sort((a, b) => (b.iso || '').localeCompare(a.iso || '')), bestSec = Math.min(...evs.map(e => secs(e.t)).concat([Infinity]));
+      const shareRun = (t, dl, nm) => () => this.setState({ share: { v: t, ex: r.name, k1: nm ? 'Course' : 'Type', v1: nm || 'Chrono perso', date: dl }, shIdx: 0 });
+      return { ...off, on: true, close, name: r.name, isRun: true, tK: r.t ? 'Mon record' : 'Pas encore de record', tV: r.t ? r.t[0] : r.E.v || '—', tU: '', tD: r.t ? 'le ' + r.t[1] : r.E.v ? 'estimé · ajoute ton chrono' : 'Ajoute ton premier chrono', eK: 'Chrono estimé', eV: r.E.v || '—', eD: r.E.v ? 'Depuis ' + r.E.from : 'Ajoute un chrono ou une VMA pour l’estimer',
+        hasEv: evs.length > 0, noEv: !evs.length,
+        events: evs.map((e, k) => { const key = e.id || (e.iso + e.t + e.i), open = s.openEv === key, armed = open && s.askEv === key, best = secs(e.t) === bestSec; return { n: e.n || 'Chrono perso', d: e.d || lbl(e.iso), t: e.t, best, sep: k ? 'rgba(0,0,0,0.2)' : 'transparent', rot: open ? '45deg' : '0deg', rows: open ? '1fr' : '0fr', op: open ? 1 : 0, toggle: () => this.setState({ openEv: open ? null : key, askEv: null }), share: shareRun(e.t, e.d || lbl(e.iso), e.n), dLbl: armed ? 'Confirmer' : 'Supprimer', dBg: armed ? '#ff3b30' : '#f2f2f2', dFg: armed ? '#fff' : '#ff3b30',
+          del: () => { if (!armed) return this.setState({ askEv: key }); const run = s.run.map(x => { if (x.name !== r.name) return x; const L = (x.events || []).filter((_, j) => j !== e.i); const b = L.reduce((m, y) => !m || secs(y.t) < secs(m.t) ? y : m, null); return { ...x, events: L, t: b ? [b.t, b.d || lbl(b.iso), b.iso || ''] : null }; }); this.persist({ run, openEv: null, askEv: null }); this.flash('Chrono supprimé'); } }; }),
+        add: () => this.open('run', r.name), addLbl: 'Ajouter un chrono', shC: r.t ? '#000' : 'rgba(0,0,0,0.25)', share: r.t ? shareRun(r.t[0], r.t[1], '') : () => this.flash('Ajoute un chrono pour le partager'),
+        canDel: !!r.perso && !!s.run.find(x => x.name === r.name), runDel: !!r.perso && !!s.run.find(x => x.name === r.name), delLbl: s.askDel ? 'Confirmer : supprimer ' + r.name : 'Supprimer cette distance', delAll: () => { if (!s.askDel) return this.setState({ askDel: true }); this.persist({ run: s.run.filter(x => x.name !== r.name), detail: null, askDel: false }); this.flash('Distance supprimée'); } };
+    })();
+    // Fenêtre d’ajout
+    const kinds = s.sheet === 'run' ? Array.from(new Set([...Object.keys(RUN_KM), ...s.run.map(r => r.name)])) : Array.from(new Set([...s.gym.map(g => g.name), ...GYM_KINDS]));
+    const setF = p => this.setState(st => ({ f: { ...st.f, ...p } }));
+    const tm = { h: f.h, m: f.m, s: f.s };
+    // Recherche d’exercice (bibliothèque coach + exercices du compte)
+    const pickEx = (name, exId, perso) => { const ex = s.gym.find(g => (exId && g.exId === exId) || norm(g.name) === norm(name)), t = ex && ex.tested && (ex.tested[parseInt(f.rm, 10) || 1] || ex.tested[1]), k0 = t ? t[0] : (f.ki || 60) + (f.kf || 0); this._wseed = (this._wseed || 0) + 1; if (!perso && ergOf(name)) { const tt = ex && ex.erg && ex.erg['2000'], sc = tt ? tt[0] : 0; return setF({ kind: name, exId: exId || null, newEx: false, custom: '', pick: false, q: '', erg: true, dist: '2000', mi: Math.floor(sc / 60), se: Math.floor(sc % 60), te: Math.round((sc % 1) * 10), seed: this._wseed }); } setF({ erg: false, kind: name, exId: exId || null, newEx: !!perso, custom: perso ? name : '', pick: false, q: '', ki: Math.floor(k0), kf: [0, 0.25, 0.5, 0.75].reduce((b, x) => Math.abs(x - (k0 % 1)) < Math.abs(b - (k0 % 1)) ? x : b, 0), seed: this._wseed }); };
+    const pk = (() => { const on = !!(s.sheet === 'gym' && f.pick), q = norm(f.q || '').trim(), L = on ? LIB() : [], hit = x => !q || norm(x.name).includes(q) || norm(x.en).includes(q);
+      const mine = s.gym.filter(g => hit({ name: g.name, en: '' })).map(g => ({ name: g.name, sub: Object.keys(g.tested || {}).length ? 'Mes records' : 'Mon exercice', go: () => pickEx(g.name, g.exId, g.perso && !g.exId), on: f.kind === g.name }));
+      const lib = L.filter(x => hit(x) && !s.gym.some(g => g.exId === x.id || norm(g.name) === norm(x.name))).slice(0, q ? 60 : 40).map(x => ({ name: x.name, sub: [x.en, x.mat].filter(Boolean).join(' · '), go: () => pickEx(x.name, x.id, false), on: f.exId === x.id }));
+      const groups = [['Mes exercices', mine], [q ? 'Bibliothèque' : 'Bibliothèque TCMV', lib]].filter(g => g[1].length).map(([t, rows]) => ({ t, rows: rows.map((r, i) => ({ ...r, sep: i ? 'rgba(0,0,0,0.07)' : 'transparent' })) }));
+      const exact = q && (L.some(x => norm(x.name) === q || norm(x.en) === q) || s.gym.some(g => norm(g.name) === q));
+      const near = q.length >= 4 && !mine.length && !lib.length ? L.map(x => ({ x, d: Math.min(lev(q, x.name), lev(q, x.en)) })).filter(o => o.d <= 2).sort((a, b) => a.d - b.d)[0] : null;
+      return { on, q: f.q || '', setQ: ev => setF({ q: ev.target.value }), ref: el => { if (el && !el._f) { el._f = 1; setTimeout(() => { try { el.focus(); } catch (e) {} }, 350); } }, open: () => setF({ pick: true, q: '' }), close: () => setF({ pick: false, q: '' }), groups, none: on && !groups.length, hasSugg: !!near, sugg: near ? { name: near.x.name, go: () => pickEx(near.x.name, near.x.id, false) } : { name: '', go: () => {} }, canCreate: on && q.length >= 3 && !exact && !near, create: () => pickEx((f.q || '').trim().replace(/^./, c => c.toUpperCase()), null, true) }; })();
+    const isErgS = s.sheet === 'gym' && !!f.erg, ergU = isErgS ? ((ergOf(f.kind) || { unit: 500 }).unit) : 500, ergDist = parseInt(f.dist === 'x' ? f.distX : f.dist, 10) || 0, ergSec = (f.mi || 0) * 60 + (f.se || 0) + (f.te || 0) / 10;
+    const sh = { isErg: isErgS, isLift: s.sheet === 'gym' && !f.erg, distTxt: f.dist === 'x' ? 'Autre' : dLbl(parseInt(f.dist, 10) || 2000), dist: f.dist || '2000', distOpts: [...ERG_D.map(m => ({ v: String(m), l: dLbl(m) })), { v: 'x', l: 'Autre distance' }], setDist: ev => { const v = ev.target.value, ex = s.gym.find(g => g.name === f.kind), t = ex && ex.erg && ex.erg[v], sc = t ? t[0] : 0; this._wseed = (this._wseed || 0) + 1; setF({ dist: v, ...(sc && !f.edit ? { mi: Math.floor(sc / 60), se: Math.floor(sc % 60), te: Math.round((sc % 1) * 10), seed: this._wseed } : {}) }); }, isDistX: f.dist === 'x', distX: f.distX || '', setDistX: ev => setF({ distX: ev.target.value.replace(/\D/g, '').slice(0, 6) }), ergPace: ergDist && ergSec ? 'Allure ' + paceS(ergSec, ergDist, ergU) : 'Allure au ' + ergU + ' m calculée avec ton temps', on: !!s.sheet, isGym: s.sheet === 'gym', isRun: s.sheet === 'run', isEdit: s.sheet === 'gym' && !!f.edit, isEvt: s.sheet === 'run' && !!f.evt, isNew: !!f.newEx, isNewRun: s.sheet === 'run' && !!f.newEx, runHint: s.sheet === 'run',
+      title: s.sheet === 'run' ? 'Nouveau chrono' : f.edit ? (f.erg ? 'Corriger le temps' : 'Corriger le record') : f.erg ? 'Nouveau temps' : 'Nouveau record',
+      okC: (s.sheet === 'gym' ? (f.erg ? ergSec > 0 : ((f.ki || 0) + (f.kf || 0)) > 0) : (parseInt(f.h, 10) || parseInt(f.m, 10) || parseInt(f.s, 10))) ? '#000' : 'rgba(0,0,0,0.3)',
+      close: () => this.setState({ sheet: null, askDel: false }), backdrop: () => { const t = Date.now(); if (t - (this._shOpenAt || 0) < 600 || t - (this._wheelAt || 0) < 700) return; this.setState({ sheet: null, askDel: false }); }, save: () => this.saveSheet(),
+      evtTabs: [[false, 'Chrono perso'], [true, 'Course officielle']].map(([v, label]) => ({ label, bg: !!f.evt === v ? '#fff' : 'transparent', shd: !!f.evt === v ? 'none' : 'none', pick: () => setF({ evt: v }) })),
+      evName: f.evName || '', setEvName: ev => setF({ evName: ev.target.value }),
+      kindLbl: s.sheet === 'run' ? 'Distance' : 'Exercice', lockEx: !!s.detail, gymFree: s.sheet === 'gym' && !s.detail, runFree: s.sheet === 'run' && !s.detail, kindTxt: s.sheet === 'gym' ? (f.kind || 'Choisir') : f.newEx ? 'Nouvelle distance' : f.kind || '', kindKey: f.newEx ? '__new' : f.kind || '',
+      kindOpts: [...kinds.map(k => ({ v: k, l: k })), { v: '__new', l: s.sheet === 'run' ? '+ Nouvelle distance' : '+ Nouvel exercice' }],
+      setKind: ev => { const v = ev.target.value; setF(v === '__new' ? { newEx: true } : { kind: v, newEx: false }); },
+      custom: f.custom || '', setCustom: ev => setF({ custom: ev.target.value }), customPh: s.sheet === 'run' ? 'Ex. Trail 25 km' : 'Ex. Presse à cuisses',
+      rm: f.rm || '1', rmTxt: (f.rm || '1') + 'RM', rmOpts: PCT.map((_, i) => ({ v: String(i + 1), l: (i + 1) + 'RM' + (i ? ' · ' + (i + 1) + ' répétitions' : ' · charge max') })), setRm: ev => setF({ rm: ev.target.value }),
+      wheels: isErgS ? [this.wheel('mi', Array.from({ length: 100 }, (_, i) => i), f.mi || 0, x => setF({ mi: x }), f.seed, '64px', 'min'), this.wheel('se', Array.from({ length: 60 }, (_, i) => i), f.se || 0, x => setF({ se: x }), f.seed, '64px', 's', x => String(x).padStart(2, '0')), this.wheel('te', Array.from({ length: 10 }, (_, i) => i), f.te || 0, x => setF({ te: x }), f.seed, '44px', '', x => ',' + x)] : s.sheet === 'gym' ? [this.wheel('ki', Array.from({ length: 401 }, (_, i) => i), f.ki || 0, x => setF({ ki: x }), f.seed, '76px', ''), this.wheel('kf', [0, 0.25, 0.5, 0.75], f.kf || 0, x => setF({ kf: x }), f.seed, '58px', 'kg', x => x ? ',' + String(x).slice(2) : ',0')] : [], kg: f.kg || '', setKg: ev => setF({ kg: ev.target.value.replace(/[^0-9.,]/g, '') }), kgW: Math.max(2, (f.kg || '100').length) * 0.62 + 'em',
+      time: [['h', 'h', '0', ':'], ['m', 'min', '00', ':'], ['s', 's', '00', '']].map(([k, l, ph, colon]) => ({ lbl: l, ph, colon, v: tm[k] || '', sel: ev => { try { ev.target.select(); } catch (e) {} }, set: ev => { let v = ev.target.value.replace(/\D/g, '').slice(0, 2); if (k !== 'h' && +v > 59) v = '59'; setF({ [k]: v }); } })),
+      date: f.date || isoToday(), max: isoToday(), setDate: ev => { const v = ev.target.value; if (v) setF({ date: v }); },
+      dLbl: s.askDel ? 'Confirmer la suppression' : 'Supprimer ce record', dBg: s.askDel ? '#ff3b30' : '#fff', dFg: s.askDel ? '#fff' : '#ff3b30',
+      del: () => { if (!s.askDel) return this.setState({ askDel: true }); if (f.erg) { const gym = s.gym.map(x => { if (x.name !== f.kind) return x; const E2 = { ...(x.erg || {}) }; delete E2[f.dist]; return { ...x, erg: E2 }; }); this.persist({ gym, sheet: null, askDel: false }); return this.flash('Temps supprimé'); } const n = parseInt(f.rm, 10) || 1; const gym = s.gym.map(x => { if (x.name !== f.kind) return x; const T = { ...(x.tested || {}) }; delete T[n]; return { ...x, tested: T }; }); this.persist({ gym, sheet: null, askDel: false }); this.flash('Record supprimé'); } };
+    // Récompense
+    const W0 = s.reward, W = W0 && W0.kind === 'erg' ? { ...W0, kind: 'gymErg' } : W0, rw = !W ? { on: false, hasPill: false, hasMsg: false, pill: '', close: () => {}, share: () => {}, title: '', v: '', label: '', prevK: '', prev: '', est: '', delta: '', dColor: '#fff', medal: '#eab308', ribL: '#fff', ribR: '#bdbdbd', shBg: '#fff', shFg: '#000' } : W.kind === 'gymErg' ? (() => { const prevS = W.prev ? W.prev[0] : '—', gain = W.prev ? W.prev[2] - W.sec : 0; return { on: true, close: () => this.setState({ reward: null }), title: W.better ? 'Nouveau record' : 'Record non battu', v: W.v, label: W.name + ' · ' + dLbl(W.dist) + ' · ' + W.pace, prevK: W.prev ? 'Avant · ' + W.prev[1] : 'Avant', prev: prevS, hasPill: !!(W.better && W.prev), pill: W.better && W.prev ? '−' + (gain >= 60 ? fmtT(gain) : gain.toFixed(1).replace('.', ',') + ' s') : '', hasMsg: !W.better || !W.prev, delta: !W.better ? 'Ton record reste ' + prevS + '.' : 'Premier record enregistré', est: '', dColor: W.better ? '#4ade80' : 'rgba(255,255,255,0.6)', medal: W.better ? '#eab308' : '#5a5a5a', ribL: W.better ? '#fff' : '#3a3a3a', ribR: W.better ? '#bdbdbd' : '#2a2a2a', shBg: W.better ? '#fff' : 'rgba(255,255,255,0.15)', shFg: W.better ? '#000' : 'rgba(255,255,255,0.5)', share: () => W.better ? this.setState({ reward: null, shIdx: 0, share: { v: W.v, ex: W.name, k1: 'Distance', v1: dLbl(W.dist), date: W.date } }) : this.flash('Seul un record battu se partage') }; })() : (() => { const gym = W.kind === 'gym', vS = gym ? kgS(W.v) + ' kg' : W.v, prevS = W.prev ? (gym ? kgS(W.prev[0]) + ' kg' : W.prev[0]) : '—';
+      const delta = !W.better ? 'Ton record reste ' + prevS + '. Le chrono est gardé dans ton historique.' : !W.prev ? 'Premier record enregistré' : gym ? '+' + kgS(W.v - W.prev[0]) + ' kg sur ton record' : '−' + mmss(secs(W.prev[0]) - W.sc) + ' sur ton record';
+      return { on: true, close: () => this.setState({ reward: null }), title: W.better ? 'Nouveau record' : 'Record non battu', v: vS, label: gym ? W.name + ' · ' + W.n + 'RM' : W.name, prevK: W.prev ? 'Avant · ' + W.prev[1] : 'Avant', prev: prevS, hasPill: !!(W.better && W.prev), pill: W.better && W.prev ? (gym ? '+' + kgS(W.v - W.prev[0]) + ' kg' : '−' + mmss(secs(W.prev[0]) - W.sc)) : '', hasMsg: !W.better || !W.prev, est: W.est ? (gym ? kgS(W.est) + ' kg' : W.est) : '—', delta, dColor: W.better ? '#4ade80' : 'rgba(255,255,255,0.6)', medal: W.better ? '#eab308' : '#5a5a5a', ribL: W.better ? '#fff' : '#3a3a3a', ribR: W.better ? '#bdbdbd' : '#2a2a2a', shBg: W.better ? '#fff' : 'rgba(255,255,255,0.15)', shFg: W.better ? '#000' : 'rgba(255,255,255,0.5)',
+        share: () => W.better ? this.setState({ reward: null, shIdx: 0, share: gym ? { v: vS, ex: W.name, k1: 'Répétitions', v1: W.n + 'RM', date: W.date } : { v: vS, ex: W.name, k1: 'Type', v1: 'Chrono perso', date: W.date } }) : this.flash('Seul un record battu se partage') }; })();
+    // Partage
+    const S = s.share, idx = s.shIdx || 0, txt = S ? 'Nouveau record · ' + S.ex + ' · ' + S.v + (S.k1 === 'Répétitions' ? ' (' + S.v1 + ')' : '') + ' · ' + S.date + ' — TCMV' : '';
+    const sc = { on: !!S, close: () => this.setState({ share: null }), title: ['Sans fond · horizontal', 'Fond blanc · horizontal', 'Sans fond · vertical', 'Avec ta photo'][idx],
+      v: S ? S.v : '', ex: S ? S.ex : '', ek: S && (S.k1 === 'Répétitions' || S.k1 === 'Distance') ? 'Exercice' : 'Distance', vk: S && S.k1 === 'Répétitions' ? 'Charge' : S && S.k1 === 'Distance' ? 'Temps' : 'Chrono', k1: S ? S.k1 : '', v1: S ? S.v1 : '', date: S ? S.date : '', line: S ? S.ex + ' · ' + S.v1 : '',
+      dots: [0, 1, 2, 3].map(i => ({ w: idx === i ? '18px' : '6px', bg: idx === i ? '#fff' : 'rgba(255,255,255,0.3)' })),
+      onScroll: ev => { const el = ev.currentTarget, n = Math.max(0, Math.min(3, Math.round(el.scrollLeft / Math.max(1, el.scrollWidth / 4)))); if (n !== (this.state.shIdx || 0)) this.setState({ shIdx: n }); },
+      acts: [
+        { label: 'Copier', ic: 'M8 8h13v13H8zM16 8V3H3v13h5', go: () => this.exportImg('copy') },
+        { label: 'Partager', ic: 'M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6', go: () => this.exportImg('share') }
+      ] };
+    const A = window.TCMVA, acc = A ? A.byId(this.cid()) : null;
+    const nG = G.filter(g => g.ks.length).length, nR = R.filter(r => r.t).length;
+    return {
+      fr, back: () => this.props.onBack && this.props.onBack(), cid: this.cid(), age: acc && acc.birth ? String(Math.floor((Date.now() - new Date(acc.birth).getTime()) / 3.15576e10)) : '',
+      tabs: [['gym', 'Force'], ['run', 'Running']].map(([k, label]) => ({ label, bg: tab === k ? '#fff' : 'transparent', sh: tab === k ? 'none' : 'none', pick: () => this.setState({ tab: k }) })),
+      head, blk, rows, listHas: rows.length > 0, listEmpty: !rows.length,
+      listTitle: isGym ? 'Mes records' : 'Mes chronos', listSide: isGym ? (nG ? nG + ' testé' + (nG > 1 ? 's' : '') : '') : (nR ? nR + ' record' + (nR > 1 ? 's' : '') : ''),
+      emptyT: 'Pas encore de record force', emptyD: 'Ajoute un record testé avec le +. Les exercices faits en séance apparaîtront ici avec leur 1RM estimé.',
+      legend: isGym ? 'Testé : ajouté par toi, partageable. Estimé : calculé depuis tes meilleures séries en séance.' : 'Record : ton meilleur chrono, partageable. Estimé : calculé depuis ta VMA.',
+      openAdd: () => this.open(tab), openVma: () => V.v ? this.setState({ vma: true }) : this.open('run', '5 km'), vmaOn: !!s.vma, closeVma: () => this.setState({ vma: false }),
+      dt, dAnim: s.dOut && s.detail === this._closing ? 'pgOut .26s cubic-bezier(.4,0,1,1) both' : this._settled('d', s.detail) ? 'none' : 'pgIn .34s cubic-bezier(.2,.8,.2,1) both', dShade: s.dOut && s.detail === this._closing ? 'fadeOut .26s ease both' : this._settled('d', s.detail) ? 'none' : 'fadeB .34s ease both', pkAnim: this._settled('p', (s.sheet === 'gym' && f.pick) || null) ? 'none' : 'shUp .34s cubic-bezier(.32,.72,0,1) both', shAnim: this._settled('s', s.sheet) ? 'none' : 'shUp .38s cubic-bezier(.32,.72,0,1) both', ovAnim: this._settled('o', s.reward || s.share) ? 'none' : 'fadeB .25s ease-out both', rwAnim: this._settled('o', s.reward || s.share) ? 'none' : 'prPop .45s cubic-bezier(.2,.9,.3,1.2) both', sh, pk, rw, sc, toastOn: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

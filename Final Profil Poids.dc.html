@@ -7,23 +7,23 @@
 </head>
 <body>
 <x-dc>
-<helmet><script src="./weight-model.js?v=1"></script><style>@keyframes minIn{from{transform:scale(0);opacity:0}to{transform:none;opacity:1}}@keyframes delIn{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}@keyframes lineDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}@keyframes headIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}@keyframes shUp{from{transform:translateY(100%)}to{transform:none}}@keyframes fadeB{from{opacity:0}to{opacity:1}}a{color:#000}a:hover{color:#555}button{font-family:inherit}input{font-family:inherit}</style></helmet>
+<helmet><script src="./weight-model.js?v=1"></script><style>@keyframes minIn{from{transform:scale(0);opacity:0}to{transform:none;opacity:1}}@keyframes delIn{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}@keyframes lineDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}@keyframes headIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}@keyframes shUp{from{transform:translateY(100%)}to{transform:none}}@keyframes fadeB{from{opacity:0}to{opacity:1}}a{color:#000}a:hover{color:#555}button{font-family:inherit}input{font-family:inherit}[data-wheel]::-webkit-scrollbar{display:none}</style></helmet>
 <div style="min-height:{{ fr.minH }};height:{{ fr.h0 }};display:flex;justify-content:center;align-items:flex-start;padding:{{ fr.pad }};box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:600;color:#000">
   <div data-screen-label="Poids" style="width:{{ fr.w }};height:{{ fr.h }};border-radius:{{ fr.rad }};border:{{ fr.bd }};background:#f2f2f2;overflow:hidden;position:relative;flex:none;box-shadow:{{ fr.sh }}">
     <div style="height:100%;overflow-y:auto;display:flex;flex-direction:column;padding-bottom:40px;box-sizing:border-box;scrollbar-width:none">
-      <div style="height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:15px;font-weight:600"><span>9:41</span><span style="font-size:12px">●●● ▮</span></div>
+      <div style="height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:15px;font-weight:700;letter-spacing:-0.02em"><span>9:41</span><span style="font-size:12px">●●● ▮</span></div>
       <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 0">
         <button onClick="{{ back }}" aria-label="Retour" style-active="transform:scale(.94)" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
-        <span style="font-size:16px;font-weight:600">Poids</span>
+        <span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">Poids</span>
         <button onClick="{{ openAdd }}" aria-label="Ajouter une pesée" style-active="transform:scale(.94)" style="width:36px;height:36px;border-radius:12px;border:none;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s ease"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"></path></svg></button>
       </div>
 
       <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
-        <div style="margin:40px 16px 0;background:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:600">Pas encore de pesée</span><span style="font-size:13.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.55)">Ajoute ta première pesée avec le + pour suivre ton évolution.</span></div>
+        <div style="margin:40px 16px 0;background:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">Pas encore de pesée</span><span style="font-size:13.5px;font-weight:500;line-height:1.45;color:rgba(0,0,0,0.55)">Ajoute ta première pesée avec le + pour suivre ton évolution.</span></div>
       </sc-if>
       <sc-if value="{{ hasData }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 20px 8px;text-align:center;animation:headIn .5s cubic-bezier(.2,.8,.2,1) .05s both">
-        <span style="font-size:15px;color:rgba(0,0,0,0.5)">{{ head.label }}</span>
+        <span style="font-size:15px;color:rgba(0,0,0,0.5);letter-spacing:-0.02em;font-weight:700">{{ head.label }}</span>
         <span style="font-size:56px;font-weight:700;letter-spacing:-0.045em;line-height:1;font-variant-numeric:tabular-nums">{{ head.v }}<span style="font-size:20px;font-weight:600;letter-spacing:-0.02em;color:rgba(0,0,0,0.45);margin-left:6px">kg</span></span>
         <span style="display:flex;align-items:center;gap:6px;font-size:14px;color:rgba(0,0,0,0.55)"><span style="width:16px;height:16px;border-radius:50%;background:#000;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center">{{ head.arrow }}</span>{{ head.d }}</span>
       </div>
@@ -34,15 +34,15 @@
         <sc-for list="{{ cards }}" as="c" hint-placeholder-count="3">
           <div onClick="{{ c.toggle }}" style="background:#fff;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;cursor:pointer">
             <div style="display:flex;align-items:center;gap:10px">
-              <span style="flex:1;min-width:0;font-size:16px">{{ c.k }}</span>
-              <span style="font-size:16px;font-weight:600;font-variant-numeric:tabular-nums">{{ c.v }}</span>
+              <span style="flex:1;min-width:0;font-size:16px;letter-spacing:-0.02em;font-weight:700">{{ c.k }}</span>
+              <span style="font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ c.v }}</span>
               <span style="width:26px;height:26px;flex:none;border-radius:50%;background:{{ c.ibg }};color:{{ c.ic }};display:flex;align-items:center;justify-content:center;transform:rotate({{ c.rot }});transition:transform .35s cubic-bezier(.3,1.4,.5,1),background .25s ease,color .25s ease"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18"></path></svg></span>
             </div>
             <div style="display:grid;grid-template-rows:{{ c.rows }};opacity:{{ c.op }};transition:grid-template-rows .4s cubic-bezier(.25,.8,.25,1),opacity .3s ease">
               <div style="overflow:hidden;min-height:0">
                 <div onClick="{{ stop }}" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.07);display:flex;flex-direction:column;gap:10px">
                   <span style="font-size:13.5px;font-weight:500;line-height:1.5;color:rgba(0,0,0,0.65);text-wrap:pretty">{{ c.txt }}</span>
-                  <sc-if value="{{ c.hasEdit }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px"><input value="{{ c.ev }}" onChange="{{ c.onEdit }}" onBlur="{{ c.commit }}" onKeyDown="{{ c.key }}" inputMode="decimal" style="height:40px;flex:1;min-width:0;border-radius:12px;border:none;background:#f2f2f2;padding:0 12px;font-size:16px;font-weight:600;outline:none;font-variant-numeric:tabular-nums" style-focus="box-shadow:inset 0 0 0 1.5px #000"><span style="font-size:14px;color:rgba(0,0,0,0.5)">{{ c.unit }}</span></div></sc-if>
+                  <sc-if value="{{ c.hasEdit }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px"><input value="{{ c.ev }}" onChange="{{ c.onEdit }}" onBlur="{{ c.commit }}" onKeyDown="{{ c.key }}" inputMode="decimal" style="height:40px;flex:1;min-width:0;border-radius:12px;border:none;background:#e9e9eb;padding:0 12px;font-size:16px;font-weight:600;outline:none;font-variant-numeric:tabular-nums;letter-spacing:-0.02em" style-focus="box-shadow:inset 0 0 0 1.5px #000"><span style="font-size:14px;color:rgba(0,0,0,0.5)">{{ c.unit }}</span></div></sc-if>
                 </div>
               </div>
             </div>
@@ -56,8 +56,8 @@
           <sc-for list="{{ rows }}" as="w" hint-placeholder-count="5">
             <div style="display:grid;grid-template-rows:{{ w.gr }};opacity:{{ w.op }};transition:grid-template-rows .28s cubic-bezier(.3,.7,.2,1),opacity .2s ease"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;border-top:1px solid {{ w.sep }};transform:translateX({{ w.tx }});transition:transform .28s cubic-bezier(.3,.7,.2,1)">
               <div onClick="{{ w.toggle }}" style="display:flex;align-items:center;gap:10px;min-height:56px;cursor:pointer">
-                <span style="flex:1;min-width:0;font-size:15px">{{ w.date }}</span>
-                <span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><span style="font-size:15px;font-weight:600;font-variant-numeric:tabular-nums">{{ w.kg }}</span><span style="font-size:12px;font-weight:600;color:rgba(0,0,0,0.45);font-variant-numeric:tabular-nums">{{ w.d }}</span></span>
+                <span style="flex:1;min-width:0;font-size:15px;letter-spacing:-0.02em;font-weight:700">{{ w.date }}</span>
+                <span style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><span style="font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">{{ w.kg }}</span><span style="font-size:12px;font-weight:600;color:rgba(0,0,0,0.45);font-variant-numeric:tabular-nums">{{ w.d }}</span></span>
                 <span style="width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;transform:rotate({{ w.rot }});transition:transform .35s cubic-bezier(.3,1.4,.5,1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18"></path></svg></span>
               </div>
               <div style="display:grid;grid-template-rows:{{ w.rows }};opacity:{{ w.rop }};transition:grid-template-rows .4s cubic-bezier(.25,.8,.25,1),opacity .3s ease">
@@ -78,10 +78,24 @@
     <sc-if value="{{ add.on }}" hint-placeholder-val="{{ false }}">
       <div onClick="{{ add.close }}" style="position:absolute;inset:0;z-index:30;background:rgba(0,0,0,0.35);animation:fadeB .2s ease both"></div>
       <div style="position:absolute;left:0;right:0;bottom:0;z-index:31;background:#f2f2f2;border-radius:28px 28px 0 0;padding:18px 16px 34px;display:flex;flex-direction:column;gap:14px;animation:shUp .38s cubic-bezier(.32,.72,0,1) both">
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center"><button onClick="{{ add.close }}" style="justify-self:start;border:none;background:transparent;padding:0;font-size:16px;font-weight:500;color:rgba(0,0,0,0.55);cursor:pointer">Annuler</button><span style="font-size:16px;font-weight:600">Nouvelle pesée</span><button onClick="{{ add.save }}" style="justify-self:end;border:none;background:transparent;padding:0;font-size:16px;font-weight:700;color:{{ add.okC }};cursor:pointer">OK</button></div>
-        <div style="background:#fff;border-radius:16px;padding:18px 16px;display:flex;align-items:baseline;justify-content:center;gap:6px"><input value="{{ add.kg }}" onChange="{{ add.setKg }}" inputMode="decimal" placeholder="78,4" style="width:{{ add.w }};padding:0;border:none;background:transparent;text-align:center;font-size:44px;font-weight:700;letter-spacing:-0.04em;outline:none;font-variant-numeric:tabular-nums;color:#000"><span style="font-size:20px;color:rgba(0,0,0,0.45)">kg</span></div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center"><button onClick="{{ add.close }}" style="justify-self:start;border:none;background:transparent;padding:0;font-size:16px;font-weight:500;color:rgba(0,0,0,0.55);cursor:pointer">Annuler</button><span style="font-size:16px;font-weight:700;letter-spacing:-0.02em">Nouvelle pesée</span><button onClick="{{ add.save }}" style="justify-self:end;border:none;background:transparent;padding:0;font-size:16px;font-weight:700;color:{{ add.okC }};cursor:pointer;letter-spacing:-0.02em">OK</button></div>
+        <div style="background:#fff;border-radius:16px;padding:12px 10px;display:flex;justify-content:center">
+          <div style="position:relative;width:100%;height:200px;display:flex;justify-content:center;align-items:center;gap:4px">
+            <div style="position:absolute;left:10px;right:10px;top:80px;height:40px;border-radius:10px;background:#e9e9eb;pointer-events:none"></div>
+            <sc-for list="{{ add.wheels }}" as="w" hint-placeholder-count="2">
+              <div style="position:relative;display:flex;align-items:center;gap:2px">
+                <div data-wheel="1" ref="{{ w.ref }}" onScroll="{{ w.onScroll }}" style="position:relative;width:{{ w.wd }};height:200px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 32%,#000 68%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 32%,#000 68%,transparent 100%)">
+                  <div style="height:80px"></div>
+                  <sc-for list="{{ w.items }}" as="it" hint-placeholder-count="5"><div onClick="{{ it.pick }}" style="height:40px;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:{{ it.c }};cursor:pointer;transition:color .15s ease">{{ it.l }}</div></sc-for>
+                  <div style="height:80px"></div>
+                </div>
+                <span style="position:relative;font-size:15px;font-weight:700;color:rgba(0,0,0,0.45);letter-spacing:-0.02em">{{ w.unit }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
         <div style="background:#fff;border-radius:16px;padding:0 16px">
-          <div style="display:flex;align-items:center;justify-content:space-between;min-height:52px"><span style="font-size:15px">Date</span><input type="date" value="{{ add.date }}" onChange="{{ add.setDate }}" style="border:none;background:#f2f2f2;border-radius:10px;height:34px;padding:0 10px;font-size:14px;font-weight:600;outline:none"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;min-height:52px"><span style="font-size:15px;letter-spacing:-0.02em;font-weight:700">Date</span><input type="date" value="{{ add.date }}" onChange="{{ add.setDate }}" style="border:none;background:#e9e9eb;border-radius:10px;height:34px;padding:0 10px;font-size:14px;font-weight:600;outline:none"></div>
           
         </div>
       </div>
@@ -98,6 +112,11 @@ class Component extends DCLogic {
   componentDidMount() { if (this.props.demo) setTimeout(() => { const D = this._D = { add: { add: { kg: '78,4', date: new Date().toISOString().slice(0, 10), moment: 'Matin' } } }; const st = D[this.props.demo]; if (st) this.setState(st); }, 400); const t0 = performance.now(); const tick = now => { const k = Math.min(1, (now - t0) / 1000); this.setState({ cu: k }); if (k < 1) this._raf = requestAnimationFrame(tick); }; this._raf = requestAnimationFrame(tick);
     const go = () => { if (window.TCMVW) { this.un = window.TCMVW.subscribe(() => this.setState(s => ({ v: s.v + 1 }))); this.forceUpdate(); } else setTimeout(go, 50); }; go(); }
   componentWillUnmount() { this.un && this.un(); cancelAnimationFrame(this._raf); }
+  // Roulette type iPhone : colonnes à défilement aimanté, valeur lue au centre
+  wheel(key, values, cur, set, seed, width, unit) { this._wel = this._wel || {}; const H = 40, idx = Math.max(0, values.findIndex(x => x === cur));
+    return { wd: width, unit: unit || '', ref: el => { if (!el) return; this._wel[key] = el; const tag = seed + ':' + key; if (el._seed !== tag) { el._seed = tag; el.scrollTop = idx * H; } },
+      onScroll: ev => { const el = ev.currentTarget; clearTimeout(el._t); el._t = setTimeout(() => { const i = Math.max(0, Math.min(values.length - 1, Math.round(el.scrollTop / H))); if (values[i] !== cur) set(values[i]); }, 90); },
+      items: values.map((x, i) => ({ l: String(x), c: i === idx ? '#000' : 'rgba(0,0,0,0.3)', pick: () => { const el = this._wel[key]; if (el) { try { el.scrollTo({ top: i * H, behavior: 'smooth' }); } catch (e) { el.scrollTop = i * H; } } } })) }; }
   renderVals() { if (this.props.demo && (!this._rpSeen || this.props.replay !== this._rp)) { const first = !this._rpSeen; this._rpSeen = true; this._rp = this.props.replay; const st = this._D && this._D[this.props.demo]; if (!first && st) setTimeout(() => { const clr = {}; Object.keys(st).forEach(k => { if (!['view', 'f'].includes(k)) clr[k] = null; }); this.setState(clr); setTimeout(() => this.setState(st), 300); }); }
     const W8 = window.TCMVW, s = this.state, e = React.createElement, emb = !!this.props.embed, cid = this.props.clientId || 'julien';
     const fr0 = { minH: emb ? '100%' : '100vh', h0: emb ? '100%' : 'auto', pad: emb ? '0' : '24px', w: emb ? '100%' : '390px', h: emb ? '100%' : '844px', rad: emb ? '0' : '44px', bd: emb ? 'none' : '1px solid rgba(0,0,0,0.1)', sh: emb ? 'none' : '0 20px 60px rgba(0,0,0,0.12)' };
@@ -133,17 +152,17 @@ class Component extends DCLogic {
     ];
     const cards = C.map(c => { const on = s.open === c.id; return { k: c.k, v: c.v, txt: c.txt, rows: on ? '1fr' : '0fr', op: on ? 1 : 0, rot: on ? '45deg' : '0deg', ibg: 'transparent', ic: '#000', hasEdit: c.edit != null && !!c.set, ev: s.draft && s.draft.id === c.id ? s.draft.v : (c.edit || ''), unit: c.unit || '', onEdit: ev => { const v = ev.target.value.replace(/[^0-9.,]/g, ''); this.setState({ draft: { id: c.id, v } }); }, commit: () => { const dr = this.state.draft; if (dr && dr.id === c.id) { if (dr.v.trim()) c.set(dr.v); this.setState({ draft: null }); } }, key: ev => { if (ev.key === 'Enter') ev.currentTarget.blur(); }, toggle: () => this.setState({ open: on ? null : c.id }) }; });
     const rows = L.slice().reverse().map((w, i, A) => { const prev = A[i + 1], dd = prev ? w.kg - prev.kg : 0;
-      return { date: fr(w.date), moment: w.moment || '', kg: f1(w.kg) + ' kg', d: prev ? (dd > 0 ? '+' : dd < 0 ? '−' : '') + f1(Math.abs(dd)) : 'Départ', sep: i ? 'rgba(0,0,0,0.07)' : 'transparent', ...(() => { const open = s.openW === w.id, armed = open && s.ask === w.id; return { rot: open ? '45deg' : '0deg', rows: open ? '1fr' : '0fr', rop: open ? 1 : 0, info: (() => { const pd = prev ? fr(prev.date) : '', end = /\.$/.test(pd) ? '' : '.', mo = w.moment ? 'Pesée du ' + String(w.moment).toLowerCase() + '. ' : ''; return mo + (!prev ? 'Première pesée, point de départ de ta courbe.' : Math.abs(dd) < 0.05 ? 'Même poids que la pesée du ' + pd + end : (dd > 0 ? '+' : '−') + f1(Math.abs(dd)) + ' kg par rapport à la pesée du ' + pd + end); })(), dLbl: armed ? 'Confirmer la suppression' : 'Supprimer cette pesée', dBg: armed ? '#ff3b30' : '#f2f2f4', dFg: armed ? '#fff' : '#ff3b30', toggle: () => this.setState({ openW: open ? null : w.id, ask: null }) }; })(), gr: s.gone === w.id ? '0fr' : '1fr', op: s.gone === w.id ? 0 : 1, tx: s.gone === w.id ? '-30px' : '0px',
+      return { date: fr(w.date), moment: w.moment || '', kg: f1(w.kg) + ' kg', d: prev ? (dd > 0 ? '+' : dd < 0 ? '−' : '') + f1(Math.abs(dd)) : 'Départ', sep: i ? 'rgba(0,0,0,0.2)' : 'transparent', ...(() => { const open = s.openW === w.id, armed = open && s.ask === w.id; return { rot: open ? '45deg' : '0deg', rows: open ? '1fr' : '0fr', rop: open ? 1 : 0, info: (() => { const pd = prev ? fr(prev.date) : '', end = /\.$/.test(pd) ? '' : '.', mo = w.moment ? 'Pesée du ' + String(w.moment).toLowerCase() + '. ' : ''; return mo + (!prev ? 'Première pesée, point de départ de ta courbe.' : Math.abs(dd) < 0.05 ? 'Même poids que la pesée du ' + pd + end : (dd > 0 ? '+' : '−') + f1(Math.abs(dd)) + ' kg par rapport à la pesée du ' + pd + end); })(), dLbl: armed ? 'Confirmer la suppression' : 'Supprimer cette pesée', dBg: armed ? '#ff3b30' : '#f2f2f2', dFg: armed ? '#fff' : '#ff3b30', toggle: () => this.setState({ openW: open ? null : w.id, ask: null }) }; })(), gr: s.gone === w.id ? '0fr' : '1fr', op: s.gone === w.id ? 0 : 1, tx: s.gone === w.id ? '-30px' : '0px',
         del: ev => { ev && ev.stopPropagation && ev.stopPropagation(); if (!(s.openW === w.id && s.ask === w.id)) { this.setState({ ask: w.id }); return; } this.setState({ gone: w.id }); setTimeout(() => { W8.del(cid, w.id); this.setState({ ask: null, gone: null, openW: null }); }, 300); } }; });
     const A = s.add, today = new Date().toISOString().slice(0, 10);
     return {
       fr: fr0, back, stop: ev => ev.stopPropagation(), empty: !n, hasData: !!n, chart, cards, rows, ed: s.ed, edLbl: s.ed ? 'OK' : 'Modifier', edToggle: () => this.setState({ ed: !s.ed, ask: null }),
       head: { label: r ? (hi === n - 1 ? 'Mon poids' : 'Poids au ' + fr(r.date)) : 'Mon poids', v: r ? f1(r.kg * ease) : '—', arrow: dv > 0 ? '↑' : dv < 0 ? '↓' : '·', d: n > 1 ? (dv > 0 ? '+' : dv < 0 ? '−' : '') + f1(Math.abs(dv)) + ' kg depuis le ' + fr(first.date) : 'Première pesée' },
-      openAdd: () => this.setState({ add: { kg: last ? f1(last.kg) : '', date: today, moment: 'Matin' } }),
-      add: { on: !!A, kg: A ? A.kg : '', date: A ? A.date : today, okC: A && num(A.kg) > 0 ? '#000' : 'rgba(0,0,0,0.3)', w: Math.max(2, ((A && A.kg) || '78,4').length) * 0.6 + 'em', close: () => this.setState({ add: null }),
+      openAdd: () => { const k0 = last ? last.kg : 75; this.setState(st => ({ add: { ki: Math.floor(k0), kd: Math.round((k0 % 1) * 10) % 10, date: today, moment: 'Matin', seed: (st.wseed || 0) + 1 }, wseed: (st.wseed || 0) + 1 })); },
+      add: { on: !!A, kg: A ? A.kg : '', date: A ? A.date : today, okC: A ? '#000' : 'rgba(0,0,0,0.3)', wheels: A ? [this.wheel('ki', Array.from({ length: 171 }, (_, i) => 30 + i), A.ki, x => this.setState(st => ({ add: { ...st.add, ki: x } })), A.seed, '72px', ','), this.wheel('kd', Array.from({ length: 10 }, (_, i) => i), A.kd, x => this.setState(st => ({ add: { ...st.add, kd: x } })), A.seed, '44px', 'kg')] : [], w: Math.max(2, ((A && A.kg) || '78,4').length) * 0.6 + 'em', close: () => this.setState({ add: null }),
         setKg: ev => { const v = ev.target.value; this.setState(st => ({ add: { ...st.add, kg: v } })); }, setDate: ev => { const v = ev.target.value; this.setState(st => ({ add: { ...st.add, date: v } })); },
-        moments: ['Matin', 'Soir'].map(m => ({ label: m, bg: A && A.moment === m ? '#fff' : 'transparent', sh: A && A.moment === m ? '0 1px 2px rgba(0,0,0,0.12)' : 'none', pick: () => this.setState(st => ({ add: { ...st.add, moment: m } })) })),
-        save: () => { if (!A || !(num(A.kg) > 0)) return; W8.add(cid, { date: A.date || today, kg: num(A.kg) }); this.setState({ add: null, hi: -1 }); } }
+        moments: ['Matin', 'Soir'].map(m => ({ label: m, bg: A && A.moment === m ? '#fff' : 'transparent', sh: A && A.moment === m ? 'none' : 'none', pick: () => this.setState(st => ({ add: { ...st.add, moment: m } })) })),
+        save: () => { if (!A) return; const kg = Math.round((A.ki + A.kd / 10) * 10) / 10; if (!(kg > 0)) return; W8.add(cid, { date: A.date || today, kg }); this.setState({ add: null, hi: -1 }); } }
     };
   }
 }

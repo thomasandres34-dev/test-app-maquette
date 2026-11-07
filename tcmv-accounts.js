@@ -6,6 +6,8 @@
 (function () {
   if (window.TCMVA) return;
   const K = 'tcmv.accounts.v1', KC = 'tcmv.accounts.cur', subs = new Set();
+  // DÉMO UNIQUEMENT · ne pas importer dans Lovable : aucun compte n'est repris, tous sont recréés à l'inscription.
+  // Lovable : le compte admin = l'e-mail thomasandres34@gmail.com (rôle admin attribué automatiquement à son inscription, voir doc Lovable).
   const SEED = [
     { id: 'julien', email: 'julien@mail.com', first: 'Julien', last: 'Risterucci', birth: '1998-03-14', height: '180', sex: 'H', profil: 'Coaching privé', coach: 'Thomas', role: 'client', status: 'actif' },
     { id: 'demo', email: 'thomas@tcmv.fr', first: 'Thomas', last: 'Andres', birth: '1993-04-12', height: '182', sex: 'H', profil: 'Programme du catalogue', coach: '', role: 'admin', status: 'actif' },

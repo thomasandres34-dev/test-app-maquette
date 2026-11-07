@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<script src="./image-slot.js"></script>
+<style>
+:root{color-scheme:light}
+input,select,textarea,button{color:#000;font-family:inherit}
+body{margin:0;background:#1c1c1c;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#fff;text-decoration:none}a:hover{color:#bdbdbd}
+</style>
+<style>html,body{background:#1c1c1c !important}</style><style>[data-onb-in]::placeholder,[data-screen-label^="Onboarding"] input::placeholder{color:rgba(235,235,245,0.45)!important;-webkit-text-fill-color:rgba(235,235,245,0.45)!important;opacity:1!important}</style></helmet>
+<div style="padding:64px 64px 120px;display:flex;flex-direction:column;gap:72px;color:#fff;width:max-content;min-height:100vh;background:#1c1c1c">
+  <div style="position:sticky;left:64px;align-self:flex-start;display:flex;align-items:flex-end;justify-content:flex-start;gap:40px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:8px"><div style="font-size:40px;font-weight:700;letter-spacing:-0.04em;line-height:1">TCMV — App</div><div style="font-size:14px;color:rgba(255,255,255,0.5)">Version finale</div></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="#finale" style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff"><span style="font-size:22px;font-weight:700;color:rgba(255,255,255,0.35)">0</span><span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:700">Version finale</span><span style="font-size:11px;color:rgba(255,255,255,0.5)">référence code</span></span></a>
+      <a href="./Vue eclatee.dc.html" style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff"><span style="font-size:22px;font-weight:700;color:rgba(255,255,255,0.35)">1</span><span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:700">Vue éclatée</span><span style="font-size:11px;color:rgba(255,255,255,0.5)">tous les écrans · autre page</span></span></a>
+      <a href="../Vision 2027/Vision 2027.dc.html" style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff"><span style="font-size:22px;font-weight:700;color:rgba(255,255,255,0.35)">2</span><span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:700">Vision 2027</span><span style="font-size:11px;color:rgba(255,255,255,0.5)">bac à sable · autre page</span></span></a>
+      <a href="../Archives/Archives.dc.html" style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff"><span style="font-size:22px;font-weight:700;color:rgba(255,255,255,0.35)">3</span><span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:700">Archives</span><span style="font-size:11px;color:rgba(255,255,255,0.5)">sauvegardes · dossier</span></span></a>
+      <span style="width:1px;height:36px;background:rgba(255,255,255,0.15);margin:0 6px"></span>
+      <span style="display:flex;gap:6px"><span style="height:22px;padding:0 9px;border-radius:999px;background:#22c55e;color:#000;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.02em">Finale</span><span style="height:22px;padding:0 9px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.02em">En travail</span><span style="height:22px;padding:0 9px;border-radius:999px;background:rgba(255,255,255,0.14);color:#fff;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.02em">En attente</span></span>
+    </div>
+  </div>
+
+  <section id="finale" data-screen-label="00 Version finale" style="display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1)">
+    <div style="display:flex;align-items:baseline;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.12)">
+      <span style="font-size:32px;font-weight:700;letter-spacing:-0.03em;line-height:1">Version finale</span><span style="height:22px;padding:0 9px;border-radius:999px;background:#22c55e;color:#000;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.02em">Finale</span>
+      <span style="font-size:13px;color:rgba(255,255,255,0.5)">Référence pour le code · mise à jour uniquement après validation · dernier push : 4 nov.</span>
+    </div>
+    <div style="display:flex;gap:6px;padding:4px;border-radius:12px;background:rgba(255,255,255,0.08);align-self:flex-start">
+      <sc-for list="{{ profils }}" as="p" hint-placeholder-count="4">
+        <button onClick="{{ p.pick }}" style="height:34px;padding:0 14px;border:none;border-radius:9px;background:{{ p.bg }};color:{{ p.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ p.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:10px;width:430px"><div style="font-size:12px;font-weight:500;color:rgba(255,255,255,0.6)">Client · {{ profil }}</div><div><div style="width:430px;height:932px;overflow:hidden;border-radius:56px;box-shadow:0 0 0 1.5px rgba(255,255,255,0.75)"><div style="margin:-40px -20px"><dc-import name="Final App Plateforme" profil="{{ profil }}" hint-size="470px,1012px"></dc-import></div></div></div></div>
+      <div style="display:flex;flex-direction:column;gap:10px;width:1280px"><div style="font-size:12px;font-weight:500;color:rgba(255,255,255,0.6)">Coach · Espace Coach</div><div style="width:1280px;height:932px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="932px" hint-size="1280px,932px"></dc-import></div></div>
+    </div>
+  </section>
+
+  <sc-if value="{{ false }}" hint-placeholder-val="{{ false }}">  <section id="pages" data-screen-label="01 Vue éclatée" style="display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);width:max-content;box-sizing:border-box">
+    <div style="display:flex;align-items:baseline;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.12);flex-wrap:wrap">
+      <span style="font-size:32px;font-weight:700;letter-spacing:-0.03em;line-height:1">Vue éclatée</span>
+      <span style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.5)">{{ pgCount }} pages · {{ gapCount }} manques connus · clic sur un titre pour ouvrir la page seule</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.5)">App client · onglets</span>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06);max-width:1280px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:700">{{ pg.App.name }}</span><span style="height:22px;padding:0 9px;border-radius:999px;background:{{ pg.App.stBg }};color:{{ pg.App.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.App.st }}</span></div>
+          <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75)">{{ pg.App.role }}</span>
+          <span style="display:flex;gap:8px;font-size:12px"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.App.coach }}</span></span>
+          <span style="display:flex;gap:8px;font-size:12px"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.App.tables }}</span></span>
+          <sc-for list="{{ pg.App.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;color:#ffb4ae"><span>⚠</span><span>{{ x }}</span></span></sc-for>
+        </div>
+      <div style="display:flex;flex-wrap:nowrap;gap:40px;align-items:flex-start">
+        <div data-screen-label="App · Aujourd’hui" style="flex:none;width:430px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Aujourd’hui</span><div style="width:430px;height:932px;overflow:hidden;border-radius:56px;box-shadow:0 0 0 1.5px rgba(255,255,255,0.4)"><div style="margin:-40px -20px"><dc-import name="Final App Plateforme" start-tab="{{ 2 }}" hint-size="470px,1012px"></dc-import></div></div></div>
+        <div data-screen-label="App · Programmes" style="flex:none;width:430px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Programmes</span><div style="width:430px;height:932px;overflow:hidden;border-radius:56px;box-shadow:0 0 0 1.5px rgba(255,255,255,0.4)"><div style="margin:-40px -20px"><dc-import name="Final App Plateforme" start-tab="{{ 0 }}" hint-size="470px,1012px"></dc-import></div></div></div>
+        <div data-screen-label="App · Communauté" style="flex:none;width:430px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Communauté</span><div style="width:430px;height:932px;overflow:hidden;border-radius:56px;box-shadow:0 0 0 1.5px rgba(255,255,255,0.4)"><div style="margin:-40px -20px"><dc-import name="Final App Plateforme" start-tab="{{ 1 }}" hint-size="470px,1012px"></dc-import></div></div></div>
+        <div data-screen-label="App · Profil" style="flex:none;width:430px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Profil</span><div style="width:430px;height:932px;overflow:hidden;border-radius:56px;box-shadow:0 0 0 1.5px rgba(255,255,255,0.4)"><div style="margin:-40px -20px"><dc-import name="Final App Plateforme" start-tab="{{ 3 }}" hint-size="470px,1012px"></dc-import></div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Espace coach · rubriques</span>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06);max-width:1280px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:700">{{ pg.EC.name }}</span><span style="height:22px;padding:0 9px;border-radius:999px;background:{{ pg.EC.stBg }};color:{{ pg.EC.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.EC.st }}</span></div>
+          <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75)">{{ pg.EC.role }}</span>
+          <span style="display:flex;gap:8px;font-size:12px"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.EC.coach }}</span></span>
+          <span style="display:flex;gap:8px;font-size:12px"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.EC.tables }}</span></span>
+          <sc-for list="{{ pg.EC.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;color:#ffb4ae"><span>⚠</span><span>{{ x }}</span></span></sc-for>
+        </div>
+      <div style="display:flex;flex-wrap:nowrap;gap:40px;align-items:flex-start">
+        <div data-screen-label="Coach · Mes clients" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Mes clients</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="clients" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Fiche client · tableau de bord" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Fiche client · tableau de bord</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="client" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Modèles de séance" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Modèles de séance</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="tpl" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Bibliothèque" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Bibliothèque</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="lib" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Intensités running" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Intensités running</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="runint" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Programmes en vente" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Programmes en vente</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="prog" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Équipe" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Équipe</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="team" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Membres" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Membres</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="members" hint-size="1280px,820px"></dc-import></div></div>
+        <div data-screen-label="Coach · Contenus de l’app" style="flex:none;width:1280px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Contenus de l’app</span><div style="width:1280px;height:820px;overflow:hidden;border-radius:20px"><dc-import name="Final Espace Coach" embedded="{{ true }}" embed-h="820px" start-view="content" hint-size="1280px,820px"></dc-import></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Côté client · autres pages</span>
+      <div style="display:flex;flex-wrap:nowrap;gap:40px;align-items:flex-start">
+        <div data-screen-label="Fiche Programme Createur" style="flex:none;width:470px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Fiche Programme Createur.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.FicheProg.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.FicheProg.stBg }};color:{{ pg.FicheProg.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.FicheProg.st }}</span></div>
+          <div style="width:470px;min-height:1012px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Fiche Programme Createur" hint-size="470px,1012px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.FicheProg.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.FicheProg.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.FicheProg.tables }}</span></span>
+            <sc-for list="{{ pg.FicheProg.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Fiche Createur" style="flex:none;width:470px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Fiche Createur.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.FicheCrea.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.FicheCrea.stBg }};color:{{ pg.FicheCrea.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.FicheCrea.st }}</span></div>
+          <div style="width:470px;min-height:1012px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Fiche Createur" hint-size="470px,1012px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.FicheCrea.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.FicheCrea.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.FicheCrea.tables }}</span></span>
+            <sc-for list="{{ pg.FicheCrea.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Run 10 km" style="flex:none;width:430px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Run 10 km.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Run10.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Run10.stBg }};color:{{ pg.Run10.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Run10.st }}</span></div>
+          <div style="width:430px;min-height:932px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Run 10 km" hint-size="430px,932px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Run10.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Run10.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Run10.tables }}</span></span>
+            <sc-for list="{{ pg.Run10.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Seance" style="flex:none;width:470px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Seance.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Seance.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Seance.stBg }};color:{{ pg.Seance.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Seance.st }}</span></div>
+          <div style="width:470px;min-height:1012px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Seance" hint-size="470px,1012px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Seance.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Seance.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Seance.tables }}</span></span>
+            <sc-for list="{{ pg.Seance.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Fin de Seance" style="flex:none;width:470px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Fin de Seance.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Fin.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Fin.stBg }};color:{{ pg.Fin.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Fin.st }}</span></div>
+          <div style="width:470px;min-height:1012px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Fin de Seance" hint-size="470px,1012px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Fin.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Fin.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Fin.tables }}</span></span>
+            <sc-for list="{{ pg.Fin.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Profil Hub" style="flex:none;width:432px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Profil Hub.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Profil.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Profil.stBg }};color:{{ pg.Profil.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Profil.st }}</span></div>
+          <div style="width:432px;min-height:980px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Profil Hub" hint-size="432px,980px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Profil.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Profil.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Profil.tables }}</span></span>
+            <sc-for list="{{ pg.Profil.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Athlete" style="flex:none;width:470px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Athlete.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Athlete.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Athlete.stBg }};color:{{ pg.Athlete.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Athlete.st }}</span></div>
+          <div style="width:470px;min-height:1012px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Athlete" hint-size="470px,1012px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Athlete.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Athlete.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Athlete.tables }}</span></span>
+            <sc-for list="{{ pg.Athlete.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Profil Running" style="flex:none;width:440px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Profil Running.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Running.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Running.stBg }};color:{{ pg.Running.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Running.st }}</span></div>
+          <div style="width:440px;min-height:920px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Profil Running" hint-size="440px,920px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Running.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Running.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Running.tables }}</span></span>
+            <sc-for list="{{ pg.Running.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Profil Poids" style="flex:none;width:440px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Profil Poids.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Poids.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Poids.stBg }};color:{{ pg.Poids.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Poids.st }}</span></div>
+          <div style="width:440px;min-height:900px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Profil Poids" hint-size="440px,900px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Poids.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Poids.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Poids.tables }}</span></span>
+            <sc-for list="{{ pg.Poids.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="VMA Chart" style="flex:none;width:420px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final VMA Chart.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.VmaChart.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.VmaChart.stBg }};color:{{ pg.VmaChart.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.VmaChart.st }}</span></div>
+          <div style="width:420px;min-height:560px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final VMA Chart" hint-size="420px,560px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.VmaChart.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.VmaChart.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.VmaChart.tables }}</span></span>
+            <sc-for list="{{ pg.VmaChart.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Nav Barre" style="flex:none;width:430px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Nav Barre.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Nav.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Nav.stBg }};color:{{ pg.Nav.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Nav.st }}</span></div>
+          <div style="width:430px;min-height:124px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Nav Barre" hint-size="430px,124px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Nav.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Nav.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Nav.tables }}</span></span>
+            <sc-for list="{{ pg.Nav.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Espace coach · autres pages</span>
+      <div style="display:flex;flex-wrap:nowrap;gap:40px;align-items:flex-start">
+        <div data-screen-label="Running Admin" style="flex:none;width:1240px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Running Admin.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.RunAdmin.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.RunAdmin.stBg }};color:{{ pg.RunAdmin.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.RunAdmin.st }}</span></div>
+          <div style="width:1240px;min-height:900px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Running Admin" hint-size="1240px,900px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.RunAdmin.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.RunAdmin.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.RunAdmin.tables }}</span></span>
+            <sc-for list="{{ pg.RunAdmin.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Coach Running" style="flex:none;width:1240px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Coach Running.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.CoachRun.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.CoachRun.stBg }};color:{{ pg.CoachRun.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.CoachRun.st }}</span></div>
+          <div style="width:1240px;min-height:900px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Coach Running" hint-size="1240px,900px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.CoachRun.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.CoachRun.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.CoachRun.tables }}</span></span>
+            <sc-for list="{{ pg.CoachRun.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Client Allures" style="flex:none;width:1000px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Client Allures.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Allures.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Allures.stBg }};color:{{ pg.Allures.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Allures.st }}</span></div>
+          <div style="width:1000px;min-height:760px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Client Allures" hint-size="1000px,760px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Allures.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Allures.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Allures.tables }}</span></span>
+            <sc-for list="{{ pg.Allures.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+        <div data-screen-label="Photo Coach" style="flex:none;width:360px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><a href="./Final Photo Coach.dc.html" style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#fff">{{ pg.Photo.name }}</a><span style="flex:none;height:22px;padding:0 9px;border-radius:999px;background:{{ pg.Photo.stBg }};color:{{ pg.Photo.stFg }};display:flex;align-items:center;font-size:11px;font-weight:700">{{ pg.Photo.st }}</span></div>
+          <div style="width:360px;min-height:260px;border-radius:24px;overflow:hidden;background:#111"><dc-import name="Final Photo Coach" hint-size="360px,260px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.06)">
+            <span style="font-size:13px;font-weight:500;line-height:1.45;color:rgba(255,255,255,0.75);text-wrap:pretty">{{ pg.Photo.role }}</span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Coach</span><span style="font-weight:500">{{ pg.Photo.coach }}</span></span>
+            <span style="display:flex;gap:8px;font-size:12px;line-height:1.4"><span style="flex:none;width:52px;font-weight:600;color:rgba(255,255,255,0.45)">Tables</span><span style="font-weight:500;font-family:ui-monospace,Menlo,monospace;font-size:11.5px">{{ pg.Photo.tables }}</span></span>
+            <sc-for list="{{ pg.Photo.gaps }}" as="x" hint-placeholder-count="0"><span style="display:flex;gap:8px;font-size:12px;font-weight:500;line-height:1.4;color:#ffb4ae"><span style="flex:none">⚠</span><span>{{ x }}</span></span></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PROFILS = ['Coaching privé', 'Nouveau client (test)', 'Programme du catalogue', 'Pilates (Aurore)', 'Nouveau (sans programme)'];
+const LBL = { 'Programme du catalogue': 'Full . Thomas', 'Pilates (Aurore)': 'Pilates . Justine', 'Coaching privé': 'Coaching privé . Julien', 'Nouveau client (test)': 'Nouveau client (test)', 'Nouveau (sans programme)': 'Nouveau' };
+const CHECKS = [
+  ['Accueil', 'Bonjour/Bonsoir, progression, semaine, séances du jour'],
+  ['Changer de jour / de semaine', 'Points, carrousel et détail de la semaine suivent'],
+  ['Double séance', 'Jeudi : Matin + Soir en accordéon'],
+  ['Mot du coach', 'Lire la suite / Réduire (profil Coaching privé)'],
+  ['Mes programmes', 'Pastille en haut à droite · pause / relance'],
+  ['Catalogue', 'Onglet Programmes · filtre Pilates · fiche Aurore'],
+  ['Achat + démarrage', 'Débloquer → Stripe → Quand veux-tu commencer ?'],
+  ['Communauté', 'Groupe du programme + conversation coach'],
+  ['Profil', 'Onglet Athlète, programmes possédés'],
+  ['Espace Coach', 'Client → fiche → séance → aperçu client']
+];
+// Vue éclatée : [fichier, nom, rôle, éditable coach, tables, manques[]]
+const PAGES = [
+  ['Côté client', [
+    ['App Plateforme', 'App client', 'Coque de l’app : Aujourd’hui (Bonjour + prénom du compte, cycle envoyé, mot du coach limité aux dates du cycle, prochain appel), Programmes, Communauté, Profil, connexion. Se met à jour en direct à chaque écriture coach.', 'Programmes en vente, Planning (après « Envoyer à X »), Appels, Contenus de l’app', 'accounts, programmes, enrollments, sessions_done, client_cycles, client_calls, messages', ['Séances prévues fixées à 4 / semaine : à lire depuis le programme suivi']],
+    ['Nav Barre', 'Barre d’onglets', 'Barre du bas, onglet actif, pastille messages non lus.', '—', 'messages (non lus)', []],
+    ['Fiche Programme Createur', 'Fiche programme', 'Détail avant achat : visuel, description, en bref, progression, coach, « Tu aimeras aussi ».', 'Fiche de vente, Visuels, Suivi & fin', 'programmes, programme_kpis, coaches', []],
+    ['Fiche Createur', 'Page créateur', 'Hero, bio, chiffres, « En vrai », ses programmes, palmarès, pourquoi.', 'Équipe › fiche publique', 'coaches, programmes', ['Palmarès, « Pourquoi », tweets, années de pratique : écrits en dur, champs coach à créer']],
+    ['Run 10 km', 'Programme 10 km', 'Parcours du programme running 10 km.', 'Coach Running › Pack', 'run_program', ['Hors v1 coaching privé : programme Running / moteur 10 km à revoir pour l’app générale']],
+    ['Seance', 'Séance', 'Séance en cours : blocs, séries, charges, allures et zones running. Sons des chronos (texte système, validés le 29 oct. · tcmv-sons.json) : 3-2-1 bip court 0,65 s, bip long 2,5 s (fichier + tenue), double bip à mi-temps + « Halfway there », voix Samantha US (Ten seconds, Let’s go, Round N, Time) sur le 0.', 'Créateur de séance, Bibliothèque, Intensités running', 'session_blocks, block_lines, exercices, intensities', ['Séries validées pas encore enregistrées dans sets_done (le coach ne voit pas le détail des vraies séances)', 'Voix = synthèse du téléphone : pas amplifiable au-dessus de la musique → à terme fichiers audio Samantha + baisse auto de la musique (natif Lovable)']],
+    ['Fin de Seance', 'Fin de séance', 'Bilan : durée, séries, volume, records, partage. Pas de ressenti client (choix produit).', '—', 'sessions_done, sets_done', []],
+    ['Profil Hub', 'Profil', 'Profil, photo, réglages, Accès rapide, Mes entraînements, Training Club (temporaire).', 'Contenus de l’app', 'accounts, notif_settings', ['Réglages notifications non enregistrés dans le compte', 'Pas d’heure de rappel de séance']],
+    ['Athlete', 'Records', 'Records force et running du compte.', 'Bibliothèque › exercices étoilés', 'records, run_records', []],
+    ['Profil Running', 'VMA & allures', 'VMA, tests et chronos, allures, zones FC.', 'Intensités running', 'vma_tests, intensities', []],
+    ['VMA Chart', 'Graphique VMA', 'Courbe VMA navigable, utilisée dans Profil Running.', '—', 'vma_tests', []],
+    ['Profil Poids', 'Poids', 'Suivi du poids : courbe, pesées, objectif.', '—', 'weigh_ins', []]
+  ]],
+  ['Espace coach', [
+    ['Espace Coach', 'Espace Coach', 'Clients (tri ancienneté / fin de cycle, archivage par compte), fiche client (Profil direct · Planning, mot du coach, VMA, pesées en brouillon jusqu’à « Envoyer à X » · ⌘Z / ⇧⌘Z · calendrier semaine), chat, créateur de séance, modèles, bibliothèque, programmes, équipe, contenus.', '— (c’est l’outil)', 'accounts, client_profiles, client_cycles, client_weeks, client_calls, coach_drafts, coach_clients, messages, body_logs, pace_refs, exercices, templates, programmes', ['Archiver : effet côté client à décider', 'Appel de suivi : fréquence et dernier appel communs à tous les clients', 'Records : 295 exercices de la base gardent leur propre marquage', '« reps · s » encore affiché dans la liste Bibliothèque']],
+    ['Coach Running', 'Coach Running', 'Réglages du pack running.', '—', 'run_program, zones', []],
+    ['Running Admin', 'Intensités running', 'Table des intensités : % VMA, zones, % FC, RPE, simulateur VMA.', '—', 'intensities', ['Zones FC 1 à 5 côté client : texte système, pas éditables']],
+    ['Client Allures', 'Allures du client', 'Allures d’un client calculées depuis sa VMA, vues côté coach.', '—', 'vma_tests, intensities', []],
+    ['Photo Coach', 'Photo & recadrage', 'Changer et recadrer une photo (programmes, coachs).', '—', 'programmes.visuels', []]
+  ]]
+];
+const K = {"App Plateforme":"App","Espace Coach":"EC","Fiche Programme Createur":"FicheProg","Fiche Createur":"FicheCrea","Run 10 km":"Run10","Seance":"Seance","Fin de Seance":"Fin","Profil Hub":"Profil","Athlete":"Athlete","Profil Running":"Running","Profil Poids":"Poids","VMA Chart":"VmaChart","Nav Barre":"Nav","Running Admin":"RunAdmin","Coach Running":"CoachRun","Client Allures":"Allures","Photo Coach":"Photo"};
+const KEY = 'tcmv-live-checks';
+class Component extends DCLogic {
+  state = { profil: 'Coaching privé', done: (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })() };
+  save(done) { this.setState({ done }); try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
+  renderVals() {
+    const s = this.state, n = CHECKS.filter((_, i) => s.done[i]).length;
+    return {
+      profil: s.profil,
+      profils: PROFILS.map(p => ({ label: LBL[p], bg: p === s.profil ? '#fff' : 'transparent', fg: p === s.profil ? '#000' : '#fff', pick: () => this.setState({ profil: p }) })),
+      checks: CHECKS.map(([t, sub], i) => { const on = !!s.done[i]; return { t, s: sub, mark: on ? '✓' : '', bg: on ? '#000' : '#fff', bd: on ? '#000' : 'rgba(0,0,0,0.25)', op: on ? 0.5 : 1, toggle: () => this.save({ ...s.done, [i]: !on }) }; }),
+      doneCount: n + '/' + CHECKS.length,
+      resetChecks: () => this.save({}),
+      pgCount: PAGES.reduce((n, g) => n + g[1].length, 0),
+      gapCount: PAGES.reduce((n, g) => n + g[1].reduce((m, p) => m + p[5].length, 0), 0),
+      pg: Object.fromEntries(PAGES.flatMap(g => g[1]).filter(p => K[p[0]]).map(([f, name, role, coach, tables, gaps]) => [K[f], { name, role, coach, tables, gaps, st: gaps.length ? gaps.length + ' manque' + (gaps.length > 1 ? 's' : '') : 'Complet', stBg: gaps.length ? 'rgba(255,59,48,0.18)' : '#22c55e', stFg: gaps.length ? '#ffb4ae' : '#000' }])),
+      groups: PAGES.map(([title, L]) => ({ title, pages: L.map(([f, name, role, coach, tables, gaps]) => ({ href: './Final ' + f + '.dc.html', name, role, coach, tables, gaps, hasGaps: gaps.length > 0, st: gaps.length ? gaps.length + ' manque' + (gaps.length > 1 ? 's' : '') : 'Complet', stBg: gaps.length ? 'rgba(255,59,48,0.18)' : '#22c55e', stFg: gaps.length ? '#ffb4ae' : '#000' })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
