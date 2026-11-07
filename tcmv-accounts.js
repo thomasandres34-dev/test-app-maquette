@@ -63,11 +63,14 @@
   let real = false; try { real = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 600; } catch (e) {}
   if (!real) return;
   document.documentElement.classList.add('tcmv-device');
+  // Cadre iPhone 430×932 de la maquette → remplit l'écran (règle CSS : survit aux re-rendus)
+  const css = document.createElement('style');
+  css.textContent = 'html.tcmv-device [data-screen-label="App plateforme"]{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;border:0!important;border-radius:0!important}html.tcmv-device [style*="border-radius:55px"],html.tcmv-device [style*="border-radius:56px"]{border-radius:0!important}.tcmv-fakebar>*{visibility:hidden!important}';
+  (document.head || document.documentElement).appendChild(css);
   let q = 0;
+  // Fausse barre « 9:41 » : contenu masqué, hauteur gardée (elle tombe sous la vraie barre de l'iPhone)
   const fix = () => { q = 0;
-    document.querySelectorAll('span').forEach(sp => { if (sp.__tdv || sp.textContent !== '9:41') return; sp.__tdv = 1; const bar = sp.parentElement; if (!bar || bar.firstElementChild !== sp || bar.offsetHeight > 70) return;
-      [...bar.children].forEach(c => c.style.display = 'none'); bar.style.height = '0px'; bar.style.overflow = 'hidden'; bar.style.minHeight = '0'; bar.style.padding = '0'; });
-    document.querySelectorAll('[style*="border-radius:55px"],[style*="border-radius:56px"],[style*="border-radius: 55px"],[style*="border-radius: 56px"]').forEach(el => { el.style.borderRadius = '0'; });
+    document.querySelectorAll('span').forEach(sp => { if (sp.textContent !== '9:41') return; const bar = sp.parentElement; if (!bar || bar.firstElementChild !== sp || bar.classList.contains('tcmv-fakebar') || bar.offsetHeight > 70) return; bar.classList.add('tcmv-fakebar'); });
   };
   const go = () => { if (!q) q = requestAnimationFrame(fix); };
   const start = () => { fix(); new MutationObserver(go).observe(document.body, { childList: true, subtree: true }); };

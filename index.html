@@ -27,7 +27,7 @@ a.btn.alt{background:rgba(255,255,255,0.1);color:#fff}
 html.mob,html.mob body{background:#000;overflow:hidden}
 html.mob .side{display:none!important}
 html.mob .wrap{padding:0;display:block}
-html.mob .phone{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;bottom:0;width:auto;height:auto;margin:0!important;transform-origin:center center}
+html.mob .phone{position:absolute;top:0;left:0;width:100%;height:100vh;margin:0!important;transform-origin:center center}
 html.mob .phone iframe{width:100%;height:100%}
 </style>
 </head>
@@ -55,9 +55,10 @@ html.mob .phone iframe{width:100%;height:100%}
         Object.assign(ph.style, { position: 'fixed', width: H + 'px', height: W + 'px', left: (W - H) / 2 + 'px', top: (H - W) / 2 + 'px', transform: 'rotate(' + rot + 'deg)' });
         de.style.height = document.body.style.height = H + 'px';
       } else {
-        // Debout : l'app commence sous la vraie barre de l'iPhone et s'arrête au bas de l'écran (rien de coupé)
-        Object.assign(ph.style, { position: '', width: '', height: '', left: '', top: '', transform: '' });
-        de.style.height = document.body.style.height = '';
+        const sa = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+        const HH = sa ? Math.max(screen.height, H) : H;
+        Object.assign(ph.style, { position: '', width: '100%', height: HH + 'px', left: '0', top: '0', transform: '' });
+        de.style.height = document.body.style.height = HH + 'px';
       }
       return;
     }
