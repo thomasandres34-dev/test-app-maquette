@@ -66,7 +66,7 @@
   let q = 0;
   const fix = () => { q = 0;
     document.querySelectorAll('span').forEach(sp => { if (sp.__tdv || sp.textContent !== '9:41') return; sp.__tdv = 1; const bar = sp.parentElement; if (!bar || bar.firstElementChild !== sp || bar.offsetHeight > 70) return;
-      [...bar.children].forEach(c => c.style.display = 'none'); bar.style.height = 'env(safe-area-inset-top, 0px)'; bar.style.minHeight = '0'; bar.style.padding = '0'; });
+      [...bar.children].forEach(c => c.style.display = 'none'); bar.style.height = '0px'; bar.style.overflow = 'hidden'; bar.style.minHeight = '0'; bar.style.padding = '0'; });
     document.querySelectorAll('[style*="border-radius:55px"],[style*="border-radius:56px"],[style*="border-radius: 55px"],[style*="border-radius: 56px"]').forEach(el => { el.style.borderRadius = '0'; });
   };
   const go = () => { if (!q) q = requestAnimationFrame(fix); };
