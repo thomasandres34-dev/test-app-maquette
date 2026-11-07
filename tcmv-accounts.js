@@ -55,3 +55,21 @@
     subscribe: f => { subs.add(f); return () => subs.delete(f); }
   };
 })();
+
+// Vrai téléphone (GitHub / écran d'accueil) : la fausse barre d'état « 9:41 » et les coins arrondis du cadre iPhone de la maquette sont retirés,
+// remplacés par l'espace de la vraie barre (safe area). Dans le canvas (ordinateur) rien ne change. Lovable : pas de fausse barre, ce bloc ne part pas.
+(function () {
+  if (window.__tcmvDevice) return; window.__tcmvDevice = 1;
+  let real = false; try { real = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 600 && window.top === window; } catch (e) {}
+  if (!real) return;
+  document.documentElement.classList.add('tcmv-device');
+  let q = 0;
+  const fix = () => { q = 0;
+    document.querySelectorAll('span').forEach(sp => { if (sp.__tdv || sp.textContent !== '9:41') return; sp.__tdv = 1; const bar = sp.parentElement; if (!bar || bar.firstElementChild !== sp || bar.offsetHeight > 70) return;
+      [...bar.children].forEach(c => c.style.display = 'none'); bar.style.height = 'env(safe-area-inset-top, 0px)'; bar.style.minHeight = '0'; bar.style.padding = '0'; });
+    document.querySelectorAll('[style*="border-radius:55px"],[style*="border-radius:56px"],[style*="border-radius: 55px"],[style*="border-radius: 56px"]').forEach(el => { el.style.borderRadius = '0'; });
+  };
+  const go = () => { if (!q) q = requestAnimationFrame(fix); };
+  const start = () => { fix(); new MutationObserver(go).observe(document.body, { childList: true, subtree: true }); };
+  document.body ? start() : document.addEventListener('DOMContentLoaded', start);
+})();
