@@ -60,7 +60,7 @@
 // remplacés par l'espace de la vraie barre (safe area). Dans le canvas (ordinateur) rien ne change. Lovable : pas de fausse barre, ce bloc ne part pas.
 (function () {
   if (window.__tcmvDevice) return; window.__tcmvDevice = 1;
-  let real = false; try { real = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 600 && window.top === window; } catch (e) {}
+  let real = false; try { real = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 600; } catch (e) {}
   if (!real) return;
   document.documentElement.classList.add('tcmv-device');
   let q = 0;
